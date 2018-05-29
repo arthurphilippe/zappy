@@ -6,8 +6,12 @@
 */
 
 #include <stdio.h>
+#include "selector/selector.h"
 
 int main()
 {
+	selector_t *stor = selector_create();
+
+	selector_delete(stor);
 	printf("salut.\n");
 }

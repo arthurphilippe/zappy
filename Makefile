@@ -13,12 +13,15 @@ NAME		=	zappy_server
 
 MAIN		=	src/main.c
 
-SRCS		=	src/list.c	\
-			src/list_get.c	\
-			src/list_iter.c	\
-			src/list_pop.c	\
-			src/list_push.c	\
-			src/list_find.c
+SRCS		=	src/list.c		\
+			src/list_get.c			\
+			src/list_iter.c			\
+			src/list_pop.c			\
+			src/list_push.c			\
+			src/list_find.c			\
+			src/selector/create.c		\
+			src/selector/delete.c		\
+			src/selector/handle/delete.c	\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
