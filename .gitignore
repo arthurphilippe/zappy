@@ -1,0 +1,9 @@
+*.o
+*~
+*.gch
+*.out
+vgcore*
+*.log
+
+coverage/
+wiki/

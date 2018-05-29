@@ -1,0 +1,19 @@
+{
+	"files.associations": {
+		"server.h": "c",
+		"array": "c",
+		"hash_map": "c",
+		"string_view": "c",
+		"cmath": "c",
+		"stdio.h": "c",
+		"manager.h": "c",
+		"string.h": "c",
+		"unistd.h": "c",
+		"*.ipp": "c",
+		"stdlib.h": "c",
+		"sstream": "c",
+		"client.h": "c",
+		"cmd.h": "c",
+		"msg.h": "c"
+	}
+}
