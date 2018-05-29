@@ -13,7 +13,12 @@ NAME		=	zappy_server
 
 MAIN		=	src/main.c
 
-SRCS		=
+SRCS		=	src/list.c	\
+			src/list_get.c	\
+			src/list_iter.c	\
+			src/list_pop.c	\
+			src/list_push.c	\
+			src/list_find.c
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -22,11 +27,6 @@ OBJS		=	$(SRCS:.c=.o)
 TEST		=	unit_tests.out
 
 SRCS_TEST	=	tests/test-list.c	\
-			tests/test-handle_client.c \
-			tests/test-manager_client.c	\
-			tests/test-manager_channel.c	\
-			tests/test-stolist.c		\
-			tests/test-irc_cmd.c
 
 SRCS_TEST	+=	$(OBJS)
 
