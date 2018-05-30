@@ -17,10 +17,10 @@ int client_create(selector_t *selector, int sock)
 		return (SELECTOR_RET_ERR);
 	}
 	// hdl->h_data = malloc(sizeof(handle_client_t));
-	if (!hdl->h_data) {
-		close(sock);
-		return (SELECTOR_RET_ERR);
-	}
+	// if (!hdl->h_data) {
+	// 	close(sock);
+	// 	return (SELECTOR_RET_ERR);
+	// }
 	// init_data(hdl->h_data);
 	hdl->h_fd = sock;
 	hdl->h_type = H_CLIENT;

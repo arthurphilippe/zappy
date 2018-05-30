@@ -21,6 +21,7 @@ SRCS		=	src/list.c			\
 			src/list_find.c			\
 			src/selector/create.c		\
 			src/selector/delete.c		\
+			src/selector/loop.c		\
 			src/selector/get_new_handle.c	\
 			src/handle/delete.c		\
 			src/handle/client_create.c	\

@@ -42,6 +42,7 @@ typedef struct		s_selector {
 selector_t *selector_create(void);
 void selector_delete(selector_t *);
 handle_t *selector_get_new_handle(selector_t *selector);
+void selector_loop(selector_t *selector);
 
 /*
 ** handle prototypes

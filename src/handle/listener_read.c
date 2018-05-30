@@ -5,6 +5,7 @@
 ** listener_read
 */
 
+#include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include "selector.h"
@@ -18,5 +19,5 @@ void listener_read(selector_t *selector, handle_t *port_hdl)
 	socket = accept(port_hdl->h_fd, (struct sockaddr *) &sin, &sin_len);
 	if (socket == -1)
 		return;
-	client_create(selector, socket);
+	printf("%d\n", client_create(selector, socket));
 }
