@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include "selector/selector.h"
+#include "selector.h"
 
 void selector_delete(selector_t *selector)
 {

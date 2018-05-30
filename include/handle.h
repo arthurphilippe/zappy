@@ -26,6 +26,4 @@ typedef struct		s_handle {
 	void		*h_data;
 }			handle_t;
 
-void selector_handle_delete(void *ptr);
-
 #endif /* !SELECTOR_HANDLE_H_ */

@@ -9,7 +9,7 @@
 	#define SELECTOR_H_
 
 	#include <stdbool.h>
-	#include "selector/handle.h"
+	#include "handle.h"
 	#include "list.h"
 
 	#define SELECTOR_RET_OK 0
@@ -37,9 +37,30 @@ typedef struct		s_selector {
 }			selector_t;
 
 /*
-** prototypes
+** selector prototypes
 */
 selector_t *selector_create(void);
 void selector_delete(selector_t *);
+handle_t *selector_get_new_handle(selector_t *selector);
+
+/*
+** handle prototypes
+*/
+void selector_handle_delete(void *ptr);
+
+/*
+** listener
+*/
+int listener_create(selector_t *selector, int port);
+int listener_create(selector_t *selector, int port);
+void listener_read(selector_t *selector, handle_t *port_hdl);
+
+/*
+** client handles
+*/
+int client_create(selector_t *selector, int sock);
+void client_delete(selector_t *stor, handle_t *hdl);
+void client_read(selector_t *selector, handle_t *client_hdl);
+
 
 #endif /* !SELECTOR_H_ */

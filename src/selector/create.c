@@ -7,7 +7,7 @@
 
 #include <signal.h>
 #include <stdlib.h>
-#include "selector/selector.h"
+#include "selector.h"
 
 selector_t *g_selector;
 

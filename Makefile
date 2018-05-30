@@ -13,7 +13,7 @@ NAME		=	zappy_server
 
 MAIN		=	src/main.c
 
-SRCS		=	src/list.c		\
+SRCS		=	src/list.c			\
 			src/list_get.c			\
 			src/list_iter.c			\
 			src/list_pop.c			\
@@ -21,7 +21,13 @@ SRCS		=	src/list.c		\
 			src/list_find.c			\
 			src/selector/create.c		\
 			src/selector/delete.c		\
-			src/selector/handle/delete.c	\
+			src/selector/get_new_handle.c	\
+			src/handle/delete.c		\
+			src/handle/client_create.c	\
+			src/handle/client_delete.c	\
+			src/handle/client_read.c	\
+			src/handle/listener_create.c	\
+			src/handle/listener_read.c	\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
