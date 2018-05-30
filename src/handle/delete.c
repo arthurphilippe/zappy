@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/socket.h>
-#include "handle.h"
+#include "selector.h"
 
 void selector_handle_delete(void *ptr)
 {
@@ -17,6 +17,8 @@ void selector_handle_delete(void *ptr)
 	if (hdl->h_type == H_PORT) {
 		shutdown(hdl->h_fd, SHUT_RDWR);
 		close(hdl->h_fd);
+	} else if (hdl->h_type == H_CLIENT) {
+
 	}
 	free(ptr);
 }
