@@ -364,7 +364,8 @@ Test(list, find) {
 	cr_assert(iter);
 	cr_assert(iter->li_node);
 	cr_assert_eq(iter->li_node->n_data, save);
-	list_erase(iter);
+	free(iter);
+	list_find_and_delete_addr(list, save);
 	cr_assert_eq(list_get_size(list), 2);
 	list_destroy(list);
 	free(iter);

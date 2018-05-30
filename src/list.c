@@ -53,7 +53,7 @@ static void list_erase_body(list_iter_t *iter, list_node_t *to_erase)
 	if (next)
 		next->n_prev = prev;
 	else
-		iter->li_list->l_start = prev;
+		iter->li_list->l_end = prev;
 	if (iter->li_list->l_destructor)
 		iter->li_list->l_destructor(to_erase->n_data);
 	free(to_erase);

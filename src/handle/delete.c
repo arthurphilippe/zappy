@@ -18,7 +18,8 @@ void selector_handle_delete(void *ptr)
 		shutdown(hdl->h_fd, SHUT_RDWR);
 		close(hdl->h_fd);
 	} else if (hdl->h_type == H_CLIENT) {
-
+		if (hdl->h_fd > 2)
+			close(hdl->h_fd);
 	}
 	free(ptr);
 }

@@ -14,6 +14,8 @@
 		"sstream": "c",
 		"client.h": "c",
 		"cmd.h": "c",
-		"msg.h": "c"
+		"msg.h": "c",
+		"initializer_list": "c",
+		"utility": "c"
 	}
 }

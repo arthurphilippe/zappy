@@ -25,6 +25,6 @@ int main(int ac, char **av)
 		return (84);
 	}
 	selector_loop(stor);
+	printf("loop exited.\n");
 	selector_delete(stor);
-	printf("salut.\n");
 }
