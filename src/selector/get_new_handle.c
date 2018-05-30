@@ -18,5 +18,6 @@ handle_t *selector_get_new_handle(selector_t *selector)
 		free(hdl);
 		return (NULL);
 	}
+	hdl->h_type = H_FREE;
 	return (hdl);
 }
