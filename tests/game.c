@@ -1,0 +1,20 @@
+/*
+** EPITECH PROJECT, 2018
+** PSU_zappy_2017
+** File description:
+** game
+*/
+
+#include "criterion/criterion.h"
+#include "criterion/assert.h"
+#include "game.h"
+
+Test(game, new) {
+	game_t *game = game_create(20, 15, 3, 6);
+
+	cr_assert(game);
+	cr_assert_eq(game->ga_freq, 3);
+	cr_assert_eq(game->ga_max_players, 6);
+	cr_assert_eq(game->ga_board->b_max_x, 20);
+	cr_assert_eq(game->ga_board->b_max_y, 15);
+}

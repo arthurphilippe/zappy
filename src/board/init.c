@@ -14,5 +14,7 @@ int board_init(board_t *bd, size_t x, size_t y)
 	bd->b_data = malloc(bd->b_total_size);
 	if (!bd->b_data)
 		return (BOARD_ERR);
+	bd->b_max_x = x;
+	bd->b_max_y = y;
 	return (BOARD_OK);
 }

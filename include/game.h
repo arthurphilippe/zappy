@@ -19,4 +19,8 @@ typedef struct		s_game {
 	unsigned int	ga_freq;
 }			game_t;
 
+game_t *game_create(unsigned int board_x, unsigned int board_y,
+			unsigned int freq, unsigned int max_players);
+void game_delete(void *ptr);
+
 #endif /* !GAME_H_ */

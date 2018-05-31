@@ -44,6 +44,7 @@ TEST		=	unit_tests.out
 
 SRCS_TEST	=	tests/test-list.c	\
 			tests/board.c		\
+			tests/game.c		\
 
 SRCS_TEST	+=	$(OBJS)
 
