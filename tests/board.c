@@ -62,3 +62,24 @@ Test(board, get_pointer)
 
 	cr_assert_eq(*ptr, 'b');
 }
+
+Test(board, simple_put)
+{
+	board_t bd;
+	char *data = malloc(36);
+
+	cr_assert(data);
+	bd.b_data = data;
+	bd.b_max_x = 12;
+	board_put(&bd, (vector2d_t) {9, 0}, 'a');
+	board_put(&bd, (vector2d_t) {0, 1}, 'b');
+	board_put(&bd, (vector2d_t) {0, 2}, 'c');
+	board_put(&bd, (vector2d_t) {3, 2}, 'd');
+	size_t idx = board_get_idx(&bd, 10, 0);
+
+	cr_assert_eq(idx, 10);
+	cr_assert_eq(board_get(&bd, (vector2d_t) {9, 0}), 'a');
+	cr_assert_eq(board_get(&bd, (vector2d_t) {0, 1}), 'b');
+	cr_assert_eq(board_get(&bd, (vector2d_t) {0, 2}), 'c');
+	cr_assert_eq(board_get(&bd, (vector2d_t) {3, 2}), 'd');
+}
