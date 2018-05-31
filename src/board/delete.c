@@ -13,4 +13,5 @@ void board_delete(void *ptr)
 	board_t *bd = ptr;
 
 	free(bd->b_data);
+	free(bd);
 }
