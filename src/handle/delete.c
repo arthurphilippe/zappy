@@ -5,9 +5,9 @@
 ** delete
 */
 
-#include <unistd.h>
 #include <stdlib.h>
 #include <sys/socket.h>
+#include <unistd.h>
 #include "selector.h"
 
 void selector_handle_delete(void *ptr)

@@ -18,5 +18,3 @@ void client_delete(selector_t *stor, handle_t *hdl)
 	list_find_and_delete_addr(stor->s_handles, hdl);
 	stor->s_live = false;
 }
-
-

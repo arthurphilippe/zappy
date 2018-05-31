@@ -5,11 +5,12 @@
 ** game
 */
 
-#include "criterion/criterion.h"
-#include "criterion/assert.h"
 #include "game.h"
+#include "criterion/assert.h"
+#include "criterion/criterion.h"
 
-Test(game, new) {
+Test(game, new)
+{
 	game_t *game = game_create(20, 15, 3, 6);
 
 	cr_assert(game);

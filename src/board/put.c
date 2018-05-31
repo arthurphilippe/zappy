@@ -5,8 +5,8 @@
 ** put
 */
 
-#include "vector2d.h"
 #include "board.h"
+#include "vector2d.h"
 
 void board_put(board_t *bd, vector2d_t pos, char payload)
 {

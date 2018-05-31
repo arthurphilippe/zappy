@@ -5,11 +5,11 @@
 ** loop
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
-#include <sys/types.h>
 #include <sys/time.h>
-#include <stdio.h>
+#include <sys/types.h>
 #include "selector.h"
 
 static int prepare_for_select(selector_t *selector, fd_set *fd_read)
@@ -64,5 +64,6 @@ static int body(selector_t *selector)
 
 void selector_loop(selector_t *selector)
 {
-	while (!body(selector) && selector->s_live == true);
+	while (selector->s_live == true)
+		selector->s_live = !body(selector);
 }

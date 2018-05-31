@@ -5,9 +5,9 @@
 ** client_read
 */
 
-#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "selector.h"
 
 void client_read(selector_t *selector, handle_t *client_hdl)
@@ -16,8 +16,7 @@ void client_read(selector_t *selector, handle_t *client_hdl)
 	char buf[512];
 
 	r = read(client_hdl->h_fd, buf, 512);
-	if (r > 0)
-	{
+	if (r > 0) {
 		buf[r] = '\0';
 		printf("%d: %s\n", client_hdl->h_fd, buf);
 		// fill_cmd_buff(data, buf);
@@ -29,4 +28,3 @@ void client_read(selector_t *selector, handle_t *client_hdl)
 		client_delete(selector, client_hdl);
 	}
 }
-

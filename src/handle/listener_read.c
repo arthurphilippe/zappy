@@ -5,9 +5,9 @@
 ** listener_read
 */
 
+#include <arpa/inet.h>
 #include <stdio.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
 #include "selector.h"
 
 void listener_read(selector_t *selector, handle_t *port_hdl)

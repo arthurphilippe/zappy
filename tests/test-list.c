@@ -5,13 +5,14 @@
 ** test-list
 */
 
-#include <criterion/criterion.h>
 #include <criterion/assert.h>
+#include <criterion/criterion.h>
 #include <stdlib.h>
 #include <string.h>
 #include "list.h"
 
-Test(list, empty) {
+Test(list, empty)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -23,7 +24,8 @@ Test(list, empty) {
 	list_destroy(list);
 }
 
-Test(list, nullDestructor) {
+Test(list, nullDestructor)
+{
 	list_t *list = list_create(NULL);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -52,7 +54,8 @@ Test(list, nullDestructor) {
 	free(tmp);
 }
 
-Test(list, pushback) {
+Test(list, pushback)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -76,7 +79,8 @@ Test(list, pushback) {
 	list_destroy(list);
 }
 
-Test(list, pushfront) {
+Test(list, pushfront)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -100,7 +104,8 @@ Test(list, pushfront) {
 	list_destroy(list);
 }
 
-Test(list, frontAndBack) {
+Test(list, frontAndBack)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -134,7 +139,8 @@ Test(list, frontAndBack) {
 	list_destroy(list);
 }
 
-Test(list, popbackAndPopFront) {
+Test(list, popbackAndPopFront)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -202,7 +208,8 @@ Test(list, popbackAndPopFront) {
 	list_destroy(list);
 }
 
-Test(list_iterator, forward) {
+Test(list_iterator, forward)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -236,11 +243,14 @@ Test(list_iterator, forward) {
 	list_erase(iter);
 	cr_assert_eq(list_get_size(list), 2);
 	tmp = list_iter_access(iter);
-	cr_assert_str_eq(tmp, "bah euh", "got %s instead of %s", tmp, "bah euh");
+	cr_assert_str_eq(
+		tmp, "bah euh", "got %s instead of %s", tmp, "bah euh");
 	list_erase(iter);
 	cr_assert_eq(list_get_size(list), 1);
 	tmp = list_iter_access(iter);
-	cr_assert_str_eq(tmp, "j'aime les pates", "got %s instead of %s", tmp, "j'aime les pates");
+	cr_assert_str_eq(
+		tmp, "j'aime les pates", "got %s instead of %s", tmp,
+		"j'aime les pates");
 	list_erase(iter);
 	cr_assert_eq(list_get_size(list), 0);
 	tmp = list_iter_access(iter);
@@ -249,7 +259,8 @@ Test(list_iterator, forward) {
 	free(iter);
 }
 
-Test(list_iterator, backward) {
+Test(list_iterator, backward)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -281,16 +292,20 @@ Test(list_iterator, backward) {
 	tmp = list_iter_next(iter);
 	cr_assert_str_eq(tmp, "toto", "got %s instead of %s", tmp, "toto");
 	tmp = list_iter_next(iter);
-	cr_assert_str_eq(tmp, "bah euh", "got %s instead of %s", tmp, "bah euh");
+	cr_assert_str_eq(
+		tmp, "bah euh", "got %s instead of %s", tmp, "bah euh");
 	tmp = list_iter_next(iter);
-	cr_assert_str_eq(tmp, "j'aime les pates", "got %s instead of %s", tmp, "j'aime les pates");
+	cr_assert_str_eq(
+		tmp, "j'aime les pates", "got %s instead of %s", tmp,
+		"j'aime les pates");
 	tmp = list_iter_next(iter);
 	cr_assert(!tmp);
 	list_destroy(list);
 	free(iter);
 }
 
-Test(list_iterator, error) {
+Test(list_iterator, error)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);
@@ -329,7 +344,8 @@ Test(list_iterator, error) {
 	free(iter);
 }
 
-Test(list, find) {
+Test(list, find)
+{
 	list_t *list = list_create(free);
 
 	cr_assert_eq(list_get_size(list), 0);

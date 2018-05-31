@@ -5,8 +5,8 @@
 ** listener_create
 */
 
-#include <sys/socket.h>
 #include <arpa/inet.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #include "selector.h"
 
@@ -25,9 +25,8 @@ int listener_create(selector_t *selector, int port)
 	handle_t *hdl = selector_get_new_handle(selector);
 	int sock = socket(PF_INET, SOCK_STREAM, 0);
 
-	if (!hdl || sock == -1
-		|| port_bind(sock, port) == -1
-		|| listen(sock, SELECTOR_BACKLOG) == -1) {
+	if (!hdl || sock == -1 || port_bind(sock, port) == -1 ||
+	    listen(sock, SELECTOR_BACKLOG) == -1) {
 		close(sock);
 		return (SELECTOR_RET_ERR);
 	}
@@ -37,4 +36,3 @@ int listener_create(selector_t *selector, int port)
 	hdl->h_write = NULL;
 	return (SELECTOR_RET_OK);
 }
-

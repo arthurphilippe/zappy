@@ -5,8 +5,8 @@
 ** list
 */
 
-#include <stdlib.h>
 #include "list.h"
+#include <stdlib.h>
 
 list_t *list_create(void (*data_destructor)(void *))
 {
@@ -22,13 +22,12 @@ list_t *list_create(void (*data_destructor)(void *))
 	return (new_list);
 }
 
-static void list_node_destroy_rec(list_node_t *node,
-					void (*data_destructor)(void *))
+static void list_node_destroy_rec(list_node_t *node, void (*dtor)(void *))
 {
 	if (node->n_next)
-		list_node_destroy_rec(node->n_next, data_destructor);
-	if (data_destructor)
-		data_destructor(node->n_data);
+		list_node_destroy_rec(node->n_next, dtor);
+	if (dtor)
+		dtor(node->n_data);
 	free(node);
 }
 

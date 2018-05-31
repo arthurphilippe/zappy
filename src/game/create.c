@@ -8,8 +8,9 @@
 #include <stdlib.h>
 #include "game.h"
 
-game_t *game_create(unsigned int board_x, unsigned int board_y,
-			unsigned int freq, unsigned int max_players)
+game_t *game_create(
+	unsigned int board_x, unsigned int board_y, unsigned int freq,
+	unsigned int max_players)
 {
 	game_t *game = malloc(sizeof(game_t));
 
