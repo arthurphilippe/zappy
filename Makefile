@@ -29,6 +29,12 @@ SRCS		=	src/list.c			\
 			src/handle/client_read.c	\
 			src/handle/listener_create.c	\
 			src/handle/listener_read.c	\
+			src/game/create.c		\
+			src/board/create.c		\
+			src/board/delete.c		\
+			src/board/init.c		\
+			src/board/get.c		\
+			src/board/put.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -37,6 +43,7 @@ OBJS		=	$(SRCS:.c=.o)
 TEST		=	unit_tests.out
 
 SRCS_TEST	=	tests/test-list.c	\
+			tests/board.c		\
 
 SRCS_TEST	+=	$(OBJS)
 
