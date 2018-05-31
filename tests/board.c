@@ -41,6 +41,7 @@ Test(board, get_plain)
 	cr_assert_eq(board_get(&bd, (vector2d_t) {0, 1}), 'b');
 	cr_assert_eq(board_get(&bd, (vector2d_t) {0, 2}), 'c');
 	cr_assert_eq(board_get(&bd, (vector2d_t) {3, 2}), 'd');
+	free(data);
 }
 
 Test(board, get_pointer)
@@ -61,6 +62,7 @@ Test(board, get_pointer)
 	char *ptr = board_get_ptr(&bd, (vector2d_t) {0, 1});
 
 	cr_assert_eq(*ptr, 'b');
+	free(data);
 }
 
 Test(board, simple_put)
@@ -75,11 +77,11 @@ Test(board, simple_put)
 	board_put(&bd, (vector2d_t) {0, 1}, 'b');
 	board_put(&bd, (vector2d_t) {0, 2}, 'c');
 	board_put(&bd, (vector2d_t) {3, 2}, 'd');
-	size_t idx = board_get_idx(&bd, 10, 0);
-
-	cr_assert_eq(idx, 10);
+	board_put(&bd, (vector2d_t) {11, 2}, 'e');
 	cr_assert_eq(board_get(&bd, (vector2d_t) {9, 0}), 'a');
 	cr_assert_eq(board_get(&bd, (vector2d_t) {0, 1}), 'b');
 	cr_assert_eq(board_get(&bd, (vector2d_t) {0, 2}), 'c');
 	cr_assert_eq(board_get(&bd, (vector2d_t) {3, 2}), 'd');
+	cr_assert_eq(board_get(&bd, (vector2d_t) {11, 2}), 'e');
+	free(data);
 }

@@ -368,5 +368,4 @@ Test(list, find) {
 	list_find_and_delete_addr(list, save);
 	cr_assert_eq(list_get_size(list), 2);
 	list_destroy(list);
-	free(iter);
 }
