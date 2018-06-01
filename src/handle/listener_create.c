@@ -26,7 +26,7 @@ int listener_create(selector_t *selector, int port)
 	int sock = socket(PF_INET, SOCK_STREAM, 0);
 
 	if (!hdl || sock == -1 || port_bind(sock, port) == -1 ||
-	    listen(sock, SELECTOR_BACKLOG) == -1) {
+		listen(sock, SELECTOR_BACKLOG) == -1) {
 		close(sock);
 		return (SELECTOR_RET_ERR);
 	}

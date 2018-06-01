@@ -16,6 +16,8 @@
 		"cmd.h": "c",
 		"msg.h": "c",
 		"initializer_list": "c",
-		"utility": "c"
+		"utility": "c",
+		"criterion.h": "c",
+		"game.h": "c"
 	}
 }
