@@ -8,18 +8,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "selector.h"
+#include "game.h"
 
-int main(int ac, char **av)
+static int start_game_tmp(int port)
 {
-	selector_t *stor;
+	selector_t *stor = selector_create();
+	game_t *gm = game_create(20, 15, 1, 6);
 
-	if (ac < 2) {
-		dprintf(2, "To few arguments.\n");
+	if (!stor) {
+		game_delete(gm);
 		return (84);
 	}
-	stor = selector_create();
-
-	if (listener_create(stor, atoi(av[1]))) {
+	if (!gm) {
+		selector_delete(stor);
+		return (84);
+	}
+	if (listener_create(stor, port)) {
 		perror("listener");
 		selector_delete(stor);
 		return (84);
@@ -27,4 +31,14 @@ int main(int ac, char **av)
 	selector_loop(stor);
 	printf("loop exited.\n");
 	selector_delete(stor);
+	return (0);
+}
+
+int main(int ac, char **av)
+{
+	if (ac < 2) {
+		dprintf(2, "To few arguments.\n");
+		return (84);
+	}
+	return (start_game_tmp(atoi(av[1])));
 }
