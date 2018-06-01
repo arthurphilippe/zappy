@@ -23,13 +23,14 @@ static int start_game_tmp(int port)
 		selector_delete(stor);
 		return (84);
 	}
+	stor->s_data = gm;
+	stor->s_delete = game_delete;
 	if (listener_create(stor, port)) {
 		perror("listener");
 		selector_delete(stor);
 		return (84);
 	}
 	selector_loop(stor);
-	printf("loop exited.\n");
 	selector_delete(stor);
 	return (0);
 }

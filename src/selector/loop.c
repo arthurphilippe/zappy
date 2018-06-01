@@ -64,6 +64,8 @@ static int body(selector_t *selector)
 
 void selector_loop(selector_t *selector)
 {
-	while (selector->s_live == true)
-		selector->s_live = !body(selector);
+	int ret = 0;
+
+	while (selector->s_live == true && !ret)
+		ret = body(selector);
 }

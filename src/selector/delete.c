@@ -14,6 +14,6 @@ void selector_delete(selector_t *selector)
 {
 	list_destroy(selector->s_handles);
 	if (selector->s_delete)
-		selector->s_delete(selector);
+		selector->s_delete(selector->s_data);
 	free(selector);
 }
