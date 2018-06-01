@@ -10,6 +10,7 @@
 
 	#include "list.h"
 	#include "board.h"
+	#include "player.h"
 
 typedef struct		s_game {
 	board_t		*ga_board;
@@ -22,5 +23,6 @@ typedef struct		s_game {
 game_t *game_create(unsigned int board_x, unsigned int board_y,
 			unsigned int freq, unsigned int max_players);
 void game_delete(void *ptr);
+int game_register_player(game_t *gm, player_t *pl);
 
 #endif /* !GAME_H_ */

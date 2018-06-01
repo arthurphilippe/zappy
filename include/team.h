@@ -18,5 +18,6 @@ typedef struct		s_team {
 
 team_t *team_create(const char *name, unsigned int max_memb);
 void team_delete(void *ptr);
+team_t *team_find_by_name(list_t *teams, const char *name);
 
 #endif /* !TEAM_H_ */

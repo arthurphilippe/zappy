@@ -11,6 +11,7 @@
 
 player_t *player_create(const char *team_name, const char *hostname)
 {
+	static int id = 1;
 	player_t *pl = malloc(sizeof(player_t));
 
 	if (!pl)
@@ -26,5 +27,6 @@ player_t *player_create(const char *team_name, const char *hostname)
 		free(pl);
 		return (NULL);
 	}
+	pl->p_id = id++;
 	return (pl);
 }

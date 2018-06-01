@@ -13,12 +13,12 @@ NAME		=	zappy_server
 
 MAIN		=	src/main.c
 
-SRCS		=	src/list.c			\
-			src/list_get.c			\
-			src/list_iter.c			\
-			src/list_pop.c			\
-			src/list_push.c			\
-			src/list_find.c			\
+SRCS		=	src/list/list.c			\
+			src/list/get.c			\
+			src/list/iter.c			\
+			src/list/pop.c			\
+			src/list/push.c			\
+			src/list/find.c			\
 			src/selector/create.c		\
 			src/selector/delete.c		\
 			src/selector/loop.c		\
@@ -31,10 +31,12 @@ SRCS		=	src/list.c			\
 			src/handle/listener_read.c	\
 			src/game/create.c		\
 			src/game/delete.c		\
+			src/game/register_player.c	\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/team/create.c		\
 			src/team/delete.c		\
+			src/team/find.c		\
 			src/board/create.c		\
 			src/board/delete.c		\
 			src/board/init.c		\
@@ -50,6 +52,8 @@ TEST		=	unit_tests.out
 SRCS_TEST	=	tests/test-list.c	\
 			tests/board.c		\
 			tests/game.c		\
+			tests/team.c		\
+			tests/player.c		\
 
 SRCS_TEST	+=	$(OBJS)
 
