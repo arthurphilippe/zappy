@@ -40,3 +40,19 @@ Test(Game, register_player)
 	cr_assert_eq(game->ga_players->l_size, 1);
 	game_delete(game);
 }
+
+Test(Game, register_player_error)
+{
+	game_t *game = game_create(20, 15, 3, 6);
+	player_t *pl = player_create("tartelette", "localhost");
+
+	cr_assert(game);
+	cr_assert(pl);
+	cr_assert_eq(game_add_team(game, "ursidae"), 0);
+	cr_assert_eq(game->ga_teams->l_size, 1);
+	cr_assert_neq(game_register_player(game, pl), 0);
+	cr_assert_eq(game->ga_players->l_size, 0);
+	player_delete(pl);
+	game_delete(game);
+}
+
