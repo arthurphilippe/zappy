@@ -31,6 +31,7 @@ SRCS		=	src/list/list.c			\
 			src/handle/listener_read.c	\
 			src/game/create.c		\
 			src/game/delete.c		\
+			src/game/add_team.c		\
 			src/game/register_player.c	\
 			src/player/create.c		\
 			src/player/delete.c		\

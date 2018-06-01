@@ -24,5 +24,6 @@ game_t *game_create(unsigned int board_x, unsigned int board_y,
 			unsigned int freq, unsigned int max_players);
 void game_delete(void *ptr);
 int game_register_player(game_t *gm, player_t *pl);
+int game_add_team(game_t *gm, const char *name);
 
 #endif /* !GAME_H_ */

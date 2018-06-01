@@ -15,6 +15,9 @@ int game_register_player(game_t *gm, player_t *pl)
 
 	if (!tm)
 		return (-1);
-	return (list_push_back(gm->ga_players, pl) != LIST_OK
-		|| list_push_back(tm->t_membs, pl));
+	if (list_push_back(gm->ga_players, pl) != LIST_OK)
+		return (-1);
+	if (list_push_back(tm->t_membs, pl) != LIST_OK)
+		return (-1);
+	return (0);
 }

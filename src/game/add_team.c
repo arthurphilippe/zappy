@@ -8,9 +8,9 @@
 #include "team.h"
 #include "game.h"
 
-int game_add_team(game_t *gm, const char *name, unsigned int max_memb)
+int game_add_team(game_t *gm, const char *name)
 {
-	team_t *tm = team_create(name, max_memb);
+	team_t *tm = team_create(name, gm->ga_max_players);
 
 	if (!tm)
 		return (-1);
