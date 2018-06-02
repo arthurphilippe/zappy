@@ -14,7 +14,7 @@ typedef struct	s_player {
 	char	*p_hostname;
 }		player_t;
 
-player_t *player_create(const char *team_name, const char *hostname);
+player_t *player_create(void);
 void player_delete(void *ptr);
 
 #endif /* !PLAYER_H_ */

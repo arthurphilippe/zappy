@@ -11,31 +11,27 @@
 
 Test(Player, create)
 {
-	player_t *pl = player_create("ursidae", "localhost");
+	player_t *pl = player_create();
 
 	cr_assert(pl);
-	cr_assert_str_eq(pl->p_hostname, "localhost");
-	cr_assert_str_eq(pl->p_teamname, "ursidae");
 	cr_assert_eq(pl->p_id, 1);
 	player_delete(pl);
 }
 
 Test(Player, id)
 {
-	player_t *pl = player_create("ursidae", "localhost");
+	player_t *pl = player_create();
 
 	cr_assert(pl);
-	cr_assert_str_eq(pl->p_hostname, "localhost");
-	cr_assert_str_eq(pl->p_teamname, "ursidae");
 	cr_assert_eq(pl->p_id, 1);
 	player_delete(pl);
-	pl = player_create("ursidae", "localhost");
+	pl = player_create();
 	cr_assert_eq(pl->p_id, 2);
 	player_delete(pl);
-	pl = player_create("ursidae", "localhost");
+	pl = player_create();
 	cr_assert_eq(pl->p_id, 3);
 	player_delete(pl);
-	pl = player_create("ursidae", "localhost");
+	pl = player_create();
 	cr_assert_eq(pl->p_id, 4);
 	player_delete(pl);
 }

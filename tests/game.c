@@ -30,10 +30,11 @@ Test(Game, create)
 Test(Game, register_player)
 {
 	game_t *game = game_create(20, 15, 3, 6);
-	player_t *pl = player_create("ursidae", "localhost");
+	player_t *pl = player_create();
 
 	cr_assert(game);
 	cr_assert(pl);
+	pl->p_teamname = strdup("ursidae");
 	cr_assert_eq(game_add_team(game, "ursidae"), 0);
 	cr_assert_eq(game->ga_teams->l_size, 1);
 	cr_assert_eq(game_register_player(game, pl), 0);
@@ -44,10 +45,11 @@ Test(Game, register_player)
 Test(Game, register_player_error)
 {
 	game_t *game = game_create(20, 15, 3, 6);
-	player_t *pl = player_create("tartelette", "localhost");
+	player_t *pl = player_create();
 
 	cr_assert(game);
 	cr_assert(pl);
+	pl->p_teamname = strdup("mucus");
 	cr_assert_eq(game_add_team(game, "ursidae"), 0);
 	cr_assert_eq(game->ga_teams->l_size, 1);
 	cr_assert_neq(game_register_player(game, pl), 0);
