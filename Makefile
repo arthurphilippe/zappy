@@ -19,6 +19,7 @@ SRCS		=	src/list/list.c			\
 			src/list/pop.c			\
 			src/list/push.c			\
 			src/list/find.c			\
+			src/stolist.c			\
 			src/selector/create.c		\
 			src/selector/delete.c		\
 			src/selector/loop.c		\
@@ -55,6 +56,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/game.c		\
 			tests/team.c		\
 			tests/player.c		\
+			tests/stolist.c		\
 
 SRCS_TEST	+=	$(OBJS)
 
