@@ -60,6 +60,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/team.c		\
 			tests/player.c		\
 			tests/stolist.c		\
+			tests/handle/client.c	\
 
 SRCS_TEST	+=	$(OBJS)
 
