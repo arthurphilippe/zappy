@@ -15,6 +15,7 @@
 typedef struct		s_msg_map {
 	const char	*mm_name;
 	void		(*mm_func)(selector_t *, handle_t *, list_t *);
+	unsigned int	mm_tyme_weight;
 }			msg_map_t;
 
 void msg_process(selector_t *stor, handle_t *hdl, const char *msg);

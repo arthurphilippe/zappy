@@ -13,7 +13,19 @@
 #include "player.h"
 
 const msg_map_t MSG_CMD_MAP[] = {
-	{NULL, NULL},
+	{"Forward", NULL, 7},
+	{"Right", NULL, 7},
+	{"Left", NULL, 7},
+	{"Look", NULL, 7},
+	{"Inventory", NULL, 1},
+	{"Broadcast", NULL, 7},
+	{"Connect_nbr", NULL, 0},
+	{"Fork", NULL, 42},
+	{"Eject", NULL, 7},
+	{"Take", NULL, 7},
+	{"Set", NULL, 7},
+	{"Incantation", NULL, 300},
+	{NULL, NULL, 0},
 };
 
 static void debug_list(list_t *list)
