@@ -6,12 +6,15 @@
 */
 
 #ifndef PLAYER_H_
-#define PLAYER_H_
+	#define PLAYER_H_
+
+	#include "list.h"
 
 typedef struct	s_player {
 	int	p_id;
 	char	*p_teamname;
 	char	*p_hostname;
+	list_t	*p_queued_msgs;
 }		player_t;
 
 player_t *player_create(void);

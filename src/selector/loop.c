@@ -32,16 +32,18 @@ static int prepare_for_select(selector_t *selector, fd_set *fd_read)
 	return (highest_fd);
 }
 
-static void read_on_set_fd(selector_t *sv, fd_set *fd_read)
+static void process_handles(selector_t *stor, fd_set *fd_read)
 {
-	list_iter_t *iter = list_iter_create(sv->s_handles, FWD);
+	list_iter_t *iter = list_iter_create(stor->s_handles, FWD);
 	handle_t *hdl;
 
 	if (!iter)
 		return;
 	while ((hdl = list_iter_next(iter))) {
 		if (FD_ISSET(hdl->h_fd, fd_read))
-			hdl->h_read(sv, hdl);
+			hdl->h_read(stor, hdl);
+		if (hdl->h_on_cycle)
+			hdl->h_on_cycle(stor, hdl);
 	}
 	free(iter);
 }
@@ -58,7 +60,7 @@ static int body(selector_t *selector)
 		perror("select");
 		return (SELECTOR_RET_ERR);
 	}
-	read_on_set_fd(selector, &fd_read);
+	process_handles(selector, &fd_read);
 	return (SELECTOR_RET_OK);
 }
 

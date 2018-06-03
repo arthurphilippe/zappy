@@ -37,8 +37,34 @@ Test(Game, register_player)
 	pl->p_teamname = strdup("ursidae");
 	cr_assert_eq(game_add_team(game, "ursidae"), 0);
 	cr_assert_eq(game->ga_teams->l_size, 1);
-	cr_assert_eq(game_register_player(game, pl), 0);
+	cr_assert_eq(game_register_player(game, pl), 5);
 	cr_assert_eq(game->ga_players->l_size, 1);
+	game_delete(game);
+}
+
+Test(Game, register_player_max)
+{
+	game_t *game = game_create(20, 15, 3, 2);
+	player_t *pla = player_create();
+	player_t *plb = player_create();
+	player_t *plc = player_create();
+
+	cr_assert(game);
+	cr_assert(pla);
+	cr_assert(plb);
+	cr_assert(plc);
+	pla->p_teamname = strdup("ursidae");
+	plb->p_teamname = strdup("ursidae");
+	plc->p_teamname = strdup("ursidae");
+	cr_assert_eq(game_add_team(game, "ursidae"), 0);
+	cr_assert_eq(game->ga_teams->l_size, 1);
+	cr_assert_eq(game_register_player(game, pla), 1);
+	cr_assert_eq(game->ga_players->l_size, 1);
+	cr_assert_eq(game_register_player(game, plb), 0);
+	cr_assert_eq(game->ga_players->l_size, 2);
+	cr_assert_eq(game_register_player(game, plc), -1);
+	cr_assert_eq(game->ga_players->l_size, 2);
+	player_delete(plc);
 	game_delete(game);
 }
 
@@ -52,7 +78,7 @@ Test(Game, register_player_error)
 	pl->p_teamname = strdup("mucus");
 	cr_assert_eq(game_add_team(game, "ursidae"), 0);
 	cr_assert_eq(game->ga_teams->l_size, 1);
-	cr_assert_neq(game_register_player(game, pl), 0);
+	cr_assert_eq(game_register_player(game, pl), -1);
 	cr_assert_eq(game->ga_players->l_size, 0);
 	player_delete(pl);
 	game_delete(game);

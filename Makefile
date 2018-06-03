@@ -27,6 +27,7 @@ SRCS		=	src/list/list.c			\
 			src/handle/delete.c		\
 			src/handle/client_create.c	\
 			src/handle/client_delete.c	\
+			src/handle/client_on_cycle.c	\
 			src/handle/client_read.c	\
 			src/handle/listener_create.c	\
 			src/handle/listener_read.c	\
@@ -44,6 +45,8 @@ SRCS		=	src/list/list.c			\
 			src/board/init.c		\
 			src/board/get.c		\
 			src/board/put.c		\
+			src/msg/process.c		\
+			src/msg/join.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 

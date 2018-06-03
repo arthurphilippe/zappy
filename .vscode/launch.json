@@ -45,7 +45,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/zappy_server",
-			"args": ["4246", "."],
+			"args": ["4247", "."],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "build debug",

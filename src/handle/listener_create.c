@@ -33,6 +33,6 @@ int listener_create(selector_t *selector, int port)
 	hdl->h_type = H_PORT;
 	hdl->h_fd = sock;
 	hdl->h_read = listener_read;
-	hdl->h_write = NULL;
+	hdl->h_on_cycle = NULL;
 	return (SELECTOR_RET_OK);
 }

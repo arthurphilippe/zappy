@@ -22,7 +22,7 @@ typedef struct		s_handle {
 	int		h_fd;
 	handle_type_t	h_type;
 	handle_func_t	h_read;
-	handle_func_t	h_write;
+	handle_func_t	h_on_cycle;
 	void		*h_data;
 }			handle_t;
 
