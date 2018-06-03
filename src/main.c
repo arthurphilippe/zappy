@@ -23,6 +23,7 @@ static int start_game_tmp(int port)
 		selector_delete(stor);
 		return (84);
 	}
+	game_add_team(gm, "panadas");
 	stor->s_data = gm;
 	stor->s_delete = game_delete;
 	if (listener_create(stor, port)) {
