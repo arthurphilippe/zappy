@@ -19,6 +19,11 @@
 		"utility": "c",
 		"criterion.h": "c",
 		"game.h": "c",
-		"player.h": "c"
-	}
+		"player.h": "c",
+		"parser.h": "c",
+		"assert.h": "c"
+	},
+	"cSpell.words": [
+		"pxyncf"
+	]
 }
