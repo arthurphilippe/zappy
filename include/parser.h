@@ -28,7 +28,7 @@ void parser_destroy(void *game_info);
 parser_t *parser_create(int ac, char **av);
 
 // Parse the args
-void parser_arg_handler(int ac, char **av, parser_t *game_info);
+bool parser_arg_handler(int ac, char **av, parser_t *game_info);
 
 // Allocate and set default value for the structure
 parser_t *parser_alloc();
