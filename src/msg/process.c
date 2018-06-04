@@ -26,6 +26,15 @@ const msg_map_t MSG_CMD_MAP[] = {
 	{"Take", NULL, 7},
 	{"Set", NULL, 7},
 	{"Incantation", NULL, 300},
+	{"msz", NULL, 0},
+	{"bct", NULL, 0},
+	{"mct", NULL, 0},
+	{"tna", NULL, 0},
+	{"ppo", NULL, 0},
+	{"plv", NULL, 0},
+	{"pin", NULL, 0},
+	{"sgt", NULL, 0},
+	{"sst", NULL, 0},
 	{NULL, NULL, 0},
 };
 
@@ -37,9 +46,8 @@ static void debug_list(list_t *list)
 	dprintf(2, "----------\ndebug list contents: %ld\n", list->l_size);
 	if (!iter)
 		return;
-	while ((tmp = list_iter_next(iter))) {
+	while ((tmp = list_iter_next(iter)))
 		dprintf(2, "%s\n", tmp);
-	}
 	free(iter);
 }
 
@@ -71,6 +79,7 @@ void msg_process(selector_t *stor, handle_t *hdl, const char *msg)
 	debug_list(split_msg);
 	if (!pl->p_teamname && split_msg->l_size)
 		msg_join(stor, hdl, pl, split_msg->l_start->n_data);
-	find_and_run_cmd(stor, hdl, split_msg);
+	else
+		find_and_run_cmd(stor, hdl, split_msg);
 	list_destroy(split_msg);
 }

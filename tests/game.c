@@ -64,6 +64,8 @@ Test(Game, register_player_max)
 	cr_assert_eq(game->ga_players->l_size, 2);
 	cr_assert_eq(game_register_player(game, plc), -1);
 	cr_assert_eq(game->ga_players->l_size, 2);
+	cr_assert_eq(game_register_player(game, plc), -1);
+	cr_assert_eq(game->ga_players->l_size, 2);
 	player_delete(plc);
 	game_delete(game);
 }
