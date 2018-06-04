@@ -7,13 +7,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "selector.h"
 #include "stolist.h"
 #include "msg.h"
 #include "player.h"
 
 const msg_map_t MSG_CMD_MAP[] = {
-	{"Forward", NULL, 7},
+	{"Forward", msg_cmd_forward, 7},
 	{"Right", NULL, 7},
 	{"Left", NULL, 7},
 	{"Look", NULL, 7},
@@ -42,6 +43,22 @@ static void debug_list(list_t *list)
 	free(iter);
 }
 
+static void find_and_run_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
+{
+	char *cmd_name;
+
+	if (!msg || !msg->l_size)
+		return;
+	cmd_name = msg->l_start->n_data;
+	for (unsigned int i = 0; MSG_CMD_MAP[i].mm_name; i++) {
+		if (!strcasecmp(cmd_name, MSG_CMD_MAP[i].mm_name)
+			&& MSG_CMD_MAP[i].mm_func) {
+			list_pop_front(msg);
+			MSG_CMD_MAP[i].mm_func(stor, hdl, msg);
+		}
+	}
+}
+
 void msg_process(selector_t *stor, handle_t *hdl, const char *msg)
 {
 	list_t *split_msg = stolist(msg, " ");
@@ -54,5 +71,6 @@ void msg_process(selector_t *stor, handle_t *hdl, const char *msg)
 	debug_list(split_msg);
 	if (!pl->p_teamname && split_msg->l_size)
 		msg_join(stor, hdl, pl, split_msg->l_start->n_data);
+	find_and_run_cmd(stor, hdl, split_msg);
 	list_destroy(split_msg);
 }

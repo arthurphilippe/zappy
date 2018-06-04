@@ -19,6 +19,8 @@
 		"utility": "c",
 		"criterion.h": "c",
 		"game.h": "c",
-		"player.h": "c"
+		"player.h": "c",
+		"hash_set": "c",
+		"list": "c"
 	}
 }
