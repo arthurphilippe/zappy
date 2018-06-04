@@ -319,3 +319,36 @@ Test(Parser, create_portneg)
 	}
 	free(av);
 }
+
+Test(Parser, arg_0)
+{
+	char **av = malloc(sizeof(char *) * 255);
+	for (int i = 0; i < 255; i++) {
+		av[i] = malloc(sizeof(char) * 255);
+		memset(av[i], '\0', 255);
+	}
+	strcpy(av[0], "zappy_server");
+	strcpy(av[1], "-p");
+	strcpy(av[2], "0");
+	strcpy(av[3], "-x");
+	strcpy(av[4], "1280");
+	strcpy(av[5], "-y");
+	strcpy(av[6], "720");
+	strcpy(av[7], "-n");
+	strcpy(av[8], "Cameron");
+	strcpy(av[9], "Kappa");
+	strcpy(av[10], "Kawaii");
+	strcpy(av[11], "Desuneeee ?");
+	strcpy(av[12], "-c");
+	strcpy(av[13], "11");
+	strcpy(av[14], "-f");
+	strcpy(av[15], "77");
+	av[16] = NULL;
+	int ac = 15;
+	parser_t *parser = parser_create(ac, av);
+	cr_assert(!parser);
+	for (int i = 0; i < 255; i++) {
+		free(av[i]);
+	}
+	free(av);
+}
