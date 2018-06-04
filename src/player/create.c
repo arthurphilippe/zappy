@@ -20,5 +20,16 @@ player_t *player_create(void)
 	pl->p_teamname = NULL;
 	pl->p_queued_msgs = list_create(free);
 	pl->p_id = id++;
+	pl->p_pos = (vector2d_t) {0, 0};
+	pl->p_dir = (vector2d_t) {1, 0};
+	return (pl);
+}
+
+player_t *player_create_at(vector2d_t pos)
+{
+	player_t *pl = player_create();
+
+	if (pl)
+		pl->p_pos = pos;
 	return (pl);
 }

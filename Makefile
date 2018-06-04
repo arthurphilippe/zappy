@@ -37,19 +37,22 @@ SRCS		=	src/list/list.c			\
 			src/game/register_player.c	\
 			src/player/create.c		\
 			src/player/delete.c		\
+			src/player/move.c		\
 			src/team/create.c		\
 			src/team/delete.c		\
-			src/team/find.c		\
+			src/team/find.c			\
 			src/board/create.c		\
 			src/board/delete.c		\
 			src/board/init.c		\
-			src/board/get.c		\
-			src/board/put.c		\
+			src/board/get.c			\
+			src/board/put.c			\
 			src/msg/process.c		\
 			src/msg/join.c		\
 			src/parser/parser_setter.c \
 			src/parser/parser_list_destroy.c \
 			src/parser/parser.c \
+			src/msg/join.c			\
+			src/msg/cmd/forward.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -64,6 +67,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/player.c		\
 			tests/stolist.c		\
 			tests/parser.c
+			tests/handle/client.c	\
 
 SRCS_TEST	+=	$(OBJS)
 

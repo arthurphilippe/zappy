@@ -18,12 +18,23 @@ static void trucate_queue(list_t *list)
 		list_pop_back(list);
 }
 
-static void fill_player_queue(player_t *pl, const char *buf)
+void client_fill_player_queue(player_t *pl, const char *buf)
 {
 	if (!pl)
 		return;
 	stolist_existing(pl->p_queued_msgs, buf, "\r\n");
 	trucate_queue(pl->p_queued_msgs);
+}
+
+static void client_buffer_process(selector_t *selector, handle_t *hdl,
+				char *buf, int r_size)
+{
+	buf[r_size] = '\0';
+	printf("recived from %d: %s\n", hdl->h_fd, buf);
+	if (!strncmp("QUIT", buf, 4))
+		client_delete(selector, hdl);
+	else
+		client_fill_player_queue(hdl->h_data, buf);
 }
 
 void client_read(selector_t *selector, handle_t *hdl)
@@ -33,12 +44,7 @@ void client_read(selector_t *selector, handle_t *hdl)
 
 	r = read(hdl->h_fd, buf, 512);
 	if (r > 0) {
-		buf[r] = '\0';
-		printf("%d: %s\n", hdl->h_fd, buf);
-		if (!strncmp("QUIT", buf, 4))
-			client_delete(selector, hdl);
-		else
-			fill_player_queue(hdl->h_data, buf);
+		client_buffer_process(selector, hdl, buf, r);
 	} else {
 		client_delete(selector, hdl);
 	}

@@ -6,7 +6,7 @@
 	"configurations": [
 
 		{
-			"name": "(gdb) Attach",
+				"name": "(gdb) Attach",
 			"type": "cppdbg",
 			"request": "attach",
 			"program": "${workspaceFolder}/unit_tests.out",
