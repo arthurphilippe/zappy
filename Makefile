@@ -47,9 +47,12 @@ SRCS		=	src/list/list.c			\
 			src/board/init.c		\
 			src/board/get.c			\
 			src/board/put.c			\
+			src/board/trunc_coords.c	\
 			src/msg/process.c		\
 			src/msg/join.c			\
 			src/msg/cmd/forward.c		\
+			src/msg/cmd/right.c		\
+			src/msg/cmd/left.c		\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\

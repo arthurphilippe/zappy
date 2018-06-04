@@ -38,5 +38,7 @@ void msg_process(selector_t *stor, handle_t *hdl, const char *msg);
 void msg_join(selector_t *stor, handle_t *hdl, player_t *pl,
 		const char *msg);
 void msg_cmd_forward(selector_t *stor, handle_t *hdl, list_t *args);
+void msg_cmd_right(selector_t *stor, handle_t *hdl, list_t *args);
+void msg_cmd_left(selector_t *stor, handle_t *hdl, list_t *args);
 
 #endif /* !MSG_H_ */

@@ -15,8 +15,8 @@
 
 const msg_map_t MSG_CMD_MAP[] = {
 	{"Forward", msg_cmd_forward, 7},
-	{"Right", NULL, 7},
-	{"Left", NULL, 7},
+	{"Right", msg_cmd_right, 7},
+	{"Left", msg_cmd_left, 7},
 	{"Look", NULL, 7},
 	{"Inventory", NULL, 1},
 	{"Broadcast", NULL, 7},

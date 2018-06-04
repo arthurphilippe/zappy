@@ -32,5 +32,6 @@ void board_delete(void *ptr);
 void board_put(board_t *bd, vector2d_t pos, char payload);
 char *board_get_ptr(board_t *bd, vector2d_t pos);
 char board_get(board_t *bd, vector2d_t pos);
+void board_trunc_coords(board_t *bd, vector2d_t *coords);
 
 #endif /* !BOARD_H_ */
