@@ -5,7 +5,9 @@
 ** parser
 */
 
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 #include "parser.h"
 #include "color.h"
@@ -21,6 +23,18 @@ static bool parser_check(parser_t *game_info)
 		return (false);
 	}
 }
+
+static parser_t *parser_alloc()
+{
+	parser_t *game_info = malloc(sizeof(parser_t));
+
+	if (!game_info)
+		return (NULL);
+	memset(game_info, 0, sizeof(parser_t));
+	game_info->team_name = list_create((free));
+	return (game_info);
+}
+
 
 parser_t *parser_create(int ac, char **av)
 {

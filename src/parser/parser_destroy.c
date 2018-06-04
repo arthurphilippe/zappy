@@ -10,7 +10,8 @@
 
 void parser_destroy(void *game_info)
 {
-	parser_t *tmp = (parser_t *)game_info;
+	parser_t *tmp = (parser_t *) game_info;
+
 	list_destroy(tmp->team_name);
 	free(game_info);
 }

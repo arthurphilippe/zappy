@@ -39,10 +39,14 @@ static int start_game_tmp(int port)
 
 int main(int ac, char **av)
 {
+	int ret;
 	parser_t *parser = parser_create(ac, av);
-	if (parser)
+
+	if (parser) {
+		ret = start_game_tmp(parser->port);
 		parser_destroy(parser);
-	else
-		return (84);
-	return (start_game_tmp(parser->port));
+	} else {
+		ret = 84;
+	}
+	return (ret);
 }

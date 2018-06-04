@@ -47,11 +47,11 @@ SRCS		=	src/list/list.c			\
 			src/board/get.c			\
 			src/board/put.c			\
 			src/msg/process.c		\
-			src/msg/join.c		\
-			src/parser/parser_setter.c \
-			src/parser/parser_list_destroy.c \
-			src/parser/parser.c \
-			src/msg/cmd/forward.c		\
+			src/msg/join.c			\
+			src/msg/cmd/forward.c			\
+			src/parser/parser_arg_handler.c	\
+			src/parser/parser_destroy.c		\
+			src/parser/parser.c			\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 

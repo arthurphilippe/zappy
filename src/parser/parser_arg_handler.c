@@ -5,29 +5,30 @@
 ** parser_init
 */
 
-#include <unistd.h>
-#include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 #include "parser.h"
 
 static bool body_set_struct_2(parser_t *game_info, int opt, const char *arg)
 {
 	switch (opt) {
-		case 'p':
-			game_info->port = atoi(arg);
-			return (true);
-			break;
-		case 'x':
-			game_info->width = atoi(arg);
-			return (true);
-			break;
-		case 'y':
-			game_info->height = atoi(arg);
-			return (true);
-			break;
-		default:
-			return (false);
-			break;
+	case 'p':
+		game_info->port = atoi(arg);
+		return (true);
+		break;
+	case 'x':
+		game_info->width = atoi(arg);
+		return (true);
+		break;
+	case 'y':
+		game_info->height = atoi(arg);
+		return (true);
+		break;
+	default:
+		return (false);
+		break;
 	}
 	return (false);
 
@@ -36,21 +37,20 @@ static bool body_set_struct_2(parser_t *game_info, int opt, const char *arg)
 static bool body_set_struct(parser_t *game_info, int opt, const char *arg)
 {
 	if (!body_set_struct_2(game_info, opt, arg)) {
-			switch (opt) {
-			case 'c':
-				game_info->client_nb = atoi(arg);
-				return (true);
-				break;
-			case 'f':
-				game_info->freq = atoi(arg);
-				return (true);
-				break;
-			default:
-				return (false);
-				break;
-			}
+		switch (opt) {
+		case 'c':
+			game_info->client_nb = atoi(arg);
+			return (true);
+			break;
+		case 'f':
+			game_info->freq = atoi(arg);
+			return (true);
+			break;
+		default:
 			return (false);
+			break;
 		}
+	}
 	return (false);
 }
 
@@ -79,13 +79,3 @@ bool parser_arg_handler(int ac, char **av, parser_t *game_info)
 	return (true);
 }
 
-parser_t *parser_alloc()
-{
-	parser_t *game_info = malloc(sizeof(parser_t));
-
-	if (!game_info)
-		return (NULL);
-	memset(game_info, 0, sizeof(parser_t));
-	game_info->team_name = list_create((free));
-	return (game_info);
-}
