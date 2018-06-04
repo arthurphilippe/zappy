@@ -8,3 +8,5 @@ vgcore*
 
 coverage/
 wiki/
+*.gcda
+*.gcno
