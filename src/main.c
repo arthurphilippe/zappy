@@ -39,11 +39,10 @@ static int start_game_tmp(int port)
 
 int main(int ac, char **av)
 {
-	// if (ac < 2) {
-	// 	dprintf(2, "To few arguments.\n");
-	// 	return (84);
-	// }
-	// return (start_game_tmp(atoi(av[1])));
 	parser_t *parser = parser_create(ac, av);
-	parser_destroy(parser);
+	if (parser)
+		parser_destroy(parser);
+	else
+		return (84);
+	return (start_game_tmp(parser->port));
 }
