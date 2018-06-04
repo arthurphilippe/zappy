@@ -37,16 +37,27 @@ static int start_game_tmp(int port)
 	return (0);
 }
 
+// int main(int ac, char **av)
+// {
+// 	int ret;
+// 	parser_t *parser = parser_create(ac, av);
+
+// 	if (parser) {
+// 		ret = start_game_tmp(parser->port);
+// 		parser_destroy(parser);
+// 	} else {
+// 		ret = 84;
+// 	}
+// 	return (ret);
+// }
+
 int main(int ac, char **av)
 {
 	int ret;
-	parser_t *parser = parser_create(ac, av);
-
-	if (parser) {
-		ret = start_game_tmp(parser->port);
-		parser_destroy(parser);
-	} else {
+	if (ac >= 2)
+		ret = start_game_tmp(atoi(av[1]));
+	else
 		ret = 84;
-	}
 	return (ret);
 }
+

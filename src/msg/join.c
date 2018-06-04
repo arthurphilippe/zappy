@@ -34,7 +34,8 @@ void msg_join(selector_t *stor, handle_t *hdl, player_t *pl,
 		free(pl->p_teamname);
 		pl->p_teamname = NULL;
 	} else {
-		dprintf(hdl->h_fd, "%d\n%ld %ld\n", ret, gm->ga_board->b_max_x,
+		dprintf(hdl->h_fd, "%d\n%ld %ld\n", ret,
+			gm->ga_board->b_max_x,
 			gm->ga_board->b_max_y);
 	}
 }

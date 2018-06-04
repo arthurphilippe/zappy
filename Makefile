@@ -38,6 +38,7 @@ SRCS		=	src/list/list.c			\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
+			src/player/turn.c		\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\
@@ -48,10 +49,10 @@ SRCS		=	src/list/list.c			\
 			src/board/put.c			\
 			src/msg/process.c		\
 			src/msg/join.c			\
-			src/msg/cmd/forward.c			\
+			src/msg/cmd/forward.c		\
 			src/parser/parser_arg_handler.c	\
-			src/parser/parser_destroy.c		\
-			src/parser/parser.c			\
+			src/parser/parser_destroy.c	\
+			src/parser/parser.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
