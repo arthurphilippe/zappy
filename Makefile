@@ -51,7 +51,6 @@ SRCS		=	src/list/list.c			\
 			src/parser/parser_setter.c \
 			src/parser/parser_list_destroy.c \
 			src/parser/parser.c \
-			src/msg/join.c			\
 			src/msg/cmd/forward.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
