@@ -48,7 +48,10 @@ SRCS		=	src/list/list.c			\
 			src/board/put.c			\
 			src/msg/process.c		\
 			src/msg/join.c			\
-			src/msg/cmd/forward.c		\
+			src/msg/cmd/forward.c			\
+			src/parser/parser_arg_handler.c	\
+			src/parser/parser_destroy.c		\
+			src/parser/parser.c			\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -62,6 +65,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/team.c		\
 			tests/player.c		\
 			tests/stolist.c		\
+			tests/parser.c		\
 			tests/handle/client.c	\
 
 SRCS_TEST	+=	$(OBJS)
