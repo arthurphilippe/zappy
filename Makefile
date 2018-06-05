@@ -59,6 +59,7 @@ SRCS		=	src/list/list.c			\
 			src/dynbuf/create.c		\
 			src/dynbuf/delete.c		\
 			src/dynbuf/append.c		\
+			src/dynbuf/reset.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 

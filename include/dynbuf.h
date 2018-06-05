@@ -26,5 +26,6 @@ static inline void dynbuf_complete_size(size_t *size)
 dynbuf_t *dynbuf_create(void);
 void dynbuf_append_str(dynbuf_t *buf, const char *str);
 void dynbuf_delete(void *ptr);
+int dynbuf_reset(dynbuf_t *buf);
 
 #endif /* !DYNBUF_H_ */

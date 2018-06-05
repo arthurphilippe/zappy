@@ -36,6 +36,32 @@ Test(Dynbuf, append_few)
 	dynbuf_delete(buf);
 }
 
+Test(Dynbuf, reset)
+{
+	dynbuf_t *buf = dynbuf_create();
+
+	cr_assert(buf);
+	cr_assert_eq(buf->b_allotted, BUF_SIZE);
+	cr_assert_eq(buf->b_lengh, 0);
+	dynbuf_append_str(buf, "salut");
+	cr_assert_str_eq(buf->b_data, "salut");
+	dynbuf_append_str(buf, "salut");
+	cr_assert_str_eq(buf->b_data, "salut""salut");
+	dynbuf_append_str(buf, "salut");
+	cr_assert_str_eq(buf->b_data, "salut""salut""salut");
+	cr_assert_eq(dynbuf_reset(buf), 0);
+	cr_assert(buf);
+	cr_assert_eq(buf->b_allotted, BUF_SIZE);
+	cr_assert_eq(buf->b_lengh, 0);
+	dynbuf_append_str(buf, "salut");
+	cr_assert_str_eq(buf->b_data, "salut");
+	dynbuf_append_str(buf, "salut");
+	cr_assert_str_eq(buf->b_data, "salut""salut");
+	dynbuf_append_str(buf, "salut");
+	cr_assert_str_eq(buf->b_data, "salut""salut""salut");
+	dynbuf_delete(buf);
+}
+
 Test(Dynbuf, append_loads)
 {
 	dynbuf_t *buf = dynbuf_create();
