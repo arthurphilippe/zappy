@@ -56,6 +56,9 @@ SRCS		=	src/list/list.c			\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\
+			src/dynbuf/create.c		\
+			src/dynbuf/delete.c		\
+			src/dynbuf/append.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -70,6 +73,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/player.c		\
 			tests/stolist.c		\
 			tests/parser.c		\
+			tests/dynbuf.c		\
 			tests/handle/client.c	\
 
 SRCS_TEST	+=	$(OBJS)
