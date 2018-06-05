@@ -57,6 +57,7 @@ SRCS		=	src/list/list.c			\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\
 			src/dynbuf/create.c		\
+			src/dynbuf/init.c		\
 			src/dynbuf/delete.c		\
 			src/dynbuf/append.c		\
 			src/dynbuf/reset.c		\

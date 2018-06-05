@@ -27,5 +27,6 @@ dynbuf_t *dynbuf_create(void);
 void dynbuf_append_str(dynbuf_t *buf, const char *str);
 void dynbuf_delete(void *ptr);
 int dynbuf_reset(dynbuf_t *buf);
+int dynbuf_init(dynbuf_t *buf);
 
 #endif /* !DYNBUF_H_ */
