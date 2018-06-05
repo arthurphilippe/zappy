@@ -22,6 +22,7 @@ player_t *player_create(void)
 	pl->p_id = id++;
 	pl->p_pos = (vector2d_t) {0, 0};
 	pl->p_dir = (vector2d_t) {1, 0};
+	pl->p_lvl = 1;
 	return (pl);
 }
 

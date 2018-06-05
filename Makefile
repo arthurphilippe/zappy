@@ -39,6 +39,7 @@ SRCS		=	src/list/list.c			\
 			src/player/delete.c		\
 			src/player/move.c		\
 			src/player/turn.c		\
+			src/player/look.c		\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\
@@ -61,6 +62,7 @@ SRCS		=	src/list/list.c			\
 			src/dynbuf/delete.c		\
 			src/dynbuf/append.c		\
 			src/dynbuf/reset.c		\
+			src/resource.c			\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -75,6 +77,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/player.c		\
 			tests/stolist.c		\
 			tests/parser.c		\
+			tests/resource.c		\
 			tests/dynbuf.c		\
 			tests/handle/client.c	\
 
