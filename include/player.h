@@ -28,11 +28,18 @@ typedef struct		s_look_key {
 	vector2d_t	lk_line_dir;
 }			look_key_t;
 
+/*
+** Forward declarations of dynbuf & game.
+*/
+typedef struct	s_dynbuf dynbuf_t;
+typedef struct	s_game game_t;
+
 player_t *player_create(void);
 player_t *player_create_at(vector2d_t pos);
 void player_delete(void *ptr);
 void player_move_foward(player_t *pl, board_t *bd);
 void player_turn_right(player_t *pl);
 void player_turn_left(player_t *pl);
+dynbuf_t *player_look(player_t *pl, game_t *gm);
 
 #endif /* !PLAYER_H_ */

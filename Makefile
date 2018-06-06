@@ -55,6 +55,7 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd/forward.c		\
 			src/msg/cmd/right.c		\
 			src/msg/cmd/left.c		\
+			src/msg/cmd/look.c		\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\

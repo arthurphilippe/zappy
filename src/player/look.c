@@ -53,13 +53,15 @@ static char *get_line(vector2d_t pt, const look_key_t *key,
 	return (line);
 }
 
-void player_look(player_t *pl, int fd, game_t *gm)
+dynbuf_t *player_look(player_t *pl, game_t *gm)
 {
 	dynbuf_t *buf = dynbuf_create();
 	vector2d_t line_start = pl->p_pos;
 	const look_key_t *key = get_look_key(pl->p_dir);
 	char *line;
 
+	if (!buf)
+		return (NULL);
 	dynbuf_append_str(buf, "[");
 	board_look_at(gm->ga_board, gm, line_start, buf);
 	for (unsigned int i = 0; i < pl->p_lvl; i++) {
@@ -70,4 +72,5 @@ void player_look(player_t *pl, int fd, game_t *gm)
 			dynbuf_append_str(buf, line);
 		free(line);
 	}
+	return (buf);
 }

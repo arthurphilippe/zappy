@@ -40,5 +40,6 @@ void msg_join(selector_t *stor, handle_t *hdl, player_t *pl,
 void msg_cmd_forward(selector_t *stor, handle_t *hdl, list_t *args);
 void msg_cmd_right(selector_t *stor, handle_t *hdl, list_t *args);
 void msg_cmd_left(selector_t *stor, handle_t *hdl, list_t *args);
+void msg_cmd_look(selector_t *stor, handle_t *hdl, list_t *args);
 
 #endif /* !MSG_H_ */
