@@ -11,11 +11,11 @@
 
 selector_t *g_selector;
 
-static void upon_signal(int signum)
+void selector_upon_signal(int signum)
 {
-	(void) signum;
 	selector_delete(g_selector);
-	exit(0);
+	if (signum)
+		exit(0);
 }
 
 selector_t *selector_create(void)
@@ -29,6 +29,6 @@ selector_t *selector_create(void)
 	selector->s_live = true;
 	selector->s_delete = NULL;
 	g_selector = selector;
-	signal(SIGINT, upon_signal);
+	signal(SIGINT, selector_upon_signal);
 	return (selector);
 }

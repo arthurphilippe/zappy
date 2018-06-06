@@ -10,7 +10,9 @@
 
 void board_put(board_t *bd, vector2d_t pos, char payload)
 {
-	size_t idx = board_get_idx(bd, pos.v_x, pos.v_y);
+	size_t idx;
 
+	board_trunc_coords(bd, &pos);
+	idx = board_get_idx(bd, pos.v_x, pos.v_y);
 	bd->b_data[idx] = payload;
 }

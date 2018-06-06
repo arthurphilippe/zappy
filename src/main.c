@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include "selector.h"
 #include "game.h"
+#include "parser.h"
+#include "resource.h"
 
 static int start_game_tmp(int port)
 {
@@ -26,6 +28,9 @@ static int start_game_tmp(int port)
 	game_add_team(gm, "pandas");
 	stor->s_data = gm;
 	stor->s_delete = game_delete;
+	board_put(gm->ga_board, (vector2d_t) {0, 0}, INEMATE);
+	board_put(gm->ga_board, (vector2d_t) {1, 1}, THYSTAME);
+	board_put(gm->ga_board, (vector2d_t) {1, -1}, SIBUR);
 	if (listener_create(stor, port)) {
 		perror("listener");
 		selector_delete(stor);
@@ -36,11 +41,27 @@ static int start_game_tmp(int port)
 	return (0);
 }
 
+// int main(int ac, char **av)
+// {
+// 	int ret;
+// 	parser_t *parser = parser_create(ac, av);
+
+// 	if (parser) {
+// 		ret = start_game_tmp(parser->port);
+// 		parser_destroy(parser);
+// 	} else {
+// 		ret = 84;
+// 	}
+// 	return (ret);
+// }
+
 int main(int ac, char **av)
 {
-	if (ac < 2) {
-		dprintf(2, "To few arguments.\n");
-		return (84);
-	}
-	return (start_game_tmp(atoi(av[1])));
+	int ret;
+	if (ac >= 2)
+		ret = start_game_tmp(atoi(av[1]));
+	else
+		ret = 84;
+	return (ret);
 }
+

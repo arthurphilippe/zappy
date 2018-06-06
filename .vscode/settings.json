@@ -20,6 +20,12 @@
 		"criterion.h": "c",
 		"game.h": "c",
 		"player.h": "c",
-		"list.h": "c"
-	}
+		"parser.h": "c",
+		"assert.h": "c"
+		"hash_set": "c",
+		"list": "c",
+	},
+    "cSpell.words": [
+	"pxyncf"
+    ]
 }

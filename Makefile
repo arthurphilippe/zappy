@@ -38,16 +38,33 @@ SRCS		=	src/list/list.c			\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
+			src/player/turn.c		\
+			src/player/look.c		\
 			src/team/create.c		\
 			src/team/delete.c		\
-			src/team/find.c		\
+			src/team/find.c			\
 			src/board/create.c		\
 			src/board/delete.c		\
 			src/board/init.c		\
-			src/board/get.c		\
-			src/board/put.c		\
+			src/board/get.c			\
+			src/board/put.c			\
+			src/board/look_at.c		\
+			src/board/trunc_coords.c	\
 			src/msg/process.c		\
-			src/msg/join.c		\
+			src/msg/join.c			\
+			src/msg/cmd/forward.c		\
+			src/msg/cmd/right.c		\
+			src/msg/cmd/left.c		\
+			src/msg/cmd/look.c		\
+			src/parser/parser_arg_handler.c	\
+			src/parser/parser_destroy.c	\
+			src/parser/parser.c		\
+			src/dynbuf/create.c		\
+			src/dynbuf/init.c		\
+			src/dynbuf/delete.c		\
+			src/dynbuf/append.c		\
+			src/dynbuf/reset.c		\
+			src/resource.c			\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -61,6 +78,10 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/team.c		\
 			tests/player.c		\
 			tests/stolist.c		\
+			tests/parser.c		\
+			tests/resource.c	\
+			tests/selector.c	\
+			tests/dynbuf.c		\
 			tests/handle/client.c	\
 
 SRCS_TEST	+=	$(OBJS)

@@ -7,6 +7,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "selector.h"
 #include "stolist.h"
 #include "msg.h"
@@ -18,15 +19,23 @@ void msg_join(selector_t *stor, handle_t *hdl, player_t *pl,
 		const char *team_name)
 {
 	game_t *gm = stor->s_data;
-	team_t *tm = team_find_by_name(gm->ga_teams, team_name);
+	int ret;
 
-	if (!tm) {
-		dprintf(hdl->h_fd, "%s: team doesn't exits!\n", team_name);
-		return;
-	}
 	pl->p_teamname = strdup(team_name);
 	if (!pl->p_teamname) {
 		stor->s_live = false;
 		return;
+	}
+	ret = game_register_player(gm, pl);
+	if (ret == -1) {
+		dprintf(hdl->h_fd, "%s: this team may not exist or "
+			"may be full.\n",
+			team_name);
+		free(pl->p_teamname);
+		pl->p_teamname = NULL;
+	} else {
+		dprintf(hdl->h_fd, "%d\n%ld %ld\n", ret,
+			gm->ga_board->b_max_x,
+			gm->ga_board->b_max_y);
 	}
 }
