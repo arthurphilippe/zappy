@@ -79,7 +79,8 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/player.c		\
 			tests/stolist.c		\
 			tests/parser.c		\
-			tests/resource.c		\
+			tests/resource.c	\
+			tests/selector.c	\
 			tests/dynbuf.c		\
 			tests/handle/client.c	\
 
