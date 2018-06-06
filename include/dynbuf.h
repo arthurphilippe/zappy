@@ -12,6 +12,11 @@
 
 	#define BUF_SIZE 512
 
+/*
+** Dynbuf is short for dynamic buffer. It provides a buffer where you can
+** append printable strings together for later use.
+*/
+
 typedef struct	s_dynbuf {
 	char	*b_data;
 	size_t	b_allotted;

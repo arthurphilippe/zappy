@@ -48,6 +48,7 @@ SRCS		=	src/list/list.c			\
 			src/board/init.c		\
 			src/board/get.c			\
 			src/board/put.c			\
+			src/board/look_at.c		\
 			src/board/trunc_coords.c	\
 			src/msg/process.c		\
 			src/msg/join.c			\

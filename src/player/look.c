@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "player.h"
 #include "game.h"
 #include "selector.h"
@@ -35,14 +36,21 @@ static void update_line_start(vector2d_t *pt, const look_key_t *key)
 	pt->v_y += key->lk_line_dir.v_y;
 }
 
-static void display_line(vector2d_t pt, const look_key_t *key,
+static char *get_line(vector2d_t pt, const look_key_t *key,
 				game_t *gm, int depth)
 {
+	dynbuf_t *buf = dynbuf_create();
 	unsigned int width = (depth * 2) + 1;
+	char *line;
 
 	for (unsigned int i = 0; i < width; i++) {
-
+		board_look_at(gm->ga_board, gm, pt, buf);
+		pt.v_x += key->lk_line_dir.v_x;
+		pt.v_y += key->lk_line_dir.v_y;
 	}
+	line = buf->b_data;
+	free(buf);
+	return (line);
 }
 
 void player_look(player_t *pl, int fd, game_t *gm)
@@ -50,10 +58,16 @@ void player_look(player_t *pl, int fd, game_t *gm)
 	dynbuf_t *buf = dynbuf_create();
 	vector2d_t line_start = pl->p_pos;
 	const look_key_t *key = get_look_key(pl->p_dir);
+	char *line;
 
 	dynbuf_append_str(buf, "[");
+	board_look_at(gm->ga_board, gm, line_start, buf);
 	for (unsigned int i = 0; i < pl->p_lvl; i++) {
+		dynbuf_append_str(buf, ", ");
 		update_line_start(&line_start, key);
-		display_line(line_start, key, gm, i + 1);
+		line = get_line(line_start, key, gm, i + 1);
+		if (line)
+			dynbuf_append_str(buf, line);
+		free(line);
 	}
 }
