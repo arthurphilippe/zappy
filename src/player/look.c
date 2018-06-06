@@ -45,7 +45,6 @@ static char *get_line(vector2d_t pt, const look_key_t *key,
 
 	for (unsigned int i = 0; i < width; i++) {
 		dynbuf_append_str(buf, ",");
-		printf("looking at %d, %d\n", pt.v_x, pt.v_y);
 		board_look_at(gm->ga_board, gm, pt, buf);
 		pt.v_x += key->lk_line_dir.v_x;
 		pt.v_y += key->lk_line_dir.v_y;
