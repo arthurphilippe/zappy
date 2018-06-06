@@ -32,8 +32,8 @@ static const look_key_t *get_look_key(vector2d_t dir)
 
 static void update_line_start(vector2d_t *pt, const look_key_t *key)
 {
-	pt->v_x += key->lk_line_dir.v_x;
-	pt->v_y += key->lk_line_dir.v_y;
+	pt->v_x += key->lk_start_mod.v_x;
+	pt->v_y += key->lk_start_mod.v_y;
 }
 
 static char *get_line(vector2d_t pt, const look_key_t *key,
@@ -44,6 +44,8 @@ static char *get_line(vector2d_t pt, const look_key_t *key,
 	char *line;
 
 	for (unsigned int i = 0; i < width; i++) {
+		dynbuf_append_str(buf, ",");
+		printf("looking at %d, %d\n", pt.v_x, pt.v_y);
 		board_look_at(gm->ga_board, gm, pt, buf);
 		pt.v_x += key->lk_line_dir.v_x;
 		pt.v_y += key->lk_line_dir.v_y;
@@ -65,12 +67,12 @@ dynbuf_t *player_look(player_t *pl, game_t *gm)
 	dynbuf_append_str(buf, "[");
 	board_look_at(gm->ga_board, gm, line_start, buf);
 	for (unsigned int i = 0; i < pl->p_lvl; i++) {
-		dynbuf_append_str(buf, ", ");
 		update_line_start(&line_start, key);
 		line = get_line(line_start, key, gm, i + 1);
 		if (line)
 			dynbuf_append_str(buf, line);
 		free(line);
 	}
+	dynbuf_append_str(buf, "]");
 	return (buf);
 }

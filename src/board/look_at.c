@@ -24,8 +24,10 @@ static void search_for_player(game_t *gm, vector2d_t pos, dynbuf_t *buf)
 
 void board_look_at(board_t *bd, game_t *gm, vector2d_t pos, dynbuf_t *buf)
 {
-	char tile_content = board_get(bd, pos);
+	char tile_content;
 
+	board_trunc_coords(bd, &pos);
+	tile_content = board_get(bd, pos);
 	dynbuf_append_str(buf, resource_get_name(tile_content));
 	search_for_player(gm, pos, buf);
 }
