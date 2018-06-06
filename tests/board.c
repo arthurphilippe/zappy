@@ -73,6 +73,7 @@ Test(board, simple_put)
 	cr_assert(data);
 	bd.b_data = data;
 	bd.b_max_x = 12;
+	bd.b_max_y = 12;
 	board_put(&bd, (vector2d_t){9, 0}, 'a');
 	board_put(&bd, (vector2d_t){0, 1}, 'b');
 	board_put(&bd, (vector2d_t){0, 2}, 'c');
