@@ -17,4 +17,5 @@ void msg_cmd_look(selector_t *stor, handle_t *hdl, list_t *args)
 	(void) args;
 	if (buf)
 		dprintf(hdl->h_fd, "%s\n", buf->b_data);
+	dynbuf_delete(buf);
 }

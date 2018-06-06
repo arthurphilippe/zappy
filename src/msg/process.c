@@ -63,6 +63,7 @@ static void find_and_run_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
 			&& MSG_CMD_MAP[i].mm_func) {
 			list_pop_front(msg);
 			MSG_CMD_MAP[i].mm_func(stor, hdl, msg);
+			return;
 		}
 	}
 }
