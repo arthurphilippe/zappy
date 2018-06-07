@@ -278,7 +278,6 @@ Test(Player, look_empty)
 	cr_assert_eq(count_char(buf->b_data, ','), 15);
 	dynbuf_delete(buf);
 	game_delete(gm);
-
 }
 
 Test(Player, look_right)
@@ -400,5 +399,3 @@ Test(Player, look_up)
 	dynbuf_delete(buf);
 	game_delete(gm);
 }
-
-
