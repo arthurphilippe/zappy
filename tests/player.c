@@ -371,3 +371,34 @@ Test(Player, look_down)
 	game_delete(gm);
 }
 
+Test(Player, look_up)
+{
+	player_t *pl = player_create_at((vector2d_t){9, 9});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+	pl->p_dir = (vector2d_t){0, -1};
+
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
+	board_put_resource(gm->ga_board, (vector2d_t){8, 8}, THYSTAME);
+	board_put_resource(gm->ga_board, (vector2d_t){9, 8}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 8}, DERAUMERE);
+	board_inc_food(gm->ga_board, (vector2d_t){10, 8});
+	board_inc_food(gm->ga_board, (vector2d_t){10, 8});
+
+	dynbuf_t *buf = player_look(pl, gm);
+	cr_assert(buf);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 3);
+	cr_assert_str_eq(buf->b_data,
+		"[sibur player,thystame,inemate,food food deraumere]");
+	dynbuf_delete(buf);
+	game_delete(gm);
+}
+
+
