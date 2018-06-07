@@ -29,6 +29,7 @@ Test(HandleClient, FillPlayerQueueOverflow)
 {
 	player_t *pl = player_create();
 
+	client_fill_player_queue(NULL, NULL);
 	client_fill_player_queue(pl, "voiture de police\r\n"
 		"parlement europeen\r\n");
 	client_fill_player_queue(pl, "epitech nantes\r\n"
