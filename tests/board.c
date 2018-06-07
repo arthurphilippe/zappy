@@ -28,7 +28,7 @@ Test(Board, idx)
 Test(Board, get_plain)
 {
 	board_t bd;
-	char *data = malloc(36);
+	int *data = malloc(sizeof(int) * 36);
 
 	cr_assert(data);
 	data[9] = 'a';
@@ -50,7 +50,7 @@ Test(Board, get_plain)
 Test(Board, get_pointer)
 {
 	board_t bd;
-	char *data = malloc(36);
+	int *data = malloc(sizeof(int) * 36);
 
 	cr_assert(data);
 	data[9] = 'a';
@@ -62,7 +62,7 @@ Test(Board, get_pointer)
 	size_t idx = board_get_idx(&bd, 10, 0);
 
 	cr_expect_eq(idx, 10);
-	char *ptr = board_get_ptr(&bd, (vector2d_t){0, 1});
+	int *ptr = board_get_ptr(&bd, (vector2d_t){0, 1});
 
 	cr_expect_eq(*ptr, 'b');
 	free(data);
@@ -71,7 +71,7 @@ Test(Board, get_pointer)
 Test(Board, simple_put)
 {
 	board_t bd;
-	char *data = malloc(36);
+	int *data = calloc(36, sizeof(int));
 
 	cr_assert(data);
 	bd.b_data = data;
@@ -82,11 +82,15 @@ Test(Board, simple_put)
 	board_put(&bd, (vector2d_t){0, 2}, 'c');
 	board_put(&bd, (vector2d_t){3, 2}, 'd');
 	board_put(&bd, (vector2d_t){11, 2}, 'e');
-	cr_expect_eq(board_get(&bd, (vector2d_t){9, 0}), 'a');
-	cr_expect_eq(board_get(&bd, (vector2d_t){0, 1}), 'b');
-	cr_expect_eq(board_get(&bd, (vector2d_t){0, 2}), 'c');
-	cr_expect_eq(board_get(&bd, (vector2d_t){3, 2}), 'd');
-	cr_expect_eq(board_get(&bd, (vector2d_t){11, 2}), 'e');
+	board_put_resource(&bd, (vector2d_t){4, 2}, PHIRAS);
+	cr_expect_eq(board_get(&bd, (vector2d_t){9, 0}), 'a', "got %c", board_get(&bd, (vector2d_t){9, 0}));
+	cr_expect_eq(board_get(&bd, (vector2d_t){0, 1}), 'b', "got %c", board_get(&bd, (vector2d_t){0, 1}));
+	cr_expect_eq(board_get(&bd, (vector2d_t){0, 2}), 'c', "got %c", board_get(&bd, (vector2d_t){0, 2}));
+	cr_expect_eq(board_get(&bd, (vector2d_t){3, 2}), 'd', "got %c", board_get(&bd, (vector2d_t){3, 2}));
+	cr_expect_eq(board_get(&bd, (vector2d_t){11, 2}), 'e', "got %c", board_get(&bd, (vector2d_t){11, 2}));
+	int test = board_get_resource(&bd, (vector2d_t){4, 2});
+	cr_assert_eq(test, PHIRAS);
+	cr_expect_eq(board_get_resource(&bd, (vector2d_t){4, 2}), PHIRAS);
 	free(data);
 }
 
@@ -107,6 +111,7 @@ Test(Board, truncate_pos)
 	board_trunc_coords(bd, &vec);
 	cr_expect_eq(vec.v_x, 2);
 	cr_expect_eq(vec.v_y, 21, "got %d", vec.v_y);
+	board_delete(bd);
 }
 
 Test(Board, look_at_1)

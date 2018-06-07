@@ -9,7 +9,7 @@
 	#define RESOURCES_H_
 
 typedef enum	e_resource {
-		INEMATE = 20,
+		INEMATE = 1,
 		DERAUMERE,
 		SIBUR,
 		MENDIANE,
