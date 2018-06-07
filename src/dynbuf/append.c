@@ -5,8 +5,8 @@
 ** append
 */
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include "dynbuf.h"
 
 void dynbuf_append_str(dynbuf_t *buf, const char *str)

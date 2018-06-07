@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "selector.h"
 #include "player.h"
+#include "selector.h"
 
 int client_create(selector_t *stor, int sock)
 {

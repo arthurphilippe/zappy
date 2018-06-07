@@ -5,11 +5,12 @@
 ** team
 */
 
-#include <criterion/criterion.h>
 #include <criterion/assert.h>
+#include <criterion/criterion.h>
 #include "team.h"
 
-Test(Team, create) {
+Test(Team, create)
+{
 	team_t *tm = team_create("ursidae", 6);
 
 	cr_assert(tm);

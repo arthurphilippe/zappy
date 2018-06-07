@@ -5,8 +5,8 @@
 ** add_team
 */
 
-#include "team.h"
 #include "game.h"
+#include "team.h"
 
 int game_add_team(game_t *gm, const char *name)
 {

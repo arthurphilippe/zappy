@@ -5,9 +5,9 @@
 ** selector
 */
 
-#include <criterion/criterion.h>
-#include <criterion/assert.h>
 #include "selector.h"
+#include <criterion/assert.h>
+#include <criterion/criterion.h>
 #include "game.h"
 
 selector_t *g_selector;

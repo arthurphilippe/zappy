@@ -7,9 +7,9 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include "player.h"
 #include "selector.h"
 #include "stolist.h"
-#include "player.h"
 
 static void trucate_queue(list_t *list)
 {
@@ -25,8 +25,7 @@ void client_fill_player_queue(player_t *pl, const char *buf)
 	trucate_queue(pl->p_queued_msgs);
 }
 
-static void client_buffer_process(handle_t *hdl,
-				char *buf, int r_size)
+static void client_buffer_process(handle_t *hdl, char *buf, int r_size)
 {
 	buf[r_size] = '\0';
 	printf("recived from %d: %s\n", hdl->h_fd, buf);

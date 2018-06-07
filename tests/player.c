@@ -5,9 +5,9 @@
 ** player
 */
 
-#include <criterion/criterion.h>
-#include <criterion/assert.h>
 #include "player.h"
+#include <criterion/assert.h>
+#include <criterion/criterion.h>
 #include "board.h"
 
 Test(Player, create)
@@ -37,8 +37,9 @@ Test(Player, id)
 	player_delete(pl);
 }
 
-Test(Player, Move) {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+Test(Player, Move)
+{
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 	board_t *bd = board_create(24, 24);
 
 	cr_assert_eq(pl->p_pos.v_x, 12);
@@ -87,11 +88,12 @@ Test(Player, Move) {
 	cr_assert_eq(pl->p_pos.v_y, 12);
 }
 
-Test(Player, MoveUp) {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+Test(Player, MoveUp)
+{
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 	board_t *bd = board_create(24, 24);
 
-	pl->p_dir = (vector2d_t) {0, -1};
+	pl->p_dir = (vector2d_t){0, -1};
 	cr_assert_eq(pl->p_pos.v_y, 12);
 	cr_assert_eq(pl->p_pos.v_x, 12);
 	player_move_foward(pl, bd);
@@ -141,11 +143,12 @@ Test(Player, MoveUp) {
 	cr_assert_eq(pl->p_pos.v_x, 12);
 }
 
-Test(Player, MoveLeft) {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+Test(Player, MoveLeft)
+{
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 	board_t *bd = board_create(24, 24);
 
-	pl->p_dir = (vector2d_t) {-1, 0};
+	pl->p_dir = (vector2d_t){-1, 0};
 	cr_assert_eq(pl->p_pos.v_x, 12);
 	cr_assert_eq(pl->p_pos.v_y, 12);
 	player_move_foward(pl, bd);
@@ -197,9 +200,9 @@ Test(Player, MoveLeft) {
 
 Test(Player, TurnRight)
 {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 
-	pl->p_dir = (vector2d_t) {1, 0};
+	pl->p_dir = (vector2d_t){1, 0};
 	player_turn_right(pl);
 	cr_assert_eq(pl->p_dir.v_x, 0);
 	cr_assert_eq(pl->p_dir.v_y, -1);
@@ -216,9 +219,9 @@ Test(Player, TurnRight)
 
 Test(Player, TurnLeft)
 {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 
-	pl->p_dir = (vector2d_t) {1, 0};
+	pl->p_dir = (vector2d_t){1, 0};
 	player_turn_left(pl);
 	cr_assert_eq(pl->p_dir.v_x, 0);
 	cr_assert_eq(pl->p_dir.v_y, 1);
@@ -232,4 +235,3 @@ Test(Player, TurnLeft)
 	cr_assert_eq(pl->p_dir.v_x, 1);
 	cr_assert_eq(pl->p_dir.v_y, 0);
 }
-

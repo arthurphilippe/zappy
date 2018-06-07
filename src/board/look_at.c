@@ -6,8 +6,8 @@
 */
 
 #include "board.h"
-#include "game.h"
 #include "dynbuf.h"
+#include "game.h"
 #include "resource.h"
 
 static void search_for_player(game_t *gm, vector2d_t pos, dynbuf_t *buf)
