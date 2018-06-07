@@ -19,7 +19,7 @@ void client_on_cycle(selector_t *stor, handle_t *hdl)
 
 	if (pl->p_queued_msgs->l_size) {
 		if (!strcasecmp(
-			"shutown", pl->p_queued_msgs->l_start->n_data)) {
+			"shutdown", pl->p_queued_msgs->l_start->n_data)) {
 			stor->s_live = false;
 			return;
 		} else if (!strcasecmp("quit",
