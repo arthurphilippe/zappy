@@ -21,14 +21,3 @@ int main(int ac, char **av)
 	}
 	return (ret);
 }
-
-// int main(int ac, char **av)
-// {
-// 	int ret;
-
-// 	if (ac >= 2)
-// 		ret = start_game_tmp(atoi(av[1]));
-// 	else
-// 		ret = 84;
-// 	return (ret);
-// }

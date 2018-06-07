@@ -8,10 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "selector.h"
-#include "stolist.h"
 #include "msg.h"
 #include "player.h"
+#include "selector.h"
+#include "stolist.h"
 
 const msg_map_t MSG_CMD_MAP[] = {
 	{"Forward", msg_cmd_forward, 7},
@@ -59,8 +59,8 @@ static void find_and_run_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
 		return;
 	cmd_name = msg->l_start->n_data;
 	for (unsigned int i = 0; MSG_CMD_MAP[i].mm_name; i++) {
-		if (!strcasecmp(cmd_name, MSG_CMD_MAP[i].mm_name)
-			&& MSG_CMD_MAP[i].mm_func) {
+		if (!strcasecmp(cmd_name, MSG_CMD_MAP[i].mm_name) &&
+			MSG_CMD_MAP[i].mm_func) {
 			list_pop_front(msg);
 			MSG_CMD_MAP[i].mm_func(stor, hdl, msg);
 			return;
