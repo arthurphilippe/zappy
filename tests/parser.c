@@ -5,12 +5,12 @@
 ** parser
 */
 
-#include <string.h>
-#include <stdlib.h>
+#include "parser.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "criterion/assert.h"
 #include "criterion/criterion.h"
-#include "parser.h"
 
 Test(Parser, create)
 {
@@ -207,7 +207,6 @@ Test(Parser, clientnb_0)
 	free(av);
 }
 
-
 Test(Parser, freq_only)
 {
 	char **av = malloc(sizeof(char *) * 255);
@@ -246,7 +245,6 @@ Test(Parser, freq_0)
 	}
 	free(av);
 }
-
 
 Test(Parser, team_name_only)
 {

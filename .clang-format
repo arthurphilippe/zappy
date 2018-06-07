@@ -1,11 +1,11 @@
 SortIncludes: 'true'
-AlignAfterOpenBracket: 'AlwaysBreak'
+AlignAfterOpenBracket: 'DontAlign'
 AlignConsecutiveAssignments: 'false'
 AlignConsecutiveDeclarations: 'false'
 AlignOperands: 'false'
 AlignTrailingComments: 'false'
 AccessModifierOffset: 0
-ColumnLimit: 80
+ColumnLimit: 78
 IndentWidth: 8
 TabWidth: 8
 ContinuationIndentWidth: 8

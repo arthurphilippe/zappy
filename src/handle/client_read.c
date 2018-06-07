@@ -7,9 +7,9 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include "player.h"
 #include "selector.h"
 #include "stolist.h"
-#include "player.h"
 
 static void trucate_queue(list_t *list)
 {
@@ -17,20 +17,21 @@ static void trucate_queue(list_t *list)
 		list_pop_back(list);
 }
 
-void client_fill_player_queue(player_t *pl, const char *buf)
+size_t client_fill_player_queue(player_t *pl, const char *buf)
 {
 	if (!pl)
-		return;
+		return (0);
 	stolist_existing(pl->p_queued_msgs, buf, "\r\n");
 	trucate_queue(pl->p_queued_msgs);
+	return (pl->p_queued_msgs->l_size);
 }
 
-static void client_buffer_process(handle_t *hdl,
-				char *buf, int r_size)
+static void client_buffer_process(handle_t *hdl, char *buf, int r_size)
 {
 	buf[r_size] = '\0';
 	printf("recived from %d: %s\n", hdl->h_fd, buf);
-	client_fill_player_queue(hdl->h_data, buf);
+	if (client_fill_player_queue(hdl->h_data, buf))
+		hdl->h_on_cycle = client_on_cycle;
 }
 
 void client_read(selector_t *selector, handle_t *hdl)

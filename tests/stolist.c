@@ -5,9 +5,9 @@
 ** stolist
 */
 
-#include <criterion/criterion.h>
-#include <criterion/assert.h>
 #include "stolist.h"
+#include <criterion/assert.h>
+#include <criterion/criterion.h>
 
 Test(stolist, one_word)
 {
@@ -32,7 +32,8 @@ Test(stolist, one_word_no_spacer)
 Test(stolist, multiple_words)
 {
 	list_t *words = stolist("toto va a   la plage avec ses khey et\
- sa   serviette", " ");
+ sa   serviette",
+		" ");
 
 	cr_assert(words);
 	list_iter_t *iter = list_iter_create(words, FWD);
@@ -67,7 +68,8 @@ Test(stolist, multiple_words_and_spacers)
 {
 	list_t *words = stolist("toto va a   la plage avec ses khey et\
  sa   serviette ; mais sans son code civil. nous,sommes,separes,\
- par,des ,virgules,", ", ;.");
+ par,des ,virgules,",
+		", ;.");
 
 	cr_assert(words);
 	list_iter_t *iter = list_iter_create(words, FWD);
@@ -142,8 +144,10 @@ Test(stolist_spe_irc, one_word_no_spacer)
 
 Test(stolist_spe_irc, multiple_words)
 {
-	list_t *words = stolist_spe_irc("toto va a   la plage avec ses khey et\
- sa   serviette :je ne suis pas découpé parce que je suis précédé par deux-points", " ");
+	list_t *words =
+		stolist_spe_irc("toto va a   la plage avec ses khey et\
+ sa   serviette :je ne suis pas découpé parce que je suis précédé par deux-points",
+			" ");
 
 	cr_assert(words);
 	list_iter_t *iter = list_iter_create(words, FWD);
@@ -170,7 +174,9 @@ Test(stolist_spe_irc, multiple_words)
 	list_iter_next(iter);
 	cr_assert_str_eq(list_iter_access(iter), "serviette");
 	list_iter_next(iter);
-	cr_assert_str_eq(list_iter_access(iter), "je ne suis pas découpé parce que je suis précédé par deux-points");
+	cr_assert_str_eq(list_iter_access(iter),
+		"je ne suis pas découpé parce que je suis précédé par "
+		"deux-points");
 	list_iter_next(iter);
 
 	list_destroy(words);
@@ -179,9 +185,11 @@ Test(stolist_spe_irc, multiple_words)
 
 Test(stolist_spe_irc, multiple_words_and_spacers)
 {
-	list_t *words = stolist_spe_irc("toto va a   la plage avec ses khey et\
+	list_t *words =
+		stolist_spe_irc("toto va a   la plage avec ses khey et\
  sa   serviette ; mais sans son code civil. nous,sommes,separes,\
- par,des ,virgules,:je ne suis pas découpé parce que je suis précédé par deux-points", ", ;.");
+ par,des ,virgules,:je ne suis pas découpé parce que je suis précédé par deux-points",
+			", ;.");
 
 	cr_assert(words);
 	list_iter_t *iter = list_iter_create(words, FWD);
@@ -230,7 +238,9 @@ Test(stolist_spe_irc, multiple_words_and_spacers)
 	list_iter_next(iter);
 	cr_assert_str_eq(list_iter_access(iter), "virgules");
 	list_iter_next(iter);
-	cr_assert_str_eq(list_iter_access(iter), "je ne suis pas découpé parce que je suis précédé par deux-points");
+	cr_assert_str_eq(list_iter_access(iter),
+		"je ne suis pas découpé parce que je suis précédé par "
+		"deux-points");
 	list_iter_next(iter);
 	list_destroy(words);
 	free(iter);

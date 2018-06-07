@@ -10,7 +10,7 @@
 #include "selector.h"
 #include "player.h"
 
-void client_fill_player_queue(player_t *pl, const char *buf);
+size_t client_fill_player_queue(player_t *pl, const char *buf);
 
 Test(HandleClient, FillPlayerQueue)
 {
@@ -29,6 +29,7 @@ Test(HandleClient, FillPlayerQueueOverflow)
 {
 	player_t *pl = player_create();
 
+	client_fill_player_queue(NULL, NULL);
 	client_fill_player_queue(pl, "voiture de police\r\n"
 		"parlement europeen\r\n");
 	client_fill_player_queue(pl, "epitech nantes\r\n"

@@ -5,8 +5,8 @@
 ** parser_init
 */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include "parser.h"
@@ -31,7 +31,6 @@ static bool body_set_struct_2(parser_t *game_info, int opt, const char *arg)
 		break;
 	}
 	return (false);
-
 }
 
 static bool body_set_struct(parser_t *game_info, int opt, const char *arg)
@@ -66,7 +65,7 @@ bool parser_arg_handler(int ac, char **av, parser_t *game_info)
 				while (optind < ac &&
 					strncmp(av[optind], "-", 1)) {
 					list_push_back(game_info->team_name,
-							strdup(av[optind++]));
+						strdup(av[optind++]));
 				}
 				optind -= 1;
 				break;
@@ -78,4 +77,3 @@ bool parser_arg_handler(int ac, char **av, parser_t *game_info)
 	}
 	return (true);
 }
-
