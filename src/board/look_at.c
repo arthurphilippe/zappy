@@ -10,7 +10,16 @@
 #include "game.h"
 #include "resource.h"
 
-static void search_for_player(game_t *gm, vector2d_t pos, dynbuf_t *buf)
+static void append_str(dynbuf_t *buf, const char *str, bool *first)
+{
+	if (!(*first)) {
+		dynbuf_append_str(buf, " ");
+	} else
+		*first = false;
+	dynbuf_append_str(buf, str);
+}
+
+static void search_for_players(game_t *gm, vector2d_t pos, dynbuf_t *buf, bool first)
 {
 	list_iter_t iter;
 	player_t *pl;
@@ -18,16 +27,22 @@ static void search_for_player(game_t *gm, vector2d_t pos, dynbuf_t *buf)
 	list_iter_init(&iter, gm->ga_players, FWD);
 	while ((pl = list_iter_next(&iter))) {
 		if (pl->p_pos.v_x == pos.v_x && pl->p_pos.v_y == pos.v_y)
-			dynbuf_append_str(buf, " player");
+			append_str(buf, "player", &first);
 	}
 }
 
 void board_look_at(board_t *bd, game_t *gm, vector2d_t pos, dynbuf_t *buf)
 {
-	char tile_content;
+	resource_t resource;
+	unsigned int food_qtt;
+	bool first = true;
 
 	board_trunc_coords(bd, &pos);
-	tile_content = board_get_resource(bd, pos);
-	dynbuf_append_str(buf, resource_get_name(tile_content));
-	search_for_player(gm, pos, buf);
+	resource = board_get_resource(bd, pos);
+	food_qtt = board_get_food(bd, pos);
+	for (unsigned int i = 0; i < food_qtt; i++) {
+		append_str(buf, "food", &first);
+	}
+	append_str(buf, resource_get_name(resource), &first);
+	search_for_players(gm, pos, buf, first);
 }

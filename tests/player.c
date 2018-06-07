@@ -9,6 +9,8 @@
 #include <criterion/assert.h>
 #include <criterion/criterion.h>
 #include "board.h"
+#include "dynbuf.h"
+#include "game.h"
 
 Test(Player, create)
 {
@@ -25,7 +27,6 @@ Test(Player, id)
 
 	cr_assert(pl);
 	cr_assert_eq(pl->p_id, 1);
-	player_delete(pl);
 	pl = player_create();
 	cr_assert_eq(pl->p_id, 2);
 	player_delete(pl);
@@ -234,4 +235,72 @@ Test(Player, TurnLeft)
 	player_turn_left(pl);
 	cr_assert_eq(pl->p_dir.v_x, 1);
 	cr_assert_eq(pl->p_dir.v_y, 0);
+}
+
+static unsigned int count_char(const char *str, char c)
+{
+	unsigned int count = 0;
+
+	for (size_t i = 0; str[i]; i++) {
+		if (str[i] == c)
+			count += 1;
+	}
+	return (count);
+}
+
+Test(Player, look_empty)
+{
+	player_t *pl = player_create_at((vector2d_t){9, 9});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+	dynbuf_t *buf = player_look(pl, gm);
+	cr_assert(buf);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 3);
+	pl->p_lvl = 2;
+	dynbuf_reset(buf);
+	buf = player_look(pl, gm);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 8);
+	dynbuf_reset(buf);
+	pl->p_lvl = 3;
+	buf = player_look(pl, gm);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 15);
+}
+
+Test(Player, look_right)
+{
+	player_t *pl = player_create_at((vector2d_t){9, 9});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+	pl->p_dir = (vector2d_t){1, 0};
+
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 8}, THYSTAME);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 9}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 10}, DERAUMERE);
+	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
+	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
+
+	dynbuf_t *buf = player_look(pl, gm);
+	cr_assert(buf);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 3);
+	cr_assert_str_eq(buf->b_data,
+		"[sibur player,thystame,inemate,food food deraumere]");
 }
