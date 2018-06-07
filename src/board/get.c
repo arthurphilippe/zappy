@@ -27,3 +27,10 @@ resource_t board_get_resource(board_t *bd, vector2d_t pos)
 
 	return (bd->b_data[idx] % 10);
 }
+
+resource_t board_get_food(board_t *bd, vector2d_t pos)
+{
+	size_t idx = board_get_idx(bd, pos.v_x, pos.v_y);
+
+	return (bd->b_data[idx] / 10);
+}

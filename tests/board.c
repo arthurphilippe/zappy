@@ -126,9 +126,9 @@ Test(Board, look_at_1)
 	cr_expect_eq(game->ga_players->l_size, 1);
 
 	dynbuf_t *buf = dynbuf_create();
-	board_put(game->ga_board, (vector2d_t) {0, 0}, INEMATE);
-	board_put(game->ga_board, (vector2d_t) {1, 1}, THYSTAME);
-	board_put(game->ga_board, (vector2d_t) {1, -1}, SIBUR);
+	board_put_resource(game->ga_board, (vector2d_t) {0, 0}, INEMATE);
+	board_put_resource(game->ga_board, (vector2d_t) {1, 1}, THYSTAME);
+	board_put_resource(game->ga_board, (vector2d_t) {1, -1}, SIBUR);
 
 	cr_assert(buf);
 	board_look_at(game->ga_board, game, (vector2d_t) {0, 0}, buf);
