@@ -5,8 +5,22 @@
 ** main
 */
 
+#include <stdio.h>
 #include "parser.h"
 #include "start.h"
+
+static void print_usage_server(const char *bin)
+{
+	printf("\nUSAGE: %s %s\n", bin,
+		"-p port -x width -y height -n name1"
+		" name2 ... -c clientsNb -f freq\n\tport\t\tis the port "
+		"number\n\twidth\t\tis the width of the world\n"
+		"\theight\t\tis the height of the world\n"
+		"\tnameX\t\tis the name of the team X\n"
+		"\tclientsNb\tis the number of authorized clients per team\n"
+		"\tfreq\t\tis the reciprocal of time unit for execution of "
+		"action");
+}
 
 int main(int ac, char **av)
 {
@@ -17,6 +31,7 @@ int main(int ac, char **av)
 		ret = start(parser);
 		parser_destroy(parser);
 	} else {
+		print_usage_server(av[0]);
 		ret = 84;
 	}
 	return (ret);
