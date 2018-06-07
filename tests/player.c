@@ -235,6 +235,7 @@ Test(Player, TurnLeft)
 	player_turn_left(pl);
 	cr_assert_eq(pl->p_dir.v_x, 1);
 	cr_assert_eq(pl->p_dir.v_y, 0);
+	player_delete(pl);
 }
 
 static unsigned int count_char(const char *str, char c)
@@ -264,17 +265,20 @@ Test(Player, look_empty)
 	cr_assert(strstr(buf->b_data, "player"));
 	cr_assert_eq(count_char(buf->b_data, ','), 3);
 	pl->p_lvl = 2;
-	dynbuf_reset(buf);
+	dynbuf_delete(buf);
 	buf = player_look(pl, gm);
 	cr_log_info(buf->b_data);
 	cr_assert(strstr(buf->b_data, "player"));
 	cr_assert_eq(count_char(buf->b_data, ','), 8);
-	dynbuf_reset(buf);
+	dynbuf_delete(buf);
 	pl->p_lvl = 3;
 	buf = player_look(pl, gm);
 	cr_log_info(buf->b_data);
 	cr_assert(strstr(buf->b_data, "player"));
 	cr_assert_eq(count_char(buf->b_data, ','), 15);
+	dynbuf_delete(buf);
+	game_delete(gm);
+
 }
 
 Test(Player, look_right)
@@ -303,6 +307,8 @@ Test(Player, look_right)
 	cr_assert_eq(count_char(buf->b_data, ','), 3);
 	cr_assert_str_eq(buf->b_data,
 		"[sibur player,thystame,inemate,food food deraumere]");
+	dynbuf_delete(buf);
+	game_delete(gm);
 }
 
 Test(Player, look_left)
@@ -331,5 +337,6 @@ Test(Player, look_left)
 	cr_assert_eq(count_char(buf->b_data, ','), 3);
 	cr_assert_str_eq(buf->b_data,
 		"[sibur player,food food deraumere,inemate,thystame]");
+	dynbuf_delete(buf);
+	game_delete(gm);
 }
-

@@ -19,7 +19,8 @@ static void append_str(dynbuf_t *buf, const char *str, bool *first)
 	dynbuf_append_str(buf, str);
 }
 
-static void search_for_players(game_t *gm, vector2d_t pos, dynbuf_t *buf, bool first)
+static void search_for_players(
+	game_t *gm, vector2d_t pos, dynbuf_t *buf, bool first)
 {
 	list_iter_t iter;
 	player_t *pl;
