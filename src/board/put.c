@@ -24,7 +24,7 @@ void board_put(board_t *bd, vector2d_t pos, int payload)
 void board_put_resource(board_t *bd, vector2d_t pos, resource_t resource)
 {
 	size_t idx;
-	int *tmp;
+	unsigned int *tmp;
 
 	board_trunc_coords(bd, &pos);
 	idx = board_get_idx(bd, pos.v_x, pos.v_y);
@@ -56,6 +56,6 @@ void board_dec_food(board_t *bd, vector2d_t pos)
 
 	board_trunc_coords(bd, &pos);
 	idx = board_get_idx(bd, pos.v_x, pos.v_y);
-	if (bd->b_data[idx] > 19)
+	if (bd->b_data[idx] >= 10)
 		bd->b_data[idx] -= 10;
 }
