@@ -5,63 +5,30 @@
 ** main
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "selector.h"
-#include "game.h"
 #include "parser.h"
-#include "resource.h"
+#include "start.h"
 
-static int start_game_tmp(int port)
+int main(int ac, char **av)
 {
-	selector_t *stor = selector_create();
-	game_t *gm = game_create(20, 15, 1, 6);
+	int ret;
+	parser_t *parser = parser_create(ac, av);
 
-	if (!stor) {
-		game_delete(gm);
-		return (84);
+	if (parser) {
+		ret = start(parser);
+		parser_destroy(parser);
+	} else {
+		ret = 84;
 	}
-	if (!gm) {
-		selector_delete(stor);
-		return (84);
-	}
-	game_add_team(gm, "pandas");
-	stor->s_data = gm;
-	stor->s_delete = game_delete;
-	board_put(gm->ga_board, (vector2d_t) {0, 0}, INEMATE);
-	board_put(gm->ga_board, (vector2d_t) {1, 1}, THYSTAME);
-	board_put(gm->ga_board, (vector2d_t) {1, -1}, SIBUR);
-	if (listener_create(stor, port)) {
-		perror("listener");
-		selector_delete(stor);
-		return (84);
-	}
-	selector_loop(stor);
-	selector_delete(stor);
-	return (0);
+	return (ret);
 }
 
 // int main(int ac, char **av)
 // {
 // 	int ret;
-// 	parser_t *parser = parser_create(ac, av);
 
-// 	if (parser) {
-// 		ret = start_game_tmp(parser->port);
-// 		parser_destroy(parser);
-// 	} else {
+// 	if (ac >= 2)
+// 		ret = start_game_tmp(atoi(av[1]));
+// 	else
 // 		ret = 84;
-// 	}
 // 	return (ret);
 // }
-
-int main(int ac, char **av)
-{
-	int ret;
-	if (ac >= 2)
-		ret = start_game_tmp(atoi(av[1]));
-	else
-		ret = 84;
-	return (ret);
-}
-
