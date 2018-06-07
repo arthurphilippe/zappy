@@ -10,7 +10,7 @@
 #include "selector.h"
 #include "player.h"
 
-void client_fill_player_queue(player_t *pl, const char *buf);
+size_t client_fill_player_queue(player_t *pl, const char *buf);
 
 Test(HandleClient, FillPlayerQueue)
 {

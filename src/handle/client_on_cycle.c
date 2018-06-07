@@ -30,4 +30,6 @@ void client_on_cycle(selector_t *stor, handle_t *hdl)
 		msg_process(stor, hdl, pl->p_queued_msgs->l_start->n_data);
 		list_pop_front(pl->p_queued_msgs);
 	}
+	if (!pl->p_queued_msgs->l_size)
+		hdl->h_on_cycle = NULL;
 }

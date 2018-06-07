@@ -28,7 +28,7 @@ int client_create(selector_t *stor, int sock)
 	hdl->h_fd = sock;
 	hdl->h_type = H_CLIENT;
 	hdl->h_read = client_read;
-	hdl->h_on_cycle = client_on_cycle;
+	hdl->h_on_cycle = NULL;
 	dprintf(sock, "%s\n", "WELCOME");
 	return (SELECTOR_RET_OK);
 }
