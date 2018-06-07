@@ -56,6 +56,7 @@ int start(parser_t *parser)
 	if (ret)
 		return (ret);
 	selector_loop(stor);
+	parser_destroy(parser);
 	selector_delete(stor);
 	return (0);
 }

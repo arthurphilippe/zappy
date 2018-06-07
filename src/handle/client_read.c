@@ -43,6 +43,6 @@ void client_read(selector_t *selector, handle_t *hdl)
 	if (r > 0) {
 		client_buffer_process(hdl, buf, r);
 	} else {
-		client_delete(selector, hdl);
+		client_erase(selector, hdl);
 	}
 }

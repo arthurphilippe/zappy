@@ -24,6 +24,7 @@ typedef struct		s_handle {
 	handle_func_t	h_read;
 	handle_func_t	h_on_cycle;
 	void		*h_data;
+	void		(*h_delete)(void *ptr);
 }			handle_t;
 
 #endif /* !SELECTOR_HANDLE_H_ */

@@ -21,6 +21,7 @@ int client_create(selector_t *stor, int sock)
 	}
 	hdl->h_data = player_create();
 	if (!hdl->h_data) {
+		hdl->h_delete = NULL;
 		close(sock);
 		list_find_and_delete_addr(stor->s_handles, hdl);
 		return (SELECTOR_RET_ERR);
@@ -29,6 +30,7 @@ int client_create(selector_t *stor, int sock)
 	hdl->h_type = H_CLIENT;
 	hdl->h_read = client_read;
 	hdl->h_on_cycle = NULL;
+	hdl->h_delete = player_delete;
 	dprintf(sock, "%s\n", "WELCOME");
 	return (SELECTOR_RET_OK);
 }

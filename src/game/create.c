@@ -22,7 +22,8 @@ game_t *game_create(unsigned int board_x, unsigned int board_y,
 	game->ga_freq = freq;
 	game->ga_max_players = max_players;
 	game->ga_board = board_create(board_x, board_y);
-	game->ga_players = list_create(player_delete);
+	game->ga_players = list_create(NULL);
+	// game->ga_players = list_create(player_delete);
 	game->ga_teams = list_create(team_delete);
 	if (!game->ga_board) {
 		free(game);

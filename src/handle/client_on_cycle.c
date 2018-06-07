@@ -24,7 +24,7 @@ void client_on_cycle(selector_t *stor, handle_t *hdl)
 			return;
 		} else if (!strcasecmp("quit",
 				pl->p_queued_msgs->l_start->n_data)) {
-			client_delete(stor, hdl);
+			client_erase(stor, hdl);
 			return;
 		}
 		msg_process(stor, hdl, pl->p_queued_msgs->l_start->n_data);

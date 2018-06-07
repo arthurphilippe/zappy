@@ -29,10 +29,11 @@ int main(int ac, char **av)
 
 	if (parser) {
 		ret = start(parser);
-		parser_destroy(parser);
 	} else {
 		print_usage_server(av[0]);
 		ret = 84;
 	}
+	if (ret)
+		parser_destroy(parser);
 	return (ret);
 }

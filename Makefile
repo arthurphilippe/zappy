@@ -26,7 +26,7 @@ SRCS		=	src/list/list.c			\
 			src/selector/get_new_handle.c	\
 			src/handle/delete.c		\
 			src/handle/client_create.c	\
-			src/handle/client_delete.c	\
+			src/handle/client_erase.c	\
 			src/handle/client_on_cycle.c	\
 			src/handle/client_read.c	\
 			src/handle/listener_create.c	\
@@ -35,6 +35,7 @@ SRCS		=	src/list/list.c			\
 			src/game/delete.c		\
 			src/game/add_team.c		\
 			src/game/register_player.c	\
+			src/game/unreg_player.c		\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\

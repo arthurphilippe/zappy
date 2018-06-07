@@ -60,7 +60,7 @@ void listener_read(selector_t *selector, handle_t *port_hdl);
 ** client handles
 */
 int client_create(selector_t *selector, int sock);
-void client_delete(selector_t *stor, handle_t *hdl);
+void client_erase(selector_t *stor, handle_t *hdl);
 void client_read(selector_t *selector, handle_t *client_hdl);
 void client_on_cycle(selector_t *stor, handle_t *hdl);
 
