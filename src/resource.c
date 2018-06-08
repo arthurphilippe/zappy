@@ -5,23 +5,43 @@
 ** resource
 */
 
+#include <string.h>
 #include "resource.h"
 
 const resource_key_t RESOURCES_MAP[] = {
+	{"food", FOOD},
 	{"inemate", INEMATE},
 	{"deraumere", DERAUMERE},
 	{"sibur", SIBUR},
 	{"mendiane", MENDIANE},
 	{"phiras", PHIRAS},
 	{"thystame", THYSTAME},
-	{"", 0}
+	{"", -1},
 };
 
+/*
+** returns the string associated with the resource.
+** it identify food since food's value is 0.
+** The sole purpose of the this zero value is to serve as index
+** in player inventories.
+*/
 const char *resource_get_name(resource_t resource)
 {
 	unsigned int i;
 
-	for (i = 0; RESOURCES_MAP[i].rk_resource
+	for (i = 1; strcmp(RESOURCES_MAP[i].rk_str, "")
 		&& RESOURCES_MAP[i].rk_resource != resource; i++);
 	return (RESOURCES_MAP[i].rk_str);
+}
+
+/*
+** From a string, will give you the associated resource value.
+*/
+resource_t resource_get_value(const char *str)
+{
+	unsigned int i;
+
+	for (i = 0; strcmp(RESOURCES_MAP[i].rk_str, "")
+		&& strcmp(RESOURCES_MAP[i].rk_str, str); i++);
+	return (RESOURCES_MAP[i].rk_resource);
 }
