@@ -12,7 +12,7 @@
 player_t *player_create(void)
 {
 	static int id = 1;
-	player_t *pl = malloc(sizeof(player_t));
+	player_t *pl = calloc(1, sizeof(player_t));
 
 	if (!pl)
 		return (NULL);

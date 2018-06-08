@@ -399,3 +399,33 @@ Test(Player, look_up)
 	dynbuf_delete(buf);
 	game_delete(gm);
 }
+
+Test(Player, inv_add)
+{
+	player_t *pl = player_create();
+
+	cr_assert(pl);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	cr_expect_eq(player_inventory_get(pl, INV_FOOD), 10);
+
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, THYSTAME);
+	player_inventory_add(pl, THYSTAME);
+	player_inventory_add(pl, THYSTAME);
+	player_inventory_add(pl, THYSTAME);
+	player_inventory_add(pl, DERAUMERE);
+	player_inventory_add(pl, DERAUMERE);
+	cr_expect_eq(player_inventory_get(pl, INV_FOOD), 10);
+	cr_expect_eq(player_inventory_get(pl, SIBUR), 1);
+	cr_expect_eq(player_inventory_get(pl, THYSTAME), 4);
+	cr_expect_eq(player_inventory_get(pl, DERAUMERE), 2);
+}
