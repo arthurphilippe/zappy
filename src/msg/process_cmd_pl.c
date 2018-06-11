@@ -24,8 +24,8 @@ const msg_map_t MSG_CMD_PL_MAP[] = {
 	{"Connect_nbr", NULL, 0},
 	{"Fork", NULL, 42},
 	{"Eject", NULL, 7},
-	{"Take", NULL, 7},
-	{"Set", NULL, 7},
+	{"Take", msg_cmd_pl_take, 7},
+	{"Set", msg_cmd_pl_set, 7},
 	{"Incantation", NULL, 300},
 	{NULL, NULL, 0},
 };

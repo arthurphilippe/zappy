@@ -60,6 +60,8 @@ SRCS		=	src/list/list.c			\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
 			src/msg/join.c			\
+			src/msg/cmd_pl/set.c	\
+			src/msg/cmd_pl/take.c	\
 			src/msg/cmd_pl/forward.c	\
 			src/msg/cmd_pl/right.c		\
 			src/msg/cmd_pl/left.c		\
