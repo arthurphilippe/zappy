@@ -20,6 +20,10 @@ static int port_bind(int sock, int port)
 	return (bind(sock, (struct sockaddr *) &sin, sizeof(sin)));
 }
 
+/*
+** Creates a port listener.
+** Basicly a socket.
+*/
 int listener_create(selector_t *selector, int port)
 {
 	handle_t *hdl = selector_get_new_handle(selector);

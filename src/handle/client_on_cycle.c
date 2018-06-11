@@ -11,7 +11,7 @@
 #include "selector.h"
 
 /*
-** This is where a time delay will be requiered.
+** What's to be done each time selector loops.
 */
 void client_on_cycle(selector_t *stor, handle_t *hdl)
 {

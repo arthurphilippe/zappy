@@ -10,6 +10,9 @@
 #include <sys/socket.h>
 #include "selector.h"
 
+/*
+** Accepts connecetions on the socket pointed to by the listener.
+*/
 void listener_read(selector_t *selector, handle_t *port_hdl)
 {
 	int socket;

@@ -8,6 +8,9 @@
 #include "selector.h"
 #include "player.h"
 
+/*
+** If the handle features a message queue it would be gathered here.
+*/
 list_t *client_get_msgq(handle_t *hdl)
 {
 	player_t *pl;

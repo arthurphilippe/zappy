@@ -20,6 +20,9 @@ static void fill_gfx_queue(handle_t *hdl, const char *buf)
 		hdl->h_on_cycle = client_on_cycle;
 }
 
+/*
+** Call the buffer processor that corresponds to the client.
+*/
 static void call_reader(handle_t *hdl, char *buf, int r)
 {
 	buf[r] = '\0';

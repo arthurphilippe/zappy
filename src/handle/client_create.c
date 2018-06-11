@@ -11,6 +11,10 @@
 #include "player.h"
 #include "selector.h"
 
+/*
+** Creation of a client -- by default always a player.
+** upon team seleciton, the client can change its type to GFX.
+*/
 int client_create(selector_t *stor, int sock)
 {
 	handle_t *hdl = selector_get_new_handle(stor);

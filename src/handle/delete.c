@@ -11,6 +11,9 @@
 #include <unistd.h>
 #include "selector.h"
 
+/*
+** Deletes and frees a handle and cleans up the data if needed.
+*/
 void selector_handle_delete(void *ptr)
 {
 	handle_t *hdl = ptr;
