@@ -12,6 +12,8 @@
 
 void client_erase(selector_t *stor, handle_t *hdl)
 {
-	game_unreg_player(stor->s_data, hdl->h_data);
+	if (hdl->h_type == H_PLAYER) {
+		game_unreg_player(stor->s_data, hdl->h_data);
+	}
 	list_find_and_delete_addr(stor->s_handles, hdl);
 }

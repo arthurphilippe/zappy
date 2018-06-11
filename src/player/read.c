@@ -26,9 +26,8 @@ size_t player_fill_queue(player_t *pl, const char *buf)
 	return (pl->p_queued_msgs->l_size);
 }
 
-void client_player_buffer_process(handle_t *hdl, char *buf, int r_size)
+void client_player_buffer_process(handle_t *hdl, char *buf)
 {
-	buf[r_size] = '\0';
 	printf("recived from %d: %s\n", hdl->h_fd, buf);
 	if (player_fill_queue(hdl->h_data, buf))
 		hdl->h_on_cycle = client_on_cycle;

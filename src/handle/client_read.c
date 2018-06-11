@@ -11,12 +11,22 @@
 #include "selector.h"
 #include "stolist.h"
 
+static void fill_gfx_queue(handle_t *hdl, const char *buf)
+{
+	list_t *msgq = client_get_msgq(hdl);
+
+	stolist_existing(msgq, buf, "\r\n");
+	if (msgq->l_size)
+		hdl->h_on_cycle = client_on_cycle;
+}
+
 static void call_reader(handle_t *hdl, char *buf, int r)
 {
+	buf[r] = '\0';
 	if (hdl->h_type == H_PLAYER) {
-		client_player_buffer_process(hdl, buf, r);
+		client_player_buffer_process(hdl, buf);
 	} else if (hdl->h_type == H_GFX) {
-		// TODO: add gfx reader call
+		fill_gfx_queue(hdl, buf);
 	}
 }
 

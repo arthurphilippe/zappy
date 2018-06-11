@@ -15,21 +15,23 @@
 */
 void client_on_cycle(selector_t *stor, handle_t *hdl)
 {
-	player_t *pl = hdl->h_data;
+	list_t *msgq = client_get_msgq(hdl);
+	handle_type_t old_type = hdl->h_type;
 
-	if (pl->p_queued_msgs->l_size) {
-		if (!strcasecmp(
-			"shutdown", pl->p_queued_msgs->l_start->n_data)) {
+	if (msgq->l_size) {
+		if (!strcasecmp("shutdown", msgq->l_start->n_data)) {
 			stor->s_live = false;
 			return;
-		} else if (!strcasecmp("quit",
-				pl->p_queued_msgs->l_start->n_data)) {
+		} else if (!strcasecmp("quit", msgq->l_start->n_data)) {
 			client_erase(stor, hdl);
 			return;
 		}
-		msg_process(stor, hdl, pl->p_queued_msgs->l_start->n_data);
-		list_pop_front(pl->p_queued_msgs);
+		msg_process(stor, hdl, msgq->l_start->n_data);
+		if (old_type == hdl->h_type)
+			list_pop_front(msgq);
+		else
+			return;
 	}
-	if (!pl->p_queued_msgs->l_size)
+	if (!msgq->l_size)
 		hdl->h_on_cycle = NULL;
 }

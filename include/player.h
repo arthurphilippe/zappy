@@ -17,7 +17,6 @@
 typedef struct		s_player {
 	unsigned int	p_inventory[10];
 	char		*p_teamname;
-	char		*p_hostname;
 	list_t		*p_queued_msgs;
 	vector2d_t	p_pos;
 	vector2d_t	p_dir;

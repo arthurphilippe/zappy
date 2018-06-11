@@ -14,7 +14,7 @@
 #include "selector.h"
 #include "stolist.h"
 
-const msg_map_t msg_cmd_pl_MAP[] = {
+const msg_map_t MSG_CMD_PL_MAP[] = {
 	{"Forward", msg_cmd_pl_forward, 7},
 	{"Right", msg_cmd_pl_right, 7},
 	{"Left", msg_cmd_pl_left, 7},
@@ -27,15 +27,6 @@ const msg_map_t msg_cmd_pl_MAP[] = {
 	{"Take", NULL, 7},
 	{"Set", NULL, 7},
 	{"Incantation", NULL, 300},
-	{CMD_GET_MAP_SIZE, NULL, 0},
-	{CMD_GET_TILE_CONTENT, NULL, 0},
-	{CMD_GET_MAP_CONTENT, NULL, 0},
-	{CMD_GET_TEAM_NAMES, NULL, 0},
-	{CMD_GET_PLAYER_POS, NULL, 0},
-	{CMD_GET_PLAYER_LEVEL, NULL, 0},
-	{CMD_GET_PLAYER_INV, NULL, 0},
-	{CMD_GET_FREQ, NULL, 0},
-	{CMD_SET_FREQ, NULL, 0},
 	{NULL, NULL, 0},
 };
 
@@ -46,13 +37,27 @@ static void find_and_run_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
 	if (!msg || !msg->l_size)
 		return;
 	cmd_name = msg->l_start->n_data;
-	for (unsigned int i = 0; msg_cmd_pl_MAP[i].mm_name; i++) {
-		if (!strcasecmp(cmd_name, msg_cmd_pl_MAP[i].mm_name) &&
-			msg_cmd_pl_MAP[i].mm_func) {
+	for (unsigned int i = 0; MSG_CMD_PL_MAP[i].mm_name; i++) {
+		if (!strcasecmp(cmd_name, MSG_CMD_PL_MAP[i].mm_name) &&
+			MSG_CMD_PL_MAP[i].mm_func) {
 			list_pop_front(msg);
-			msg_cmd_pl_MAP[i].mm_func(stor, hdl, msg);
+			MSG_CMD_PL_MAP[i].mm_func(stor, hdl, msg);
 			return;
 		}
+	}
+}
+
+static void process_unregistred(
+	selector_t *stor, handle_t *hdl, player_t *pl, const char *str)
+{
+	if (!strcmp(str, GFX_MAGIC)) {
+		hdl->h_delete(hdl->h_data);
+		hdl->h_data = list_create(free);
+		hdl->h_delete = (void (*)(void *)) list_destroy;
+		hdl->h_type = H_GFX;
+		hdl->h_on_cycle = NULL;
+	} else {
+		msg_join(stor, hdl, pl, str);
 	}
 }
 
@@ -61,7 +66,7 @@ void msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg)
 	player_t *pl = hdl->h_data;
 
 	if (!pl->p_teamname && msg->l_size)
-		msg_join(stor, hdl, pl, msg->l_start->n_data);
+		process_unregistred(stor, hdl, pl, msg->l_start->n_data);
 	else
 		find_and_run_cmd(stor, hdl, msg);
 }

@@ -27,6 +27,8 @@
 	#define HINT_BROADCAST "pbc %ld %s\n"
 	#define HINT_START_INCENT "pic %d %d %d"
 
+	#define GFX_MAGIC "ZPPGFX88"
+
 typedef struct		s_msg_map {
 	const char	*mm_name;
 	void		(*mm_func)
@@ -36,6 +38,7 @@ typedef struct		s_msg_map {
 
 void msg_process(selector_t *stor, handle_t *hdl, const char *msg);
 void msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg);
+void msg_process_cmd_gfx(selector_t *stor, handle_t *hdl, list_t *msg);
 
 void msg_join(selector_t *stor, handle_t *hdl, player_t *pl,
 		const char *msg);

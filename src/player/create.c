@@ -16,7 +16,6 @@ player_t *player_create(void)
 
 	if (!pl)
 		return (NULL);
-	pl->p_hostname = NULL;
 	pl->p_teamname = NULL;
 	pl->p_queued_msgs = list_create(free);
 	pl->p_id = id++;

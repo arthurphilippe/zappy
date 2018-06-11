@@ -12,7 +12,6 @@ void player_delete(void *ptr)
 {
 	player_t *pl = ptr;
 
-	free(pl->p_hostname);
 	free(pl->p_teamname);
 	list_destroy(pl->p_queued_msgs);
 	free(pl);

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "msg.h"
+#include "msg_cmd_pl.h"
 #include "player.h"
 #include "selector.h"
 #include "stolist.h"
@@ -37,7 +38,8 @@ void msg_process(selector_t *stor, handle_t *hdl, const char *msg)
 	if (hdl->h_type == H_PLAYER)
 		msg_process_cmd_pl(stor, hdl, split_msg);
 	else if (hdl->h_type == H_GFX) {
-		// GFX PROCESSOR
+		printf("gfx mode :D\n");
+		msg_process_cmd_gfx(stor, hdl, split_msg);
 	}
 	list_destroy(split_msg);
 }
