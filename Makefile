@@ -46,6 +46,7 @@ SRCS		=	src/list/list.c			\
 			src/player/read.c		\
 			src/player/look.c		\
 			src/player/inventory.c		\
+			src/player/inventory_list.c	\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\
@@ -60,8 +61,9 @@ SRCS		=	src/list/list.c			\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
 			src/msg/join.c			\
-			src/msg/cmd_pl/set.c	\
-			src/msg/cmd_pl/take.c	\
+			src/msg/cmd_pl/set.c		\
+			src/msg/cmd_pl/take.c		\
+			src/msg/cmd_pl/broadcast.c	\
 			src/msg/cmd_pl/forward.c	\
 			src/msg/cmd_pl/right.c		\
 			src/msg/cmd_pl/left.c		\

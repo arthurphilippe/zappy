@@ -30,6 +30,8 @@ static inline void dynbuf_complete_size(size_t *size)
 
 dynbuf_t *dynbuf_create(void);
 void dynbuf_append_str(dynbuf_t *buf, const char *str);
+void dynbuf_append_uint(dynbuf_t *buf, unsigned int val);
+void dynbuf_append_int(dynbuf_t *buf, int val);
 void dynbuf_delete(void *ptr);
 int dynbuf_reset(dynbuf_t *buf);
 int dynbuf_init(dynbuf_t *buf);

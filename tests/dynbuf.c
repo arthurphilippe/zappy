@@ -109,6 +109,8 @@ Test(Dynbuf, append_loads)
 		buf->b_allotted);
 	cr_assert_eq(buf->b_lengh, 1109);
 	dynbuf_append_str(buf, "salut");
+	dynbuf_append_uint(buf, (unsigned int) 12);
+	dynbuf_append_int(buf, -84);
 	cr_assert_str_eq(buf->b_data,
 		"Incidunt inventore tempora similique ab tempore blanditiis. "
 		"Commodi sit eveniet eius sequi. Repellendus architecto eos "
@@ -130,7 +132,7 @@ Test(Dynbuf, append_loads)
 		"exercitationem. A vero est quisquam eos. Tempora nesciunt "
 		"consequuntur velit quis molestiae et. Omnis aut "
 		"necessitatibus dolor non nihil corrupti."
-		"salut");
+		"salut12-84");
 	cr_assert_eq(buf->b_allotted, 1536, "alloted is %d instead of 1536",
 		buf->b_allotted);
 	dynbuf_delete(buf);
