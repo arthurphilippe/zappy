@@ -54,11 +54,12 @@ SRCS		=	src/list/list.c			\
 			src/board/look_at.c		\
 			src/board/trunc_coords.c	\
 			src/msg/process.c		\
+			src/msg/process_cmd_pl.c	\
 			src/msg/join.c			\
-			src/msg/cmd/forward.c		\
-			src/msg/cmd/right.c		\
-			src/msg/cmd/left.c		\
-			src/msg/cmd/look.c		\
+			src/msg/cmd_pl/forward.c	\
+			src/msg/cmd_pl/right.c		\
+			src/msg/cmd_pl/left.c		\
+			src/msg/cmd_pl/look.c		\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\
