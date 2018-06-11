@@ -11,7 +11,8 @@
 typedef enum	e_handle_type {
 		H_FREE = 0,
 		H_PORT,
-		H_CLIENT,
+		H_PLAYER,
+		H_GFX,
 		H_SERVER,
 		H_STDIN,
 }		handle_type_t;

@@ -68,19 +68,24 @@ static void find_and_run_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
 	}
 }
 
+void msg_process_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
+{
+	player_t *pl = hdl->h_data;
+
+	if (!pl->p_teamname && msg->l_size)
+		msg_join(stor, hdl, pl, msg->l_start->n_data);
+	else
+		find_and_run_cmd(stor, hdl, msg);
+}
+
 void msg_process(selector_t *stor, handle_t *hdl, const char *msg)
 {
 	list_t *split_msg = stolist(msg, " ");
-	player_t *pl = hdl->h_data;
 
-	(void) stor;
 	dprintf(2, "debug: processing %s\n", msg);
 	if (!split_msg)
 		return;
 	debug_list(split_msg);
-	if (!pl->p_teamname && split_msg->l_size)
-		msg_join(stor, hdl, pl, split_msg->l_start->n_data);
-	else
-		find_and_run_cmd(stor, hdl, split_msg);
+	msg_process_cmd(stor, hdl, split_msg);
 	list_destroy(split_msg);
 }

@@ -18,7 +18,7 @@ void selector_handle_delete(void *ptr)
 	if (hdl->h_type == H_PORT) {
 		shutdown(hdl->h_fd, SHUT_RDWR);
 		close(hdl->h_fd);
-	} else if (hdl->h_type == H_CLIENT) {
+	} else if (hdl->h_type == H_PLAYER) {
 		if (hdl->h_fd > 2) {
 			close(hdl->h_fd);
 			printf("%d: Connection closed\n", hdl->h_fd);

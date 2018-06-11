@@ -5,11 +5,11 @@
 ** player
 */
 
-#include "player.h"
 #include <criterion/assert.h>
 #include <criterion/criterion.h>
 #include "board.h"
 #include "dynbuf.h"
+#include "player.h"
 #include "game.h"
 
 Test(Player, create)
