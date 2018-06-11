@@ -27,13 +27,11 @@ static bool take_stone(board_t *bd, player_t *pl, resource_t resource)
 	return (false);
 }
 
-bool game_take(game_t *gm, player_t *pl, resource_t resource)
+bool game_take_object(game_t *gm, player_t *pl, resource_t resource)
 {
 	bool ret;
 
-	if (resource == (unsigned int) -1) {
-		ret = true;
-	} else if (resource == FOOD) {
+	if (resource == FOOD) {
 		ret = take_food(gm->ga_board, pl);
 	} else {
 		ret = take_stone(gm->ga_board, pl, resource);
