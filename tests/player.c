@@ -8,9 +8,10 @@
 #include <criterion/assert.h>
 #include <criterion/criterion.h>
 #include "board.h"
-#include "dynbuf.h"
 #include "player.h"
+#include "dynbuf.h"
 #include "game.h"
+#include "msg_cmd_pl.h"
 
 Test(Player, create)
 {
@@ -428,4 +429,38 @@ Test(Player, inv_add)
 	cr_expect_eq(player_inventory_get(pl, SIBUR), 1);
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 4);
 	cr_expect_eq(player_inventory_get(pl, DERAUMERE), 2);
+	player_delete(pl);
+}
+
+Test(Game, take_food)
+{
+	player_t *pl = player_create_at((vector2d_t){4, 7});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+
+	board_inc_food(gm->ga_board, (vector2d_t){4, 7});
+	board_inc_food(gm->ga_board, (vector2d_t){4, 7});
+	board_inc_food(gm->ga_board, (vector2d_t){4, 8});
+	board_put_resource(gm->ga_board, (vector2d_t){4, 7}, THYSTAME);
+
+	cr_assert_eq(board_get_food(gm->ga_board, pl->p_pos), 2);
+
+	cr_expect(game_take(gm, pl, FOOD));
+	cr_expect_eq(board_get_food(gm->ga_board, pl->p_pos), 1);
+	cr_expect_eq(player_inventory_get(pl, FOOD), 1);
+	cr_expect(game_take(gm, pl, FOOD));
+	cr_expect_eq(board_get_food(gm->ga_board, pl->p_pos), 0);
+	cr_expect_eq(player_inventory_get(pl, FOOD), 2);
+	cr_expect(!game_take(gm, pl, FOOD));
+	cr_expect_eq(board_get_food(gm->ga_board, pl->p_pos), 0);
+	cr_expect_eq(player_inventory_get(pl, FOOD), 2);
+	cr_expect(game_take(gm, pl, THYSTAME));
+	cr_expect(!game_take(gm, pl, THYSTAME));
+	cr_expect_eq(player_inventory_get(pl, THYSTAME), 1);
+	game_delete(gm);
 }

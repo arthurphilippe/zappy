@@ -26,5 +26,6 @@ void game_delete(void *ptr);
 int game_register_player(game_t *gm, player_t *pl);
 int game_add_team(game_t *gm, const char *name);
 void game_unreg_player(game_t *gm, player_t *pl);
+bool game_take(game_t *gm, player_t *pl, resource_t resource);
 
 #endif /* !GAME_H_ */

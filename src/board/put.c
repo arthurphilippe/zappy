@@ -26,14 +26,12 @@ void board_put_resource(board_t *bd, vector2d_t pos, resource_t resource)
 	size_t idx;
 	unsigned int *tmp;
 
-	if (resource != FOOD) {
-		board_trunc_coords(bd, &pos);
-		idx = board_get_idx(bd, pos.v_x, pos.v_y);
-		tmp = &bd->b_data[idx];
-		*tmp /= 10;
-		*tmp *= 10;
-		*tmp += resource;
-	}
+	board_trunc_coords(bd, &pos);
+	idx = board_get_idx(bd, pos.v_x, pos.v_y);
+	tmp = &bd->b_data[idx];
+	*tmp /= 10;
+	*tmp *= 10;
+	*tmp += resource;
 }
 
 /*
