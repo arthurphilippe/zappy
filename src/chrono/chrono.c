@@ -9,22 +9,19 @@
 #include <stdbool.h>
 #include "chrono.h"
 
-chrono_t *chrono_create(chrono_t *ch, unsigned int n)
+void chrono_init(chrono_t *ch, unsigned int n)
 {
 	ch->c_counter = clock();
-	if (ch->c_counter == -1)
-		return NULL;
-	return ch;
 }
 
-chrono_t *chrono_init(chrono_t *ch, unsigned int n)
+chrono_t *chrono_create(unsigned int n)
 {
 	ch = malloc(sizeof(chrono_t));
 
 	if (ch == NULL)
 		return NULL;
 	ch->c_value = (double)n;
-	return chrono_create(ch, n);
+	return (chrono_init(ch, n));
 }
 
 bool chrono_check(chrono_t *ch)
@@ -35,6 +32,6 @@ bool chrono_check(chrono_t *ch)
 	double dif = (now - first) * 1000;
 
 	if (ch->c_value <= dif)
-		return true;
-	return false;
+		return (true);
+	return (false);
 }
