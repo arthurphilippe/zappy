@@ -47,5 +47,6 @@ dynbuf_t *player_look(player_t *pl, game_t *gm);
 void player_inventory_add(player_t *pl, resource_t resource);
 void player_inventory_rem(player_t *pl, resource_t resource);
 unsigned int player_inventory_get(player_t *pl, resource_t resource);
+dynbuf_t *player_inventory_list(player_t *pl);
 
 #endif /* !PLAYER_H_ */

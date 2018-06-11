@@ -5,7 +5,6 @@
 ** look
 */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "dynbuf.h"
 #include "game.h"

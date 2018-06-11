@@ -5,12 +5,13 @@
 ** player
 */
 
+#include "player.h"
 #include <criterion/assert.h>
 #include <criterion/criterion.h>
 #include "board.h"
 #include "dynbuf.h"
-#include "player.h"
 #include "game.h"
+#include "msg_cmd_pl.h"
 
 Test(Player, create)
 {
@@ -428,4 +429,34 @@ Test(Player, inv_add)
 	cr_expect_eq(player_inventory_get(pl, SIBUR), 1);
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 4);
 	cr_expect_eq(player_inventory_get(pl, DERAUMERE), 2);
+	player_delete(pl);
+}
+
+Test(Player, inventory_list)
+{
+	player_t *pl = player_create_at((vector2d_t){4, 7});
+
+	player_inventory_add(pl, FOOD);
+	dynbuf_t *buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 1"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, FOOD);
+	buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 2"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 2"), 0);
+	cr_expect_neq(strstr(buf->b_data, "sibur 4"), 0);
+	dynbuf_delete(buf);
+
+	player_delete(pl);
 }

@@ -37,6 +37,8 @@ SRCS		=	src/list/list.c			\
 			src/game/add_team.c		\
 			src/game/register_player.c	\
 			src/game/unreg_player.c		\
+			src/game/take_object.c		\
+			src/game/set_object.c		\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
@@ -44,6 +46,7 @@ SRCS		=	src/list/list.c			\
 			src/player/read.c		\
 			src/player/look.c		\
 			src/player/inventory.c		\
+			src/player/inventory_list.c	\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\
@@ -58,10 +61,14 @@ SRCS		=	src/list/list.c			\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
 			src/msg/join.c			\
+			src/msg/cmd_pl/set.c		\
+			src/msg/cmd_pl/take.c		\
+			src/msg/cmd_pl/broadcast.c	\
 			src/msg/cmd_pl/forward.c	\
 			src/msg/cmd_pl/right.c		\
 			src/msg/cmd_pl/left.c		\
 			src/msg/cmd_pl/look.c		\
+			src/msg/cmd_pl/inventory.c	\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\
