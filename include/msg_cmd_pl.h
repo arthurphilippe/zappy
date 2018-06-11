@@ -16,5 +16,6 @@ void msg_cmd_pl_look(selector_t *stor, handle_t *hdl, list_t *args);
 void msg_cmd_pl_take(selector_t *stor, handle_t *hdl, list_t *args);
 void msg_cmd_pl_set(selector_t *stor, handle_t *hdl, list_t *args);
 void msg_cmd_pl_boradcast(selector_t *stor, handle_t *hdl, list_t *args);
+void msg_cmd_pl_inventory(selector_t *stor, handle_t *hdl, list_t *args);
 
 #endif /* !MSG_CMD_PL_H_ */

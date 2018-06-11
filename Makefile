@@ -68,6 +68,7 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd_pl/right.c		\
 			src/msg/cmd_pl/left.c		\
 			src/msg/cmd_pl/look.c		\
+			src/msg/cmd_pl/inventory.c	\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\
