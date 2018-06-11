@@ -5,15 +5,17 @@
 ** parser
 */
 
-#include <string.h>
-#include <stdlib.h>
+#include "parser.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "criterion/assert.h"
 #include "criterion/criterion.h"
-#include "parser.h"
+#include "criterion/redirect.h"
 
 Test(Parser, create)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -53,6 +55,7 @@ Test(Parser, create)
 
 Test(Parser, port_only)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -73,6 +76,7 @@ Test(Parser, port_only)
 
 Test(Parser, port_0)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -92,6 +96,7 @@ Test(Parser, port_0)
 
 Test(Parser, width_only)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -112,6 +117,7 @@ Test(Parser, width_only)
 
 Test(Parser, width_0)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -131,6 +137,7 @@ Test(Parser, width_0)
 
 Test(Parser, height_only)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -151,6 +158,7 @@ Test(Parser, height_only)
 
 Test(Parser, height_0)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -170,6 +178,7 @@ Test(Parser, height_0)
 
 Test(Parser, clientnb_only)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -190,6 +199,7 @@ Test(Parser, clientnb_only)
 
 Test(Parser, clientnb_0)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -207,9 +217,9 @@ Test(Parser, clientnb_0)
 	free(av);
 }
 
-
 Test(Parser, freq_only)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -230,6 +240,7 @@ Test(Parser, freq_only)
 
 Test(Parser, freq_0)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -247,9 +258,9 @@ Test(Parser, freq_0)
 	free(av);
 }
 
-
 Test(Parser, team_name_only)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -270,6 +281,7 @@ Test(Parser, team_name_only)
 
 Test(Parser, team_name_0)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -289,6 +301,7 @@ Test(Parser, team_name_0)
 
 Test(Parser, create_portneg)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
@@ -322,6 +335,7 @@ Test(Parser, create_portneg)
 
 Test(Parser, arg_0)
 {
+	cr_redirect_stderr();
 	char **av = malloc(sizeof(char *) * 255);
 	for (int i = 0; i < 255; i++) {
 		av[i] = malloc(sizeof(char) * 255);
