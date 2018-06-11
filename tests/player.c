@@ -524,3 +524,31 @@ Test(Game, set_food)
 
 	game_delete(gm);
 }
+
+Test(Player, inventory_list) {
+	player_t *pl = player_create_at((vector2d_t){4, 7});
+
+	player_inventory_add(pl, FOOD);
+	dynbuf_t *buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 1"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, FOOD);
+	buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 2"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 2"), 0);
+	cr_expect_neq(strstr(buf->b_data, "sibur 4"), 0);
+	dynbuf_delete(buf);
+
+	player_delete(pl);
+}
