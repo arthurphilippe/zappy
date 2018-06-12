@@ -21,7 +21,7 @@ const msg_map_t MSG_CMD_PL_MAP[] = {
 	{"Look", msg_cmd_pl_look, 7},
 	{"Inventory", msg_cmd_pl_inventory, 1},
 	{"Broadcast", msg_cmd_pl_boradcast, 7},
-	{"Connect_nbr", NULL, 0},
+	{"Connect_nbr", msg_cmd_pl_connect_nbr, 0},
 	{"Fork", NULL, 42},
 	{"Eject", NULL, 7},
 	{"Take", msg_cmd_pl_take, 7},
