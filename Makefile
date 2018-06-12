@@ -20,6 +20,7 @@ SRCS		=	src/list/list.c			\
 			src/list/push.c			\
 			src/list/find.c			\
 			src/stolist.c			\
+			src/egg.c			\
 			src/selector/create.c		\
 			src/selector/delete.c		\
 			src/selector/loop.c		\
@@ -37,6 +38,7 @@ SRCS		=	src/list/list.c			\
 			src/game/add_team.c		\
 			src/game/register_player.c	\
 			src/game/unreg_player.c		\
+			src/game/get_wait_time.c	\
 			src/game/take_object.c		\
 			src/game/set_object.c		\
 			src/player/create.c		\

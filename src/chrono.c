@@ -20,6 +20,7 @@ void chrono_init(chrono_t *ch)
 	gettimeofday(&te, NULL);
 	mil = te.tv_usec;
 	ch->c_counter = mil;
+	ch->c_expired = false;
 }
 
 chrono_t *chrono_create(unsigned int n)
@@ -39,10 +40,13 @@ bool chrono_check(chrono_t *ch)
 	long long mil;
 	long dif;
 
+	if (ch->c_expired)
+		return (CHRONO_EXPIRED);
 	gettimeofday(&te, NULL);
 	mil = te.tv_usec;
 	dif = mil - ch->c_counter;
 	if (dif <= ch->c_value)
 		return (CHRONO_RUNNING);
+	ch->c_expired = true;
 	return (CHRONO_EXPIRED);
 }
