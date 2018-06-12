@@ -6,11 +6,19 @@
 */
 
 #include <stdlib.h>
-#include "chrono.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/time.h>
+#include "../include/chrono.h"
 
-void chrono_init(chrono_t *ch, unsigned int n)
+void chrono_init(chrono_t *ch)
 {
-	ch->c_counter = clock();
+	struct timeval te;
+	long long mil;
+
+	gettimeofday(&te, NULL);
+	mil = te.tv_sec * 1000 + te.tv_usec/1000;
+	ch->c_counter = mil;
 }
 
 chrono_t *chrono_create(unsigned int n)
@@ -19,18 +27,20 @@ chrono_t *chrono_create(unsigned int n)
 
 	if (ch == NULL)
 		return NULL;
-	ch->c_value = (double) n;
-	chrono_init(ch, n);
+	ch->c_value = n;
+	chrono_init(ch);
 	return (ch);
 }
 
 bool chrono_check(chrono_t *ch)
 {
-	clock_t f = clock();
-	double now = (double) ((double) (f) / CLOCKS_PER_SEC);
-	double first = (double) ((double) (ch->c_counter) / CLOCKS_PER_SEC);
-	double dif = (now - first) * 1000;
+	struct timeval te;
+	long long mil;
+	long dif;
 
+	gettimeofday(&te, NULL);
+	mil = te.tv_sec * 1000 + te.tv_usec/1000;
+	dif = mil - ch->c_counter;
 	if (ch->c_value <= dif)
 		return (true);
 	return (false);

@@ -13,11 +13,11 @@
 
 typedef struct	chrono_s
 {
-	double	c_value;
-	clock_t	c_counter;
+       	double		c_value;
+	long long	c_counter;
 }		chrono_t;
 
-void chrono_init(chrono_t *ch, unsigned int n);
+void chrono_init(chrono_t *ch);
 chrono_t *chrono_create(unsigned int n);
 bool chrono_check(chrono_t *ch);
 
