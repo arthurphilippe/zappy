@@ -8,8 +8,8 @@
 #ifndef CHRONO_H_
 	#define CHRONO_H_
 
-	#include <time.h>
 	#include <stdbool.h>
+	#include <time.h>
 
 	#define CHRONO_EXPIRED true
 	#define CHRONO_RUNNING false
