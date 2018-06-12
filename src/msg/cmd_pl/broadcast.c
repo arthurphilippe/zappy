@@ -13,4 +13,6 @@
 void msg_cmd_pl_boradcast(selector_t *stor, handle_t *hdl, list_t *args)
 {
 	dprintf(hdl->h_fd, "ok\n");
+	(void) stor;
+	(void) args;
 }

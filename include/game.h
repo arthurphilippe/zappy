@@ -16,6 +16,7 @@ typedef struct		s_game {
 	board_t		*ga_board;
 	list_t		*ga_players;
 	list_t		*ga_teams;
+	list_t		*ga_eggs;
 	unsigned int	ga_max_players;
 	unsigned int	ga_freq;
 }			game_t;

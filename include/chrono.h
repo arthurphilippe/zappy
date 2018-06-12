@@ -18,6 +18,7 @@ typedef struct		chrono_s
 {
 	double		c_value;
 	long long	c_counter;
+	bool		c_expired;
 }			chrono_t;
 
 void chrono_init(chrono_t *ch);

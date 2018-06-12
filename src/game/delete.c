@@ -14,6 +14,7 @@ void game_delete(void *ptr)
 
 	list_destroy(game->ga_players);
 	list_destroy(game->ga_teams);
+	list_destroy(game->ga_eggs);
 	board_delete(game->ga_board);
 	free(game);
 }

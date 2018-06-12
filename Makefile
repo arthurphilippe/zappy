@@ -20,6 +20,7 @@ SRCS		=	src/list/list.c			\
 			src/list/push.c			\
 			src/list/find.c			\
 			src/stolist.c			\
+			src/egg.c			\
 			src/selector/create.c		\
 			src/selector/delete.c		\
 			src/selector/loop.c		\
@@ -37,6 +38,7 @@ SRCS		=	src/list/list.c			\
 			src/game/add_team.c		\
 			src/game/register_player.c	\
 			src/game/unreg_player.c		\
+			src/game/get_wait_time.c	\
 			src/game/take_object.c		\
 			src/game/set_object.c		\
 			src/player/create.c		\
@@ -45,6 +47,7 @@ SRCS		=	src/list/list.c			\
 			src/player/turn.c		\
 			src/player/read.c		\
 			src/player/look.c		\
+			src/player/eject.c		\
 			src/player/inventory.c		\
 			src/player/inventory_list.c	\
 			src/team/create.c		\
@@ -69,6 +72,9 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd_pl/left.c		\
 			src/msg/cmd_pl/look.c		\
 			src/msg/cmd_pl/inventory.c	\
+			src/msg/cmd_pl/connect_nbr.c	\
+			src/msg/cmd_pl/eject.c		\
+			src/msg/cmd_pl/fork.c		\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\
@@ -98,6 +104,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/selector.c	\
 			tests/dynbuf.c		\
 			tests/chrono.c		\
+			tests/egg.c		\
 			tests/handle/client.c	\
 
 SRCS_TEST	+=	$(OBJS)
