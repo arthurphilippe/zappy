@@ -78,6 +78,7 @@ SRCS		=	src/list/list.c			\
 			src/dynbuf/append.c		\
 			src/dynbuf/reset.c		\
 			src/resource.c			\
+			src/chrono.c			\
 			src/start.c			\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
@@ -96,6 +97,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/resource.c	\
 			tests/selector.c	\
 			tests/dynbuf.c		\
+			tests/chrono.c		\
 			tests/handle/client.c	\
 
 SRCS_TEST	+=	$(OBJS)
