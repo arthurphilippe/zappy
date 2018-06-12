@@ -44,7 +44,7 @@ jobs:
 
   server_epitest:
     docker:
-      - image: epitechcontent/server_epitest-docker
+      - image: epitechcontent/epitest-docker
     steps:
       - checkout
       - run:
