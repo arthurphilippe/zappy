@@ -25,9 +25,12 @@ void chrono_init(chrono_t *ch)
 
 chrono_t *chrono_create(unsigned int n)
 {
-	chrono_t *ch = malloc(sizeof(chrono_t));
+	chrono_t *ch;
 
-	if (ch == NULL || n == 0)
+	if (n == 0)
+		return (NULL);
+	ch = malloc(sizeof(chrono_t));
+	if (ch == NULL)
 		return (NULL);
 	ch->c_value = n * 1000;
 	chrono_init(ch);
