@@ -23,7 +23,7 @@ const msg_map_t MSG_CMD_PL_MAP[] = {
 	{"Broadcast", msg_cmd_pl_boradcast, 7},
 	{"Connect_nbr", msg_cmd_pl_connect_nbr, 0},
 	{"Fork", NULL, 42},
-	{"Eject", NULL, 7},
+	// {"Eject", msg_cmd_pl_eject, 7},
 	{"Take", msg_cmd_pl_take, 7},
 	{"Set", msg_cmd_pl_set, 7},
 	{"Incantation", NULL, 300},

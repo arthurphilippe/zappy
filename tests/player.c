@@ -460,3 +460,48 @@ Test(Player, inventory_list)
 
 	player_delete(pl);
 }
+
+Test(Player, eject)
+{
+	player_t *pl1 = player_create_at((vector2d_t){9, 9});
+	player_t *pl2 = player_create_at((vector2d_t){9, 9});
+	player_t *pl3 = player_create_at((vector2d_t){9, 9});
+	player_t *pl4 = player_create_at((vector2d_t){9, 15});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl1);
+	cr_assert(pl2);
+	cr_assert(pl2);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	game_add_team(gm, "red-pandas");
+	pl1->p_teamname = strdup("pandas");
+	pl3->p_teamname = strdup("pandas");
+	pl2->p_teamname = strdup("red-pandas");
+	pl4->p_teamname = strdup("red-pandas");
+	cr_assert_neq(game_register_player(gm, pl1), -1);
+	cr_assert_neq(game_register_player(gm, pl2), -1);
+	cr_assert_neq(game_register_player(gm, pl3), -1);
+	cr_assert_neq(game_register_player(gm, pl4), -1);
+
+	pl2->p_dir = (vector2d_t){-1, 0};
+
+	player_eject(pl1, gm->ga_players, gm->ga_board);
+
+	cr_expect_eq(pl2->p_pos.v_x, 8);
+	cr_expect_eq(pl2->p_pos.v_y, 9);
+	cr_expect_eq(pl3->p_pos.v_x, 10);
+	cr_expect_eq(pl3->p_pos.v_y, 9);
+
+	player_eject(pl1, gm->ga_players, gm->ga_board);
+	cr_expect_eq(pl2->p_pos.v_x, 8);
+	cr_expect_eq(pl2->p_pos.v_y, 9);
+	cr_expect_eq(pl3->p_pos.v_x, 10);
+	cr_expect_eq(pl3->p_pos.v_y, 9);
+
+
+	player_delete(pl1);
+	player_delete(pl2);
+	player_delete(pl3);
+	game_delete(gm);
+}
