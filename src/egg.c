@@ -19,7 +19,16 @@ egg_t *egg_create(const char *team, vector2d_t pos, unsigned int freq)
 	if (!egg)
 		return (NULL);
 	egg->eg_team_name = strdup(team);
+	if (!egg->eg_team_name) {
+		free(egg);
+		return (NULL);
+	}
 	egg->eg_timer = chrono_create(get_wait_time(freq, 600));
+	if (!egg->eg_timer) {
+		free(egg);
+		free(egg->eg_team_name);
+		return (NULL);
+	}
 	egg->eg_pos = pos;
 	return (egg);
 }

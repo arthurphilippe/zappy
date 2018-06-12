@@ -103,6 +103,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/selector.c	\
 			tests/dynbuf.c		\
 			tests/chrono.c		\
+			tests/egg.c		\
 			tests/handle/client.c	\
 
 SRCS_TEST	+=	$(OBJS)

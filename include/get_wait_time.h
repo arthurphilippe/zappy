@@ -10,7 +10,7 @@
 
 static inline unsigned int get_wait_time(unsigned int f, unsigned int w)
 {
-	return (w / f * 1000);
+	return ((w * 1000) / f);
 }
 
 #endif /* !GET_WAIT_TIME_H_ */
