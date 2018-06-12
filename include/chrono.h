@@ -12,13 +12,13 @@
 	#include <stdbool.h>
 
 	#define CHRONO_EXPIRED true
-	#define CHRONO_VALID false
+	#define CHRONO_RUNNING false
 
-typedef struct	chrono_s
+typedef struct		chrono_s
 {
-       	double		c_value;
+	double		c_value;
 	long long	c_counter;
-}		chrono_t;
+}			chrono_t;
 
 void chrono_init(chrono_t *ch);
 chrono_t *chrono_create(unsigned int n);

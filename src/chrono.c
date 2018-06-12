@@ -43,6 +43,6 @@ bool chrono_check(chrono_t *ch)
 	mil = te.tv_usec;
 	dif = mil - ch->c_counter;
   	if (dif <= ch->c_value)
-		return (CHRONO_VALID);
+		return (CHRONO_RUNNING);
 	return (CHRONO_EXPIRED);
 }
