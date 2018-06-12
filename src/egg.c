@@ -11,7 +11,6 @@
 #include "chrono.h"
 #include "get_wait_time.h"
 
-// TODO: use a tiemr!
 egg_t *egg_create(const char *team, vector2d_t pos, unsigned int freq)
 {
 	egg_t *egg = malloc(sizeof(egg_t));
@@ -38,6 +37,7 @@ void egg_delete(void *ptr)
 	egg_t *egg = ptr;
 
 	free(egg->eg_team_name);
+	free(egg->eg_timer);
 	free(egg);
 }
 

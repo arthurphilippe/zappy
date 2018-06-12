@@ -5,6 +5,7 @@
 ** fork
 */
 
+#include <stdio.h>
 #include "msg.h"
 #include "egg.h"
 #include "game.h"
@@ -17,5 +18,6 @@ void msg_cmd_pl_fork(selector_t *stor, handle_t *hdl, list_t *args)
 
 	(void) args;
 	list_push_back(gm->ga_eggs, egg);
+	dprintf(hdl->h_fd, "ok\n");
 }
 
