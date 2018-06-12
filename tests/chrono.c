@@ -17,7 +17,7 @@ Test(Chrono, short_duration) {
 	cr_assert_eq(chrono_check(ch), CHRONO_RUNNING);
 	cr_assert_eq(chrono_check(ch), CHRONO_RUNNING);
 	cr_assert_eq(chrono_check(ch), CHRONO_RUNNING);
-	usleep(51000);
+	usleep(55000);
 	cr_assert_eq(chrono_check(ch), CHRONO_EXPIRED);
 }
 
@@ -28,7 +28,7 @@ Test(Chrono, short_duration_two) {
 	cr_assert_eq(chrono_check(ch), CHRONO_RUNNING);
 	cr_assert_eq(chrono_check(ch), CHRONO_RUNNING);
 	cr_assert_eq(chrono_check(ch), CHRONO_RUNNING);
-	usleep(5100);
+	usleep(5500);
 	cr_assert_eq(chrono_check(ch), CHRONO_EXPIRED);
 }
 
