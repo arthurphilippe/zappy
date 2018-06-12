@@ -9,7 +9,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/time.h>
-#include "../include/chrono.h"
+#include "color.h"
+#include "chrono.h"
 
 void chrono_init(chrono_t *ch)
 {
@@ -17,7 +18,7 @@ void chrono_init(chrono_t *ch)
 	long long mil;
 
 	gettimeofday(&te, NULL);
-	mil = te.tv_sec * 1000 + te.tv_usec/1000;
+	mil = te.tv_usec;
 	ch->c_counter = mil;
 }
 
@@ -25,9 +26,9 @@ chrono_t *chrono_create(unsigned int n)
 {
 	chrono_t *ch = malloc(sizeof(chrono_t));
 
-	if (ch == NULL)
+	if (ch == NULL || n == 0)
 		return NULL;
-	ch->c_value = n;
+	ch->c_value = n * 1000;
 	chrono_init(ch);
 	return (ch);
 }
@@ -39,9 +40,9 @@ bool chrono_check(chrono_t *ch)
 	long dif;
 
 	gettimeofday(&te, NULL);
-	mil = te.tv_sec * 1000 + te.tv_usec/1000;
+	mil = te.tv_usec;
 	dif = mil - ch->c_counter;
-	if (ch->c_value <= dif)
-		return (true);
-	return (false);
+  	if (dif <= ch->c_value)
+		return (CHRONO_VALID);
+	return (CHRONO_EXPIRED);
 }

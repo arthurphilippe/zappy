@@ -11,6 +11,9 @@
 	#include <time.h>
 	#include <stdbool.h>
 
+	#define CHRONO_EXPIRED true
+	#define CHRONO_VALID false
+
 typedef struct	chrono_s
 {
        	double		c_value;
