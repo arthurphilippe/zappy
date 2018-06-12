@@ -5,6 +5,7 @@
 ** eject
 */
 
+#include <stdlib.h>
 #include "player.h"
 
 void player_eject(player_t *pl, list_t *players, board_t *bd)
@@ -19,4 +20,5 @@ void player_eject(player_t *pl, list_t *players, board_t *bd)
 			player_move_foward(tmp, bd);
 		}
 	}
+	free(it);
 }
