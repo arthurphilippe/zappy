@@ -5,10 +5,13 @@
 ** player
 */
 
-#include <criterion/criterion.h>
-#include <criterion/assert.h>
 #include "player.h"
+#include <criterion/assert.h>
+#include <criterion/criterion.h>
 #include "board.h"
+#include "dynbuf.h"
+#include "game.h"
+#include "msg_cmd_pl.h"
 
 Test(Player, create)
 {
@@ -25,7 +28,6 @@ Test(Player, id)
 
 	cr_assert(pl);
 	cr_assert_eq(pl->p_id, 1);
-	player_delete(pl);
 	pl = player_create();
 	cr_assert_eq(pl->p_id, 2);
 	player_delete(pl);
@@ -37,8 +39,9 @@ Test(Player, id)
 	player_delete(pl);
 }
 
-Test(Player, Move) {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+Test(Player, Move)
+{
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 	board_t *bd = board_create(24, 24);
 
 	cr_assert_eq(pl->p_pos.v_x, 12);
@@ -87,11 +90,12 @@ Test(Player, Move) {
 	cr_assert_eq(pl->p_pos.v_y, 12);
 }
 
-Test(Player, MoveUp) {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+Test(Player, MoveUp)
+{
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 	board_t *bd = board_create(24, 24);
 
-	pl->p_dir = (vector2d_t) {0, -1};
+	pl->p_dir = (vector2d_t){0, -1};
 	cr_assert_eq(pl->p_pos.v_y, 12);
 	cr_assert_eq(pl->p_pos.v_x, 12);
 	player_move_foward(pl, bd);
@@ -141,11 +145,12 @@ Test(Player, MoveUp) {
 	cr_assert_eq(pl->p_pos.v_x, 12);
 }
 
-Test(Player, MoveLeft) {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+Test(Player, MoveLeft)
+{
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 	board_t *bd = board_create(24, 24);
 
-	pl->p_dir = (vector2d_t) {-1, 0};
+	pl->p_dir = (vector2d_t){-1, 0};
 	cr_assert_eq(pl->p_pos.v_x, 12);
 	cr_assert_eq(pl->p_pos.v_y, 12);
 	player_move_foward(pl, bd);
@@ -197,9 +202,9 @@ Test(Player, MoveLeft) {
 
 Test(Player, TurnRight)
 {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 
-	pl->p_dir = (vector2d_t) {1, 0};
+	pl->p_dir = (vector2d_t){1, 0};
 	player_turn_right(pl);
 	cr_assert_eq(pl->p_dir.v_x, 0);
 	cr_assert_eq(pl->p_dir.v_y, -1);
@@ -216,9 +221,9 @@ Test(Player, TurnRight)
 
 Test(Player, TurnLeft)
 {
-	player_t *pl = player_create_at((vector2d_t) {12, 12});
+	player_t *pl = player_create_at((vector2d_t){12, 12});
 
-	pl->p_dir = (vector2d_t) {1, 0};
+	pl->p_dir = (vector2d_t){1, 0};
 	player_turn_left(pl);
 	cr_assert_eq(pl->p_dir.v_x, 0);
 	cr_assert_eq(pl->p_dir.v_y, 1);
@@ -231,5 +236,227 @@ Test(Player, TurnLeft)
 	player_turn_left(pl);
 	cr_assert_eq(pl->p_dir.v_x, 1);
 	cr_assert_eq(pl->p_dir.v_y, 0);
+	player_delete(pl);
 }
 
+static unsigned int count_char(const char *str, char c)
+{
+	unsigned int count = 0;
+
+	for (size_t i = 0; str[i]; i++) {
+		if (str[i] == c)
+			count += 1;
+	}
+	return (count);
+}
+
+Test(Player, look_empty)
+{
+	player_t *pl = player_create_at((vector2d_t){9, 9});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+	dynbuf_t *buf = player_look(pl, gm);
+	cr_assert(buf);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 3);
+	pl->p_lvl = 2;
+	dynbuf_delete(buf);
+	buf = player_look(pl, gm);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 8);
+	dynbuf_delete(buf);
+	pl->p_lvl = 3;
+	buf = player_look(pl, gm);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 15);
+	dynbuf_delete(buf);
+	game_delete(gm);
+}
+
+Test(Player, look_right)
+{
+	player_t *pl = player_create_at((vector2d_t){9, 9});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+	pl->p_dir = (vector2d_t){1, 0};
+
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 8}, THYSTAME);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 9}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 10}, DERAUMERE);
+	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
+	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
+
+	dynbuf_t *buf = player_look(pl, gm);
+	cr_assert(buf);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 3);
+	cr_assert_str_eq(buf->b_data,
+		"[sibur player,thystame,inemate,food food deraumere]");
+	dynbuf_delete(buf);
+	game_delete(gm);
+}
+
+Test(Player, look_left)
+{
+	player_t *pl = player_create_at((vector2d_t){9, 9});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+	pl->p_dir = (vector2d_t){-1, 0};
+
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
+	board_put_resource(gm->ga_board, (vector2d_t){8, 8}, THYSTAME);
+	board_put_resource(gm->ga_board, (vector2d_t){8, 9}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){8, 10}, DERAUMERE);
+	board_inc_food(gm->ga_board, (vector2d_t){8, 10});
+	board_inc_food(gm->ga_board, (vector2d_t){8, 10});
+
+	dynbuf_t *buf = player_look(pl, gm);
+	cr_assert(buf);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 3);
+	cr_assert_str_eq(buf->b_data,
+		"[sibur player,food food deraumere,inemate,thystame]");
+	dynbuf_delete(buf);
+	game_delete(gm);
+}
+
+Test(Player, look_down)
+{
+	player_t *pl = player_create_at((vector2d_t){9, 9});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+	pl->p_dir = (vector2d_t){0, 1};
+
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
+	board_put_resource(gm->ga_board, (vector2d_t){8, 10}, THYSTAME);
+	board_put_resource(gm->ga_board, (vector2d_t){9, 10}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 10}, DERAUMERE);
+	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
+	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
+
+	dynbuf_t *buf = player_look(pl, gm);
+	cr_assert(buf);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 3);
+	cr_assert_str_eq(buf->b_data,
+		"[sibur player,food food deraumere,inemate,thystame]");
+	dynbuf_delete(buf);
+	game_delete(gm);
+}
+
+Test(Player, look_up)
+{
+	player_t *pl = player_create_at((vector2d_t){9, 9});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl), -1);
+	pl->p_dir = (vector2d_t){0, -1};
+
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
+	board_put_resource(gm->ga_board, (vector2d_t){8, 8}, THYSTAME);
+	board_put_resource(gm->ga_board, (vector2d_t){9, 8}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 8}, DERAUMERE);
+	board_inc_food(gm->ga_board, (vector2d_t){10, 8});
+	board_inc_food(gm->ga_board, (vector2d_t){10, 8});
+
+	dynbuf_t *buf = player_look(pl, gm);
+	cr_assert(buf);
+	cr_log_info(buf->b_data);
+	cr_assert(strstr(buf->b_data, "player"));
+	cr_assert_eq(count_char(buf->b_data, ','), 3);
+	cr_assert_str_eq(buf->b_data,
+		"[sibur player,thystame,inemate,food food deraumere]");
+	dynbuf_delete(buf);
+	game_delete(gm);
+}
+
+Test(Player, inv_add)
+{
+	player_t *pl = player_create();
+
+	cr_assert(pl);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	player_inventory_add(pl, INV_FOOD);
+	cr_expect_eq(player_inventory_get(pl, INV_FOOD), 10);
+
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, THYSTAME);
+	player_inventory_add(pl, THYSTAME);
+	player_inventory_add(pl, THYSTAME);
+	player_inventory_add(pl, THYSTAME);
+	player_inventory_add(pl, DERAUMERE);
+	player_inventory_add(pl, DERAUMERE);
+	cr_expect_eq(player_inventory_get(pl, INV_FOOD), 10);
+	cr_expect_eq(player_inventory_get(pl, SIBUR), 1);
+	cr_expect_eq(player_inventory_get(pl, THYSTAME), 4);
+	cr_expect_eq(player_inventory_get(pl, DERAUMERE), 2);
+	player_delete(pl);
+}
+
+Test(Player, inventory_list)
+{
+	player_t *pl = player_create_at((vector2d_t){4, 7});
+
+	player_inventory_add(pl, FOOD);
+	dynbuf_t *buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 1"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, FOOD);
+	buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 2"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 2"), 0);
+	cr_expect_neq(strstr(buf->b_data, "sibur 4"), 0);
+	dynbuf_delete(buf);
+
+	player_delete(pl);
+}

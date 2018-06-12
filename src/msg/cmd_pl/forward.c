@@ -9,7 +9,7 @@
 #include "msg.h"
 #include "player.h"
 
-void msg_cmd_forward(selector_t *stor, handle_t *hdl, list_t *args)
+void msg_cmd_pl_forward(selector_t *stor, handle_t *hdl, list_t *args)
 {
 	player_t *pl = hdl->h_data;
 	board_t *bd = stor->s_data;

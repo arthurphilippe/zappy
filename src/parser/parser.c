@@ -16,9 +16,9 @@ static bool parser_check(parser_t *game_info)
 {
 	if ((game_info->client_nb) && (game_info->freq) && (game_info->height)
 		&& (game_info->port) && list_get_size(game_info->team_name) &&
-		(game_info->width))
+		(game_info->width)) {
 		return (true);
-	else {
+	} else {
 		parser_destroy(game_info);
 		return (false);
 	}

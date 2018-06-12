@@ -6,10 +6,25 @@
 	"configurations": [
 
 		{
-				"name": "(gdb) Attach",
+			"name": "(gdb) attach test",
 			"type": "cppdbg",
 			"request": "attach",
 			"program": "${workspaceFolder}/unit_tests.out",
+			"processId": "${command:pickProcess}",
+			"MIMode": "gdb",
+			"setupCommands": [
+			    {
+				"description": "Enable pretty-printing for gdb",
+				"text": "-enable-pretty-printing",
+				"ignoreFailures": true
+			    },
+			]
+		},
+		{
+			"name": "(gdb) Attach",
+			"type": "cppdbg",
+			"request": "attach",
+			"program": "${workspaceFolder}/zappy_server",
 			"processId": "${command:pickProcess}",
 			"MIMode": "gdb",
 			"setupCommands": [

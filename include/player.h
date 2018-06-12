@@ -12,9 +12,11 @@
 	#include "board.h"
 	#include "vector2d.h"
 
+	#define INV_FOOD 0
+
 typedef struct		s_player {
+	unsigned int	p_inventory[10];
 	char		*p_teamname;
-	char		*p_hostname;
 	list_t		*p_queued_msgs;
 	vector2d_t	p_pos;
 	vector2d_t	p_dir;
@@ -41,5 +43,10 @@ void player_move_foward(player_t *pl, board_t *bd);
 void player_turn_right(player_t *pl);
 void player_turn_left(player_t *pl);
 dynbuf_t *player_look(player_t *pl, game_t *gm);
+
+void player_inventory_add(player_t *pl, resource_t resource);
+void player_inventory_rem(player_t *pl, resource_t resource);
+unsigned int player_inventory_get(player_t *pl, resource_t resource);
+dynbuf_t *player_inventory_list(player_t *pl);
 
 #endif /* !PLAYER_H_ */

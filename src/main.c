@@ -6,62 +6,34 @@
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include "selector.h"
-#include "game.h"
 #include "parser.h"
-#include "resource.h"
+#include "start.h"
 
-static int start_game_tmp(int port)
+static void print_usage_server(const char *bin)
 {
-	selector_t *stor = selector_create();
-	game_t *gm = game_create(20, 15, 1, 6);
-
-	if (!stor) {
-		game_delete(gm);
-		return (84);
-	}
-	if (!gm) {
-		selector_delete(stor);
-		return (84);
-	}
-	game_add_team(gm, "pandas");
-	stor->s_data = gm;
-	stor->s_delete = game_delete;
-	board_put(gm->ga_board, (vector2d_t) {0, 0}, INEMATE);
-	board_put(gm->ga_board, (vector2d_t) {1, 1}, THYSTAME);
-	board_put(gm->ga_board, (vector2d_t) {1, -1}, SIBUR);
-	if (listener_create(stor, port)) {
-		perror("listener");
-		selector_delete(stor);
-		return (84);
-	}
-	selector_loop(stor);
-	selector_delete(stor);
-	return (0);
+	printf("\nUSAGE: %s %s\n", bin,
+		"-p port -x width -y height -n name1"
+		" name2 ... -c clientsNb -f freq\n\tport\t\tis the port "
+		"number\n\twidth\t\tis the width of the world\n"
+		"\theight\t\tis the height of the world\n"
+		"\tnameX\t\tis the name of the team X\n"
+		"\tclientsNb\tis the number of authorized clients per team\n"
+		"\tfreq\t\tis the reciprocal of time unit for execution of "
+		"action");
 }
-
-// int main(int ac, char **av)
-// {
-// 	int ret;
-// 	parser_t *parser = parser_create(ac, av);
-
-// 	if (parser) {
-// 		ret = start_game_tmp(parser->port);
-// 		parser_destroy(parser);
-// 	} else {
-// 		ret = 84;
-// 	}
-// 	return (ret);
-// }
 
 int main(int ac, char **av)
 {
 	int ret;
-	if (ac >= 2)
-		ret = start_game_tmp(atoi(av[1]));
-	else
+	parser_t *parser = parser_create(ac, av);
+
+	if (parser) {
+		ret = start(parser);
+		if (ret)
+			parser_destroy(parser);
+	} else {
+		print_usage_server(av[0]);
 		ret = 84;
+	}
 	return (ret);
 }
-

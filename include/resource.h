@@ -9,7 +9,8 @@
 	#define RESOURCES_H_
 
 typedef enum	e_resource {
-		INEMATE = 20,
+		FOOD = 0,
+		INEMATE,
 		DERAUMERE,
 		SIBUR,
 		MENDIANE,
@@ -23,5 +24,6 @@ typedef struct		s_resource_key {
 }			resource_key_t;
 
 const char *resource_get_name(resource_t resource);
+resource_t resource_get_value(const char *str);
 
 #endif /* !RESOURCES_H_ */

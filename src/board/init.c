@@ -11,7 +11,7 @@
 int board_init(board_t *bd, size_t x, size_t y)
 {
 	bd->b_total_size = x * y;
-	bd->b_data = calloc(bd->b_total_size, sizeof(char));
+	bd->b_data = calloc(bd->b_total_size, sizeof(unsigned int));
 	if (!bd->b_data)
 		return (BOARD_ERR);
 	bd->b_max_x = x;

@@ -11,7 +11,8 @@
 typedef enum	e_handle_type {
 		H_FREE = 0,
 		H_PORT,
-		H_CLIENT,
+		H_PLAYER,
+		H_GFX,
 		H_SERVER,
 		H_STDIN,
 }		handle_type_t;
@@ -24,6 +25,7 @@ typedef struct		s_handle {
 	handle_func_t	h_read;
 	handle_func_t	h_on_cycle;
 	void		*h_data;
+	void		(*h_delete)(void *ptr);
 }			handle_t;
 
 #endif /* !SELECTOR_HANDLE_H_ */

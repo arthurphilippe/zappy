@@ -6,25 +6,32 @@
 */
 
 #include <string.h>
-#include "selector.h"
-#include "player.h"
 #include "msg.h"
+#include "player.h"
+#include "selector.h"
 
 /*
-** This is where a time delay will be requiered.
+** What's to be done each time selector loops.
 */
 void client_on_cycle(selector_t *stor, handle_t *hdl)
 {
-	player_t *pl = hdl->h_data;
+	list_t *msgq = client_get_msgq(hdl);
+	handle_type_t old_type = hdl->h_type;
 
-
-	if (pl->p_queued_msgs->l_size) {
-		if (!strncasecmp(
-			"QUIT", pl->p_queued_msgs->l_start->n_data, 4)) {
-			client_delete(stor, hdl);
+	if (msgq->l_size) {
+		if (!strcasecmp("shutdown", msgq->l_start->n_data)) {
+			stor->s_live = false;
+			return;
+		} else if (!strcasecmp("quit", msgq->l_start->n_data)) {
+			client_erase(stor, hdl);
 			return;
 		}
-		msg_process(stor, hdl, pl->p_queued_msgs->l_start->n_data);
-		list_pop_front(pl->p_queued_msgs);
+		msg_process(stor, hdl, msgq->l_start->n_data);
+		if (old_type == hdl->h_type)
+			list_pop_front(msgq);
+		else
+			return;
 	}
+	if (!msgq->l_size)
+		hdl->h_on_cycle = NULL;
 }

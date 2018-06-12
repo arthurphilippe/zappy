@@ -10,7 +10,7 @@
 #include "player.h"
 #include "dynbuf.h"
 
-void msg_cmd_look(selector_t *stor, handle_t *hdl, list_t *args)
+void msg_cmd_pl_look(selector_t *stor, handle_t *hdl, list_t *args)
 {
 	dynbuf_t *buf = player_look(hdl->h_data, stor->s_data);
 

@@ -5,12 +5,11 @@
 ** look
 */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include "player.h"
-#include "game.h"
-#include "selector.h"
 #include "dynbuf.h"
+#include "game.h"
+#include "player.h"
+#include "selector.h"
 
 const look_key_t LOOK_MAP[] = {
 	{{1, 0}, {1, -1}, {0, 1}},
@@ -22,8 +21,8 @@ const look_key_t LOOK_MAP[] = {
 static const look_key_t *get_look_key(vector2d_t dir)
 {
 	for (unsigned int i = 0; i < 4; i++) {
-		if (LOOK_MAP[i].lk_pl_dir.v_x == dir.v_x
-			&& LOOK_MAP[i].lk_pl_dir.v_y == dir.v_y) {
+		if (LOOK_MAP[i].lk_pl_dir.v_x == dir.v_x &&
+			LOOK_MAP[i].lk_pl_dir.v_y == dir.v_y) {
 			return (&LOOK_MAP[i]);
 		}
 	}
@@ -37,7 +36,7 @@ static void update_line_start(vector2d_t *pt, const look_key_t *key)
 }
 
 static char *get_line(vector2d_t pt, const look_key_t *key,
-				game_t *gm, int depth)
+			game_t *gm, int depth)
 {
 	dynbuf_t *buf = dynbuf_create();
 	unsigned int width = (depth * 2) + 1;
