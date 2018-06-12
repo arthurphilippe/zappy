@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  full_test:
+  server_test:
     docker:
       - image: arthurphilippe/epitech-c-cpp-plain
     steps:
@@ -8,25 +8,31 @@ jobs:
       - run:
           name: Build Project
           command: make
+          working_directory: ~/project/server
       - run:
           name: Build Unit Tests Suites
           command: make tests
+          working_directory: ~/project/server
       - run:
           name: Tidy up
           command: make clean
+          working_directory: ~/project/server
       - run:
           name: Unit Tests Execution
           command: ./unit_tests.out -j 1 --verbose --xml=tests/results.xml --always-succeed
+          working_directory: ~/project/server
       - store_test_results:
           path: .
+          working_directory: ~/project/server
       - run:
           name: Code Coverage - Processing
           command: ./tests/coverage.sh html
+          working_directory: ~/project/server
       - store_artifacts:
-          path: coverage
+          path: ~/project/coverage
           destination: coverage
 
-  build_clang:
+  server_build_clang:
     docker:
       - image: arthurphilippe/clang
     steps:
@@ -34,33 +40,39 @@ jobs:
       - run:
           name: Build Project Using clang
           command: make CC=clang CPPFLAGS=-W\ -Wextra\ -Wall\ -Werror\ -Iinclude/
+          working_directory: ~/project/server
 
-  epitest:
+  server_epitest:
     docker:
-      - image: epitechcontent/epitest-docker
+      - image: epitechcontent/server_epitest-docker
     steps:
       - checkout
       - run:
           name: Build Project
           command: make -j 4
+          working_directory: ~/project/server
       - run:
           name: Build Unit Tests Suites
           command: make tests -j 4
+          working_directory: ~/project/server
       - run:
           name: Tidy up
           command: make clean
+          working_directory: ~/project/server
       - run:
           name: Unit Tests Execution
           command: ./unit_tests.out -j 1 --xml=tests/results.xml --always-succeed
+          working_directory: ~/project/server
       - store_test_results:
           path: .
+          working_directory: ~/project/server
 
 workflows:
   version: 2
   commit:
     jobs:
-      - full_test
-      - build_clang
+      - server_test
+      - server_build_clang
   planned:
     triggers:
       - schedule:
@@ -70,4 +82,4 @@ workflows:
               only:
                 - master
     jobs:
-      - epitest
+      - server_epitest
