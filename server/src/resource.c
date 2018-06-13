@@ -10,7 +10,7 @@
 
 const resource_key_t RESOURCES_MAP[] = {
 	{"food", FOOD},
-	{"inemate", INEMATE},
+	{"linemate", LINEMATE},
 	{"deraumere", DERAUMERE},
 	{"sibur", SIBUR},
 	{"mendiane", MENDIANE},

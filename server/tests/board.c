@@ -162,13 +162,13 @@ Test(Board, look_at_1)
 	cr_expect_eq(game->ga_players->l_size, 1);
 
 	dynbuf_t *buf = dynbuf_create();
-	board_put_resource(game->ga_board, (vector2d_t){0, 0}, INEMATE);
+	board_put_resource(game->ga_board, (vector2d_t){0, 0}, LINEMATE);
 	board_put_resource(game->ga_board, (vector2d_t){1, 1}, THYSTAME);
 	board_put_resource(game->ga_board, (vector2d_t){1, -1}, SIBUR);
 
 	cr_assert(buf);
 	board_look_at(game->ga_board, game, (vector2d_t){0, 0}, buf);
-	cr_expect_str_eq(buf->b_data, "inemate player");
+	cr_expect_str_eq(buf->b_data, "linemate player");
 
 	cr_assert(dynbuf_reset(buf) == 0);
 
@@ -176,4 +176,34 @@ Test(Board, look_at_1)
 	cr_expect_str_eq(buf->b_data, "sibur");
 	game_delete(game);
 	dynbuf_delete(buf);
+}
+
+Test(Board, gfx_get_tile_cont)
+{
+	game_t *game = game_create(20, 15, 3, 6);
+	dynbuf_t *buf = dynbuf_create();
+
+	cr_assert(game);
+	cr_assert(buf);
+	board_put_resource(game->ga_board, (vector2d_t){0, 0}, LINEMATE);
+	board_put_resource(game->ga_board, (vector2d_t){1, 1}, THYSTAME);
+	board_put_resource(game->ga_board, (vector2d_t){1, -1}, SIBUR);
+	board_inc_food(game->ga_board, (vector2d_t){4, 7});
+	board_inc_food(game->ga_board, (vector2d_t){4, 7});
+	board_inc_food(game->ga_board, (vector2d_t){4, 8});
+	board_put_resource(game->ga_board, (vector2d_t){4, 7}, THYSTAME);
+
+	board_gfx_get_tile_cont(game->ga_board, buf, (vector2d_t){4, 7});
+	cr_expect_str_eq(buf->b_data, "4 7 2 0 0 0 0 0 1");
+
+	board_put_resource(game->ga_board, (vector2d_t){4, 7}, SIBUR);
+
+	dynbuf_reset(buf);
+	board_gfx_get_tile_cont(game->ga_board, buf, (vector2d_t){4, 7});
+	cr_expect_str_eq(buf->b_data, "4 7 2 0 0 1 0 0 0");
+
+	dynbuf_reset(buf);
+	board_put_resource(game->ga_board, (vector2d_t){4, 7}, 0);
+	board_gfx_get_tile_cont(game->ga_board, buf, (vector2d_t){4, 7});
+	cr_expect_str_eq(buf->b_data, "4 7 2 0 0 0 0 0 0");
 }

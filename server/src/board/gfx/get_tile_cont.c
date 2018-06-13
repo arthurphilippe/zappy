@@ -15,7 +15,7 @@
 
 void board_gfx_get_tile_cont(board_t *bd, dynbuf_t *buf, vector2d_t pos)
 {
-	char strbuf[512];
+	char strbuf[128];
 	int quantities[7];
 	resource_t res;
 
@@ -26,7 +26,7 @@ void board_gfx_get_tile_cont(board_t *bd, dynbuf_t *buf, vector2d_t pos)
 	if (res) {
 		quantities[res] = 1;
 	}
-	snprintf(strbuf, 512, ASW_TILE_CONT_FMT, pos.v_x, pos.v_y,
+	snprintf(strbuf, 128, ASW_TILE_CONT_FMT, pos.v_x, pos.v_y,
 		quantities[0], quantities[1], quantities[2], quantities[3],
 		quantities[4], quantities[5], quantities[6]);
 	dynbuf_append_str(buf, strbuf);
