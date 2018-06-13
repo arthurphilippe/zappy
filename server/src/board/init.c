@@ -25,7 +25,7 @@ int board_init(board_t *bd, size_t x, size_t y)
 		return (BOARD_ERR);
 	for (unsigned int i = 0; i < bd->b_total_size; i++) {
 		bd->b_data[i] = calloc(RES_COUNT, sizeof(unsigned int));
-		if (bd->b_data[i]) {
+		if (!bd->b_data[i]) {
 			free_all_prev(bd->b_data, i - 1);
 			free(bd->b_data);
 			return (BOARD_ERR);
