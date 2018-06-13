@@ -499,9 +499,36 @@ Test(Player, eject)
 	cr_expect_eq(pl3->p_pos.v_x, 10);
 	cr_expect_eq(pl3->p_pos.v_y, 9);
 
-
 	player_delete(pl1);
 	player_delete(pl2);
 	player_delete(pl3);
 	game_delete(gm);
+}
+
+Test(Player, inventory_list_gfx)
+{
+	player_t *pl = player_create_at((vector2d_t){4, 7});
+
+	player_inventory_add(pl, FOOD);
+	dynbuf_t *buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 1"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, FOOD);
+	buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 2"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	buf = player_inventory_list_gfx(pl);
+	cr_log_info(buf->b_data);
+	cr_assert_str_eq(buf->b_data, "2 0 0 4 0 0 0");
+	dynbuf_delete(buf);
+
+	player_delete(pl);
 }
