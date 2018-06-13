@@ -21,8 +21,8 @@ const msg_map_t MSG_CMD_GFX_MAP[] = {
 	{CMD_GET_PLAYER_POS, msg_cmd_gfx_get_pl_pos, 0},
 	{CMD_GET_PLAYER_LEVEL, msg_cmd_gfx_get_pl_lvl, 0},
 	{CMD_GET_PLAYER_INV, msg_cmd_gfx_get_pl_inv, 0},
-	{CMD_GET_FREQ, NULL, 0},
-	{CMD_SET_FREQ, NULL, 0},
+	{CMD_GET_FREQ, msg_cmd_gfx_get_freq, 0},
+	{CMD_SET_FREQ, msg_cmd_gfx_set_freq, 0},
 	{NULL, NULL, 0},
 };
 

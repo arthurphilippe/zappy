@@ -84,6 +84,8 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd_gfx/get_pl_pos.c	\
 			src/msg/cmd_gfx/get_pl_lvl.c	\
 			src/msg/cmd_gfx/get_pl_inv.c	\
+			src/msg/cmd_gfx/get_freq.c	\
+			src/msg/cmd_gfx/set_freq.c	\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\
