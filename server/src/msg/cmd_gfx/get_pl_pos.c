@@ -19,32 +19,19 @@ static int extract_args(list_t *args, int *pl_id)
 	return (0);
 }
 
-static const vector2d_t *get_pl_pos_by_id(list_t *players, int id)
-{
-	list_iter_t it;
-	player_t *pl;
-
-	for (list_iter_init(&it, players, FWD); (pl = list_iter_access(&it));
-		list_iter_next(&it)) {
-		if (pl->p_id == id)
-			return (&pl->p_pos);
-	}
-	return (NULL);
-}
-
 void msg_cmd_gfx_get_pl_pos(selector_t *stor, handle_t *hdl, list_t *args)
 {
 	game_t *gm = stor->s_data;
 	int pl_id;
-	const vector2d_t *pos;
+	player_t *tmp;
 
 	if (extract_args(args, &pl_id) != 0) {
 		dprintf(hdl->h_fd, ASW_BAD_PARAM);
 	} else {
-		pos = get_pl_pos_by_id(gm->ga_players, pl_id);
-		if (pos)
-			dprintf(hdl->h_fd, ASW_PL_POS, pl_id, pos->v_x,
-				pos->v_y, "salut");
+		tmp = game_find_pl(gm, pl_id);
+		if (tmp)
+			dprintf(hdl->h_fd, ASW_PL_POS, pl_id, tmp->p_pos.v_x,
+				tmp->p_pos.v_y, "salut");
 		else
 			dprintf(hdl->h_fd, ASW_BAD_PARAM);
 	}
