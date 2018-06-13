@@ -41,6 +41,7 @@ SRCS		=	src/list/list.c			\
 			src/game/get_wait_time.c	\
 			src/game/take_object.c		\
 			src/game/set_object.c		\
+			src/game/find_pl.c		\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
@@ -60,6 +61,7 @@ SRCS		=	src/list/list.c			\
 			src/board/put.c			\
 			src/board/look_at.c		\
 			src/board/trunc_coords.c	\
+			src/board/gfx/get_tile_cont.c	\
 			src/msg/process.c		\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
@@ -75,6 +77,15 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd_pl/connect_nbr.c	\
 			src/msg/cmd_pl/eject.c		\
 			src/msg/cmd_pl/fork.c		\
+			src/msg/cmd_gfx/get_map_size.c	\
+			src/msg/cmd_gfx/get_tile_cont.c	\
+			src/msg/cmd_gfx/get_map_cont.c	\
+			src/msg/cmd_gfx/get_team_names.c	\
+			src/msg/cmd_gfx/get_pl_pos.c	\
+			src/msg/cmd_gfx/get_pl_lvl.c	\
+			src/msg/cmd_gfx/get_pl_inv.c	\
+			src/msg/cmd_gfx/get_freq.c	\
+			src/msg/cmd_gfx/set_freq.c	\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\

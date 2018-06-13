@@ -10,7 +10,7 @@
 
 typedef enum	e_resource {
 		FOOD = 0,
-		INEMATE,
+		LINEMATE,
 		DERAUMERE,
 		SIBUR,
 		MENDIANE,

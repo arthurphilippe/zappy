@@ -295,7 +295,7 @@ Test(Player, look_right)
 
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
 	board_put_resource(gm->ga_board, (vector2d_t){10, 8}, THYSTAME);
-	board_put_resource(gm->ga_board, (vector2d_t){10, 9}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){10, 9}, LINEMATE);
 	board_put_resource(gm->ga_board, (vector2d_t){10, 10}, DERAUMERE);
 	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
 	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
@@ -306,7 +306,7 @@ Test(Player, look_right)
 	cr_assert(strstr(buf->b_data, "player"));
 	cr_assert_eq(count_char(buf->b_data, ','), 3);
 	cr_assert_str_eq(buf->b_data,
-		"[sibur player,thystame,inemate,food food deraumere]");
+		"[sibur player,thystame,linemate,food food deraumere]");
 	dynbuf_delete(buf);
 	game_delete(gm);
 }
@@ -325,7 +325,7 @@ Test(Player, look_left)
 
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
 	board_put_resource(gm->ga_board, (vector2d_t){8, 8}, THYSTAME);
-	board_put_resource(gm->ga_board, (vector2d_t){8, 9}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){8, 9}, LINEMATE);
 	board_put_resource(gm->ga_board, (vector2d_t){8, 10}, DERAUMERE);
 	board_inc_food(gm->ga_board, (vector2d_t){8, 10});
 	board_inc_food(gm->ga_board, (vector2d_t){8, 10});
@@ -336,7 +336,7 @@ Test(Player, look_left)
 	cr_assert(strstr(buf->b_data, "player"));
 	cr_assert_eq(count_char(buf->b_data, ','), 3);
 	cr_assert_str_eq(buf->b_data,
-		"[sibur player,food food deraumere,inemate,thystame]");
+		"[sibur player,food food deraumere,linemate,thystame]");
 	dynbuf_delete(buf);
 	game_delete(gm);
 }
@@ -355,7 +355,7 @@ Test(Player, look_down)
 
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
 	board_put_resource(gm->ga_board, (vector2d_t){8, 10}, THYSTAME);
-	board_put_resource(gm->ga_board, (vector2d_t){9, 10}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){9, 10}, LINEMATE);
 	board_put_resource(gm->ga_board, (vector2d_t){10, 10}, DERAUMERE);
 	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
 	board_inc_food(gm->ga_board, (vector2d_t){10, 10});
@@ -366,7 +366,7 @@ Test(Player, look_down)
 	cr_assert(strstr(buf->b_data, "player"));
 	cr_assert_eq(count_char(buf->b_data, ','), 3);
 	cr_assert_str_eq(buf->b_data,
-		"[sibur player,food food deraumere,inemate,thystame]");
+		"[sibur player,food food deraumere,linemate,thystame]");
 	dynbuf_delete(buf);
 	game_delete(gm);
 }
@@ -385,7 +385,7 @@ Test(Player, look_up)
 
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, SIBUR);
 	board_put_resource(gm->ga_board, (vector2d_t){8, 8}, THYSTAME);
-	board_put_resource(gm->ga_board, (vector2d_t){9, 8}, INEMATE);
+	board_put_resource(gm->ga_board, (vector2d_t){9, 8}, LINEMATE);
 	board_put_resource(gm->ga_board, (vector2d_t){10, 8}, DERAUMERE);
 	board_inc_food(gm->ga_board, (vector2d_t){10, 8});
 	board_inc_food(gm->ga_board, (vector2d_t){10, 8});
@@ -396,7 +396,7 @@ Test(Player, look_up)
 	cr_assert(strstr(buf->b_data, "player"));
 	cr_assert_eq(count_char(buf->b_data, ','), 3);
 	cr_assert_str_eq(buf->b_data,
-		"[sibur player,thystame,inemate,food food deraumere]");
+		"[sibur player,thystame,linemate,food food deraumere]");
 	dynbuf_delete(buf);
 	game_delete(gm);
 }
@@ -499,9 +499,36 @@ Test(Player, eject)
 	cr_expect_eq(pl3->p_pos.v_x, 10);
 	cr_expect_eq(pl3->p_pos.v_y, 9);
 
-
 	player_delete(pl1);
 	player_delete(pl2);
 	player_delete(pl3);
 	game_delete(gm);
+}
+
+Test(Player, inventory_list_gfx)
+{
+	player_t *pl = player_create_at((vector2d_t){4, 7});
+
+	player_inventory_add(pl, FOOD);
+	dynbuf_t *buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 1"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, FOOD);
+	buf = player_inventory_list(pl);
+	cr_log_info(buf->b_data);
+	cr_expect_neq(strstr(buf->b_data, "food 2"), 0);
+	dynbuf_delete(buf);
+
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	player_inventory_add(pl, SIBUR);
+	buf = player_inventory_list_gfx(pl);
+	cr_log_info(buf->b_data);
+	cr_assert_str_eq(buf->b_data, "2 0 0 4 0 0 0");
+	dynbuf_delete(buf);
+
+	player_delete(pl);
 }

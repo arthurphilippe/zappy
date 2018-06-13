@@ -56,4 +56,6 @@ resource_t board_get_resource(board_t *bd, vector2d_t pos);
 void board_trunc_coords(board_t *bd, vector2d_t *coords);
 void board_look_at(board_t *bd, game_t *gm, vector2d_t pos, dynbuf_t *buf);
 
+void board_gfx_get_tile_cont(board_t *bd, dynbuf_t *buf, vector2d_t pos);
+
 #endif /* !BOARD_H_ */
