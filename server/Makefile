@@ -79,6 +79,7 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd_gfx/get_map_size.c	\
 			src/msg/cmd_gfx/get_tile_cont.c	\
 			src/msg/cmd_gfx/get_map_cont.c	\
+			src/msg/cmd_gfx/get_team_names.c	\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\

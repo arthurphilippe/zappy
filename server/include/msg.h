@@ -26,6 +26,7 @@
 	#define ASW_TILE_CONT "bct %s\n"
 	#define ASW_TILE_CONT_FMT "%d %d %d %d %d %d %d %d %d"
 	#define ASW_BAD_PARAM "sbp\n"
+	#define ASW_TEAM_NAMES "sbp\n"
 
 	#define HINT_NEW_PLAYER "pnw #%ld %d %d %d %d %s\n"
 	#define HINT_KICK "pex %ld\n"

@@ -17,7 +17,7 @@ const msg_map_t MSG_CMD_GFX_MAP[] = {
 	{CMD_GET_MAP_SIZE, msg_cmd_gfx_get_map_size, 0},
 	{CMD_GET_TILE_CONTENT, msg_cmd_gfx_get_tile_cont, 0},
 	{CMD_GET_MAP_CONTENT, msg_cmd_gfx_get_map_cont, 0},
-	{CMD_GET_TEAM_NAMES, NULL, 0},
+	{CMD_GET_TEAM_NAMES, msg_cmd_gfx_get_team_names, 0},
 	{CMD_GET_PLAYER_POS, NULL, 0},
 	{CMD_GET_PLAYER_LEVEL, NULL, 0},
 	{CMD_GET_PLAYER_INV, NULL, 0},
