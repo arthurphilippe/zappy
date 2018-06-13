@@ -25,6 +25,8 @@ static void print_qtes(game_t *gm, handle_t *hdl, int x, int y)
 {
 	dynbuf_t *buf = dynbuf_create();
 
+	if (!buf)
+		return;
 	board_gfx_get_tile_cont(gm->ga_board, buf, (vector2d_t){x, y});
 	dprintf(hdl->h_fd, ASW_TILE_CONT, buf->b_data);
 	dynbuf_delete(buf);

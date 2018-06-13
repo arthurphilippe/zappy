@@ -206,4 +206,7 @@ Test(Board, gfx_get_tile_cont)
 	board_put_resource(game->ga_board, (vector2d_t){4, 7}, 0);
 	board_gfx_get_tile_cont(game->ga_board, buf, (vector2d_t){4, 7});
 	cr_expect_str_eq(buf->b_data, "4 7 2 0 0 0 0 0 0");
+
+	game_delete(game);
+	dynbuf_delete(buf);
 }
