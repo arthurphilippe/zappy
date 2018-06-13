@@ -105,8 +105,6 @@ OBJS		=	$(SRCS:.c=.o)
 TEST		=	unit_tests.out
 
 SRCS_TEST	=	tests/test-list.c	\
-			tests/board.c		\
-			tests/game.c		\
 			tests/team.c		\
 			tests/player.c		\
 			tests/stolist.c		\
@@ -117,6 +115,8 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/chrono.c		\
 			tests/egg.c		\
 			tests/handle/client.c	\
+#			tests/board.c		\
+#			tests/game.c		\
 
 SRCS_TEST	+=	$(OBJS)
 

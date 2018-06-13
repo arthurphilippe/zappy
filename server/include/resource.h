@@ -16,6 +16,7 @@ typedef enum	e_resource {
 		MENDIANE,
 		PHIRAS,
 		THYSTAME,
+		RES_COUNT
 }		resource_t;
 
 typedef struct		s_resource_key {

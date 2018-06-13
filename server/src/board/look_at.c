@@ -32,18 +32,22 @@ static void search_for_players(
 	}
 }
 
+static void append_res(dynbuf_t *buf, unsigned count, const char *name, bool *first)
+{
+	for (unsigned int i = 0; i < count; i++) {
+		append_str(buf, name, first);
+	}
+}
+
 void board_look_at(board_t *bd, game_t *gm, vector2d_t pos, dynbuf_t *buf)
 {
-	resource_t resource;
-	unsigned int food_qtt;
+	unsigned int *tile;
 	bool first = true;
 
 	board_trunc_coords(bd, &pos);
-	resource = board_get_resource(bd, pos);
-	food_qtt = board_get_food(bd, pos);
-	for (unsigned int i = 0; i < food_qtt; i++) {
-		append_str(buf, "food", &first);
+	tile = board_get(bd, pos);
+	for (unsigned int i = 0; i < RES_COUNT; i++) {
+		append_res(buf, tile[i], resource_get_name(i), &first);
 	}
-	append_str(buf, resource_get_name(resource), &first);
 	search_for_players(gm, pos, buf, first);
 }

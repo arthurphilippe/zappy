@@ -19,7 +19,7 @@ static bool take_food(board_t *bd, player_t *pl)
 
 static bool take_stone(board_t *bd, player_t *pl, resource_t resource)
 {
-	if (board_get_resource(bd, pl->p_pos) == resource) {
+	if (board_get_resource(bd, pl->p_pos, resource)) {
 		board_put_resource(bd, pl->p_pos, 0);
 		player_inventory_add(pl, resource);
 		return (true);
