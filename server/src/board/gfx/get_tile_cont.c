@@ -1,0 +1,33 @@
+/*
+** EPITECH PROJECT, 2018
+** server
+** File description:
+** get_tile_cont
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include "board.h"
+#include "dynbuf.h"
+#include "game.h"
+#include "msg.h"
+#include "resource.h"
+
+void board_gfx_get_tile_cont(board_t *bd, dynbuf_t *buf, vector2d_t pos)
+{
+	char strbuf[512];
+	int quantities[7];
+	resource_t res;
+
+	board_trunc_coords(bd, &pos);
+	memset(quantities, 0, sizeof(int) * 7);
+	quantities[FOOD] = board_get_food(bd, pos);
+	res = board_get_resource(bd, pos);
+	if (res) {
+		quantities[res] = 1;
+	}
+	snprintf(strbuf, 512, ASW_TILE_CONT_FMT, pos.v_x, pos.v_y,
+		quantities[0], quantities[1], quantities[2], quantities[3],
+		quantities[4], quantities[5], quantities[6]);
+	dynbuf_append_str(buf, strbuf);
+}

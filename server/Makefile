@@ -60,6 +60,7 @@ SRCS		=	src/list/list.c			\
 			src/board/put.c			\
 			src/board/look_at.c		\
 			src/board/trunc_coords.c	\
+			src/board/gfx/get_tile_cont.c	\
 			src/msg/process.c		\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
@@ -75,6 +76,8 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd_pl/connect_nbr.c	\
 			src/msg/cmd_pl/eject.c		\
 			src/msg/cmd_pl/fork.c		\
+			src/msg/cmd_gfx/get_map_size.c	\
+			src/msg/cmd_gfx/get_tile_cont.c	\
 			src/parser/parser_arg_handler.c	\
 			src/parser/parser_destroy.c	\
 			src/parser/parser.c		\

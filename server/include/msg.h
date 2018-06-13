@@ -22,6 +22,11 @@
 	#define CMD_GET_FREQ "sgt"
 	#define CMD_SET_FREQ "sst"
 
+	#define ASW_MAP_SIZE "msz %ld %ld\n"
+	#define ASW_TILE_CONT "bct %s\n"
+	#define ASW_TILE_CONT_FMT "%d %d %d %d %d %d %d %d %d"
+	#define ASW_BAD_PARAM "sbp\n"
+
 	#define HINT_NEW_PLAYER "pnw #%ld %d %d %d %d %s\n"
 	#define HINT_KICK "pex %ld\n"
 	#define HINT_BROADCAST "pbc %ld %s\n"

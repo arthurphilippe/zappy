@@ -9,12 +9,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include "msg.h"
+#include "msg_cmd_gfx.h"
 #include "selector.h"
 #include "stolist.h"
 
 const msg_map_t MSG_CMD_GFX_MAP[] = {
-	{CMD_GET_MAP_SIZE, NULL, 0},
-	{CMD_GET_TILE_CONTENT, NULL, 0},
+	{CMD_GET_MAP_SIZE, msg_cmd_gfx_get_map_size, 0},
+	{CMD_GET_TILE_CONTENT, msg_cmd_gfx_get_tile_cont, 0},
 	{CMD_GET_MAP_CONTENT, NULL, 0},
 	{CMD_GET_TEAM_NAMES, NULL, 0},
 	{CMD_GET_PLAYER_POS, NULL, 0},
