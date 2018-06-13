@@ -35,3 +35,23 @@ dynbuf_t *player_inventory_list(player_t *pl)
 	dynbuf_append_str(buf, "]");
 	return (buf);
 }
+
+dynbuf_t *player_inventory_list_gfx(player_t *pl)
+{
+	dynbuf_t *buf = dynbuf_create();
+	resource_t res = FOOD;
+	const char *res_str = "food";
+	bool first = true;
+
+	if (!buf)
+		return (NULL);
+	while (strcmp(res_str, "")) {
+		if (!first)
+			dynbuf_append_str(buf, " ");
+		else
+			first = false;
+		dynbuf_append_uint(buf, player_inventory_get(pl, res));
+		res_str = resource_get_name(++res);
+	}
+	return (buf);
+}

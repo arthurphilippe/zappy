@@ -48,6 +48,7 @@ void player_inventory_add(player_t *pl, resource_t resource);
 void player_inventory_rem(player_t *pl, resource_t resource);
 unsigned int player_inventory_get(player_t *pl, resource_t resource);
 dynbuf_t *player_inventory_list(player_t *pl);
+dynbuf_t *player_inventory_list_gfx(player_t *pl);
 void player_eject(player_t *pl, list_t *players, board_t *bd);
 
 #endif /* !PLAYER_H_ */

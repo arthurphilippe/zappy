@@ -29,6 +29,7 @@
 	#define ASW_TEAM_NAMES "sbp\n"
 	#define ASW_PL_POS "ppo %d %d %d %s\n"
 	#define ASW_PL_LVL "plv %d %d\n"
+	#define ASW_PL_INV "pin %d %d %d %s\n"
 
 	#define HINT_NEW_PLAYER "pnw #%ld %d %d %d %d %s\n"
 	#define HINT_KICK "pex %ld\n"
