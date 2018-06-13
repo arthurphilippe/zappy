@@ -41,6 +41,7 @@ SRCS		=	src/list/list.c			\
 			src/game/get_wait_time.c	\
 			src/game/take_object.c		\
 			src/game/set_object.c		\
+			src/game/find_pl.c		\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
