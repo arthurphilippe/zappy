@@ -12,14 +12,15 @@
 
 Test(Egg, all)
 {
-	egg_t *egg = egg_create("pandas", (vector2d_t){2, 3}, 12000);
+	egg_t *egg = egg_create("pandas", (vector2d_t){2, 3}, 100000);
 
 	cr_assert(egg);
 	cr_assert_eq(egg_has_hatched(egg), false);
-	usleep(100000);
+	usleep(50000);
 	cr_expect_eq(egg_has_hatched(egg), true);
 	cr_assert_str_eq(egg->eg_team_name, "pandas");
 	cr_expect_eq(egg->eg_pos.v_x, 2);
 	cr_expect_eq(egg->eg_pos.v_y, 3);
 	cr_expect_eq(egg_has_hatched(egg), true);
+	egg_delete(egg);
 }
