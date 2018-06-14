@@ -31,6 +31,38 @@ jobs:
       - store_artifacts:
           path: ~/project/server/coverage
           destination: coverage
+  graphics_test:
+    docker:
+      - image: arthurphilippe/epitech-c-cpp-plain
+    steps:
+      - checkout
+      - run:
+          name: Build Project
+          command: make
+          working_directory: ~/project/graphics
+      - run:
+          name: Build Unit Tests Suites
+          command: make tests
+          working_directory: ~/project/graphics
+      - run:
+          name: Tidy up
+          command: make clean
+          working_directory: ~/project/graphics
+      - run:
+          name: Unit Tests Execution
+          command: ./unit_tests.out -j 1 --verbose --xml=tests/results.xml --always-succeed
+          working_directory: ~/project/graphics
+      - store_test_results:
+          path: .
+          working_directory: ~/project/graphics
+      - run:
+          name: Code Coverage - Processing
+          command: ./tests/coverage.sh html
+          working_directory: ~/project/graphics
+      - store_artifacts:
+          path: ~/project/graphics/coverage
+          destination: coverage
+
 
   server_build_clang:
     docker:
@@ -73,6 +105,7 @@ workflows:
     jobs:
       - server_test
       - server_build_clang
+      - graphics_test
   planned:
     triggers:
       - schedule:
