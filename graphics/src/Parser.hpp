@@ -16,9 +16,10 @@
 
 namespace gi {
 
-enum ItemType {
+enum class FullMapDef {
 	CMD,
-
+	COORD_X,
+	COORD_Y,
 	FOOD,
 	LINEMATE,
 	DERAUMERE,
@@ -26,19 +27,22 @@ enum ItemType {
 	MENDIANE,
 	PHIRAS,
 	THYSTAME,
+	UNKNOW,
 };
 
 using MapCoord = std::vector<Object>;
-typedef enum ParsingType {
+
+enum class ParsingType {
 	FULL_MAP,
 	TILE_CONTENT,
-}		ParsingType;
+};
 
 class Parser {
 	public:
 		Parser() = delete;
 		~Parser() = delete;
-		static void parseCmd(std::vector<std::string> &cmd, ParsingType);
+		static MapCoord parseCmd(std::vector<std::string> &cmd, const ParsingType);
+		static ObjectType getObjType(const FullMapDef def);
 	protected:
 	private:
 		static MapCoord parseFullMap(std::vector<std::string> &cmd);
@@ -46,3 +50,4 @@ class Parser {
 }
 
 #endif /* !PARSER_HPP_ */
+
