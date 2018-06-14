@@ -28,8 +28,6 @@ SRCS		=	src/list/list.c			\
 			src/handle/delete.c		\
 			src/handle/client_create.c	\
 			src/handle/client_erase.c	\
-			src/handle/client_on_cycle.c	\
-			src/handle/client_get_msgq.c	\
 			src/handle/client_read.c	\
 			src/handle/listener_create.c	\
 			src/handle/listener_read.c	\
@@ -51,6 +49,7 @@ SRCS		=	src/list/list.c			\
 			src/player/eject.c		\
 			src/player/inventory.c		\
 			src/player/inventory_list.c	\
+			src/player/on_cycle.c		\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\
@@ -97,6 +96,7 @@ SRCS		=	src/list/list.c			\
 			src/resource.c			\
 			src/chrono.c			\
 			src/start.c			\
+			src/gfx/on_cycle.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
