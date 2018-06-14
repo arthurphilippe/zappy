@@ -8,11 +8,13 @@
 #ifndef OBJECT_HPP_
 	#define OBJECT_HPP_
 
+	#include <list>
 	#include <SFML/Graphics.hpp>
 
 namespace gi {
 
-enum ItemType {
+enum class ObjectType {
+	PLAYER,
 	FOOD,
 	LINEMATE,
 	DERAUMERE,
@@ -20,17 +22,18 @@ enum ItemType {
 	MENDIANE,
 	PHIRAS,
 	THYSTAME,
+	UNKNOW,
 };
 
 class Object {
 public:
-	Object(sf::Vector2i coord, ItemType type) : _coord(coord), _type(type) {}
+	Object(sf::Vector2i coord, std::list<ObjectType> typelist) : _coord(coord), _typelist(typelist) {}
 	~Object() = default;
 	sf::Vector2i &getCoord() {return _coord;};
-	ItemType &getType() {return _type;};
+	std::list<ObjectType> &getObjList() {return _typelist;};
 private:
 	sf::Vector2i _coord;
-	ItemType _type;
+	std::list<ObjectType> _typelist;
 };
 
 
