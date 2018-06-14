@@ -33,7 +33,7 @@ jobs:
           destination: coverage
   graphics_test:
     docker:
-      - image: arthurphilippe/epitech-c-cpp-plain
+      - image: epitechcontent/epitest-docker
     steps:
       - checkout
       - run:
