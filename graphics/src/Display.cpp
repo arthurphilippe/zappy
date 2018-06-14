@@ -10,7 +10,7 @@
 gi::Display::Display()
 	: _window()
 {
-	_ItemMap.insert(std::make_pair(ItemType::FOOD, std::unique_ptr<gi::Item>(new Item("./assets/Linemate.png"))));
+	_ItemMap.insert(std::make_pair(ItemType::FOOD, std::unique_ptr<gi::Item>(new Item("./assets/Food.png"))));
 	_ItemMap.insert(std::make_pair(ItemType::LINEMATE, std::unique_ptr<gi::Item>(new Item("./assets/Linemate.png"))));
 	_ItemMap.insert(std::make_pair(ItemType::DERAUMERE, std::unique_ptr<gi::Item>(new Item("./assets/Deraumere.png"))));
 	_ItemMap.insert(std::make_pair(ItemType::SIBUR, std::unique_ptr<gi::Item>(new Item("./assets/Sibur.png"))));
