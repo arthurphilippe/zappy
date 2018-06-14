@@ -11,7 +11,7 @@
 	#include <stdbool.h>
 	#include "vector2d.h"
 
-typedef struct chrono_s chrono_t;
+typedef struct s_chrono chrono_t;
 
 typedef struct		s_egg {
 	char		*eg_team_name;

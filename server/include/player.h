@@ -11,11 +11,12 @@
 	#include "list.h"
 	#include "board.h"
 	#include "vector2d.h"
-
+	#include "delayed_cmd.h"
 	#define INV_FOOD 0
 
 typedef struct		s_player {
 	unsigned int	p_inventory[10];
+	delayed_cmd_t	p_task;
 	char		*p_teamname;
 	list_t		*p_queued_msgs;
 	vector2d_t	p_pos;

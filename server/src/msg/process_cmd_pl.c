@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "chrono.h"
+#include "game.h"
+#include "get_wait_time.h"
 #include "msg.h"
 #include "msg_cmd_pl.h"
 #include "player.h"
@@ -30,21 +33,50 @@ const msg_map_t MSG_CMD_PL_MAP[] = {
 	{NULL, NULL, 0},
 };
 
-static void find_and_run_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
+// static void find_and_run_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
+// {
+// 	char *cmd_name;
+
+// 	if (!msg || !msg->l_size)
+// 		return;
+// 	cmd_name = msg->l_start->n_data;
+// 	for (unsigned int i = 0; MSG_CMD_PL_MAP[i].mm_name; i++) {
+// 		if (!strcasecmp(cmd_name, MSG_CMD_PL_MAP[i].mm_name) &&
+// 			MSG_CMD_PL_MAP[i].mm_func) {
+// 			list_pop_front(msg);
+// 			MSG_CMD_PL_MAP[i].mm_func(stor, hdl, msg);
+// 			return;
+// 		}
+// 	}
+// }
+
+static bool set_pending_task(
+	list_t *msg, player_t *pl, game_t *gm, const msg_map_t *key)
+{
+	list_pop_front(msg);
+	pl->p_task.dc_args = msg;
+	chrono_init(&pl->p_task.dc_timer,
+		get_wait_time(gm->ga_freq, key->mm_time_weight));
+	pl->p_task.dc_callback = key->mm_func;
+	return (false);
+}
+
+static bool find_and_prepare_cmd(selector_t *stor, list_t *msg, player_t *pl)
 {
 	char *cmd_name;
+	game_t *gm = stor->s_data;
 
 	if (!msg || !msg->l_size)
-		return;
+		return (true);
 	cmd_name = msg->l_start->n_data;
 	for (unsigned int i = 0; MSG_CMD_PL_MAP[i].mm_name; i++) {
 		if (!strcasecmp(cmd_name, MSG_CMD_PL_MAP[i].mm_name) &&
 			MSG_CMD_PL_MAP[i].mm_func) {
-			list_pop_front(msg);
-			MSG_CMD_PL_MAP[i].mm_func(stor, hdl, msg);
-			return;
+			set_pending_task(msg, pl, gm, &MSG_CMD_PL_MAP[i]);
+			return (false);
 		}
 	}
+	return (true);
 }
 
 static void process_unregistred(
@@ -61,12 +93,17 @@ static void process_unregistred(
 	}
 }
 
-void msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg)
+bool msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg)
 {
 	player_t *pl = hdl->h_data;
+	bool ret;
 
-	if (!pl->p_teamname && msg->l_size)
+	(void) hdl;
+	if (!pl->p_teamname && msg->l_size) {
 		process_unregistred(stor, hdl, pl, msg->l_start->n_data);
-	else
-		find_and_run_cmd(stor, hdl, msg);
+		ret = true;
+	} else {
+		ret = find_and_prepare_cmd(stor, msg, pl);
+	}
+	return (ret);
 }

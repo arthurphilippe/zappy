@@ -48,7 +48,7 @@ typedef struct		s_msg_map {
 }			msg_map_t;
 
 void msg_process(selector_t *stor, handle_t *hdl, const char *msg);
-void msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg);
+bool msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg);
 void msg_process_cmd_gfx(selector_t *stor, handle_t *hdl, list_t *msg);
 
 void msg_join(selector_t *stor, handle_t *hdl, player_t *pl,

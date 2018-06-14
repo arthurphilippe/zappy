@@ -11,9 +11,10 @@
 #include "chrono.h"
 #include "color.h"
 
-void chrono_init(chrono_t *ch)
+void chrono_init(chrono_t *ch, unsigned int n)
 {
 	gettimeofday(&ch->c_counter, NULL);
+	ch->c_value = n * 1000;
 	ch->c_expired = false;
 }
 
@@ -26,8 +27,7 @@ chrono_t *chrono_create(unsigned int n)
 	ch = malloc(sizeof(chrono_t));
 	if (ch == NULL)
 		return (NULL);
-	ch->c_value = n * 1000;
-	chrono_init(ch);
+	chrono_init(ch, n);
 	return (ch);
 }
 
