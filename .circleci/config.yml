@@ -31,9 +31,10 @@ jobs:
       - store_artifacts:
           path: ~/project/server/coverage
           destination: coverage
+
   graphics_test:
     docker:
-      - image: epitechcontent/epitest-docker
+      - image: arthurphilippe/arcade
     steps:
       - checkout
       - run:
