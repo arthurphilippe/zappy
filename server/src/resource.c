@@ -21,15 +21,12 @@ const resource_key_t RESOURCES_MAP[] = {
 
 /*
 ** returns the string associated with the resource.
-** it identify food since food's value is 0.
-** The sole purpose of the this zero value is to serve as index
-** in player inventories.
 */
 const char *resource_get_name(resource_t resource)
 {
 	unsigned int i;
 
-	for (i = 1; strcmp(RESOURCES_MAP[i].rk_str, "")
+	for (i = 0; strcmp(RESOURCES_MAP[i].rk_str, "")
 		&& RESOURCES_MAP[i].rk_resource != resource; i++);
 	return (RESOURCES_MAP[i].rk_str);
 }

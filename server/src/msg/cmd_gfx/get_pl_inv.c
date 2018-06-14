@@ -35,6 +35,7 @@ void msg_cmd_gfx_get_pl_inv(selector_t *stor, handle_t *hdl, list_t *args)
 			buf = player_inventory_list_gfx(tmp);
 			dprintf(hdl->h_fd, ASW_PL_INV, tmp->p_id,
 				tmp->p_pos.v_x, tmp->p_pos.v_y, buf->b_data);
+			dynbuf_delete(buf);
 		} else
 			dprintf(hdl->h_fd, ASW_BAD_PARAM);
 	}

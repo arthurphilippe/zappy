@@ -19,8 +19,7 @@ static bool set_food(board_t *bd, player_t *pl)
 
 static bool set_stone(board_t *bd, player_t *pl, resource_t resource)
 {
-	if (player_inventory_get(pl, resource) &&
-		!board_get_resource(bd, pl->p_pos)) {
+	if (player_inventory_get(pl, resource)) {
 		player_inventory_rem(pl, resource);
 		board_put_resource(bd, pl->p_pos, resource);
 		return (true);

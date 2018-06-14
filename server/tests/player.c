@@ -88,6 +88,8 @@ Test(Player, Move)
 	player_move_foward(pl, bd);
 	cr_assert_eq(pl->p_pos.v_x, 2);
 	cr_assert_eq(pl->p_pos.v_y, 12);
+	board_delete(bd);
+	player_delete(pl);
 }
 
 Test(Player, MoveUp)
@@ -143,6 +145,9 @@ Test(Player, MoveUp)
 	player_move_foward(pl, bd);
 	cr_assert_eq(pl->p_pos.v_y, 21);
 	cr_assert_eq(pl->p_pos.v_x, 12);
+
+	board_delete(bd);
+	player_delete(pl);
 }
 
 Test(Player, MoveLeft)
@@ -198,6 +203,9 @@ Test(Player, MoveLeft)
 	player_move_foward(pl, bd);
 	cr_assert_eq(pl->p_pos.v_x, 21);
 	cr_assert_eq(pl->p_pos.v_y, 12);
+
+	board_delete(bd);
+	player_delete(pl);
 }
 
 Test(Player, TurnRight)
@@ -217,6 +225,7 @@ Test(Player, TurnRight)
 	player_turn_right(pl);
 	cr_assert_eq(pl->p_dir.v_x, 1);
 	cr_assert_eq(pl->p_dir.v_y, 0);
+	player_delete(pl);
 }
 
 Test(Player, TurnLeft)
