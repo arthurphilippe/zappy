@@ -25,109 +25,54 @@ Test(Board, idx)
 	cr_expect_eq(board_get_idx(&bd, 4, 2), 28);
 }
 
-Test(Board, get_plain, .disabled=true)
+Test(Board, put)
 {
-	board_t bd;
-	unsigned int *data = malloc(sizeof(int) * 36);
+	board_t *bd = board_create(24, 24);
 
-	cr_assert(data);
-	data[9] = 'a';
-	data[12] = 'b';
-	data[24] = 'c';
-	data[27] = 'd';
-	bd.b_data = data;
-	bd.b_max_x = 12;
-	size_t idx = board_get_idx(&bd, 10, 0);
+	cr_assert(bd);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	cr_expect_eq(
+		board_get_resource(bd, (vector2d_t){12, 3}, MENDIANE), 1);
+	board_take_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_take_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_take_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_take_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	cr_expect_eq(
+		board_get_resource(bd, (vector2d_t){12, 3}, MENDIANE), 0);
 
-	cr_expect_eq(idx, 10);
-	cr_expect_eq(board_get(&bd, (vector2d_t){9, 0}), 'a');
-	cr_expect_eq(board_get(&bd, (vector2d_t){0, 1}), 'b');
-	cr_expect_eq(board_get(&bd, (vector2d_t){0, 2}), 'c');
-	cr_expect_eq(board_get(&bd, (vector2d_t){3, 2}), 'd');
-	free(data);
-}
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	board_put_resource(bd, (vector2d_t){12, 3}, MENDIANE);
+	cr_expect_eq(
+		board_get_resource(bd, (vector2d_t){12, 3}, MENDIANE), 15);
+	cr_expect_eq(board_get_food(bd, (vector2d_t){19, 8}), 0);
+	board_inc_food(bd, (vector2d_t){19, 8});
+	board_inc_food(bd, (vector2d_t){19, 8});
+	board_inc_food(bd, (vector2d_t){19, 8});
+	cr_expect_eq(board_get_food(bd, (vector2d_t){19, 8}), 3);
+	board_dec_food(bd, (vector2d_t){19, 8});
+	cr_expect_eq(board_get_food(bd, (vector2d_t){19, 8}), 2);
+	board_dec_food(bd, (vector2d_t){19, 8});
+	board_dec_food(bd, (vector2d_t){19, 8});
+	board_dec_food(bd, (vector2d_t){19, 8});
+	board_dec_food(bd, (vector2d_t){19, 8});
+	board_dec_food(bd, (vector2d_t){19, 8});
+	board_dec_food(bd, (vector2d_t){19, 8});
+	board_dec_food(bd, (vector2d_t){19, 8});
+	cr_expect_eq(board_get_food(bd, (vector2d_t){19, 8}), 0);
 
-Test(Board, get_pointer, .disabled=true)
-{
-	board_t bd;
-	unsigned int *data = malloc(sizeof(int) * 36);
-
-	cr_assert(data);
-	data[9] = 'a';
-	data[12] = 'b';
-	data[24] = 'c';
-	data[27] = 'd';
-	bd.b_data = data;
-	bd.b_max_x = 12;
-	size_t idx = board_get_idx(&bd, 10, 0);
-
-	cr_expect_eq(idx, 10);
-	unsigned int *ptr = board_get_ptr(&bd, (vector2d_t){0, 1});
-
-	cr_expect_eq(*ptr, 'b');
-	free(data);
-}
-
-Test(Board, simple_put, .disabled=true)
-{
-	board_t bd;
-	unsigned int *data = calloc(36, sizeof(int));
-
-	cr_assert(data);
-	bd.b_data = data;
-	bd.b_max_x = 12;
-	bd.b_max_y = 12;
-//	board_put(&bd, (vector2d_t){9, 0}, 'a');
-//	board_put(&bd, (vector2d_t){0, 1}, 'b');
-//	board_put(&bd, (vector2d_t){0, 2}, 'c');
-//	board_put(&bd, (vector2d_t){3, 2}, 'd');
-//	board_put(&bd, (vector2d_t){11, 2}, 'e');
-	board_put_resource(&bd, (vector2d_t){4, 2}, PHIRAS);
-	cr_expect_eq(board_get_food(&bd, (vector2d_t){4, 2}), 0, "got %d", board_get_food(&bd, (vector2d_t){4, 2}));
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	cr_expect_eq(board_get(&bd, (vector2d_t){9, 0}), 'a', "got %c",
-		board_get(&bd, (vector2d_t){9, 0}));
-	cr_expect_eq(board_get(&bd, (vector2d_t){0, 1}), 'b', "got %c",
-		board_get(&bd, (vector2d_t){0, 1}));
-	cr_expect_eq(board_get(&bd, (vector2d_t){0, 2}), 'c', "got %c",
-		board_get(&bd, (vector2d_t){0, 2}));
-	cr_expect_eq(board_get(&bd, (vector2d_t){3, 2}), 'd', "got %c",
-		board_get(&bd, (vector2d_t){3, 2}));
-	cr_expect_eq(board_get(&bd, (vector2d_t){11, 2}), 'e', "got %c",
-		board_get(&bd, (vector2d_t){11, 2}));
-	cr_expect_eq(board_get_resource(&bd, (vector2d_t){4, 2}), PHIRAS);
-	cr_expect_eq(board_get_food(&bd, (vector2d_t){4, 2}), 1);
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	cr_expect_eq(board_get_food(&bd, (vector2d_t){4, 2}), 4);
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	board_inc_food(&bd, (vector2d_t){4, 2});
-	cr_expect_eq(board_get_food(&bd, (vector2d_t){4, 2}), 9);
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	cr_expect_eq(board_get_food(&bd, (vector2d_t){4, 2}), 7);
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	board_dec_food(&bd, (vector2d_t){4, 2});
-	cr_expect_eq(board_get_food(&bd, (vector2d_t){4, 2}), 0);
-	cr_expect_eq(board_get_resource(&bd, (vector2d_t){4, 2}), PHIRAS);
-	free(data);
 }
 
 Test(Board, truncate_pos)
@@ -200,12 +145,12 @@ Test(Board, gfx_get_tile_cont)
 
 	dynbuf_reset(buf);
 	board_gfx_get_tile_cont(game->ga_board, buf, (vector2d_t){4, 7});
-	cr_expect_str_eq(buf->b_data, "4 7 2 0 0 1 0 0 0");
+	cr_expect_str_eq(buf->b_data, "4 7 2 0 0 1 0 0 1");
 
 	dynbuf_reset(buf);
 	board_put_resource(game->ga_board, (vector2d_t){4, 7}, 0);
 	board_gfx_get_tile_cont(game->ga_board, buf, (vector2d_t){4, 7});
-	cr_expect_str_eq(buf->b_data, "4 7 2 0 0 0 0 0 0");
+	cr_expect_str_eq(buf->b_data, "4 7 3 0 0 1 0 0 1");
 
 	game_delete(game);
 	dynbuf_delete(buf);

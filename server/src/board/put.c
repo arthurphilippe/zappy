@@ -9,15 +9,6 @@
 #include "vector2d.h"
 #include "resource.h"
 
-// void board_put(board_t *bd, vector2d_t pos, int payload)
-// {
-// 	size_t idx;
-
-// 	board_trunc_coords(bd, &pos);
-// 	idx = board_get_idx(bd, pos.v_x, pos.v_y);
-// 	bd->b_data[idx] = payload;
-// }
-
 /*
 ** sets the tile resource to the param.
 */
@@ -66,7 +57,7 @@ bool board_dec_food(board_t *bd, vector2d_t pos)
 
 	board_trunc_coords(bd, &pos);
 	idx = board_get_idx(bd, pos.v_x, pos.v_y);
-	if (!bd->b_data[idx][FOOD])
+	if (bd->b_data[idx][FOOD])
 		bd->b_data[idx][FOOD] -= 1;
 	else
 		ret = false;
