@@ -7,6 +7,7 @@
 
 #include "Socket.hpp"
 #include "Display.hpp"
+#include "Object.hpp"
 
 int main(int ac, char **av)
 {
@@ -15,5 +16,8 @@ int main(int ac, char **av)
 	// while(1){sock.receive();};
 	gi::Display display;
 
-	while (display.isRunning());
+	display.putItem(gi::ItemType::LINEMATE, 40, 100);
+	display.putItem(gi::ItemType::LINEMATE, 200, 400);
+	while (display.isRunning())
+		display.refresh();
 }

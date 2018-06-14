@@ -11,6 +11,7 @@
 	#include <unordered_map>
 	#include <SFML/Graphics.hpp>
 	#include "Object.hpp"
+	#include "Item.hpp"
 
 namespace gi {
 
@@ -18,10 +19,12 @@ class Display {
 	public:
 		Display();
 		~Display();
-		bool isRunning() const noexcept {return _window.isOpen();};
+		bool isRunning() noexcept {return _window.isOpen();};
+		void refresh() noexcept {_window.display();};
+		void putItem(const ItemType type = ItemType::FOOD, int posX = 0, int posY = 0) noexcept;
 	private:
-		sf::Window					_window;
-		std::unordered_map<gi::ItemType, std::string>	_ItemMap;
+		sf::RenderWindow _window;
+		std::unordered_map<gi::ItemType, std::unique_ptr<gi::Item>> _ItemMap;
 };
 }
 
