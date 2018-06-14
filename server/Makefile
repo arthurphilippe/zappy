@@ -62,6 +62,8 @@ SRCS		=	src/list/list.c			\
 			src/board/look_at.c		\
 			src/board/trunc_coords.c	\
 			src/board/gfx/get_tile_cont.c	\
+			src/board/gen/gen.c		\
+			src/board/gen/random.c		\
 			src/msg/process.c		\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
