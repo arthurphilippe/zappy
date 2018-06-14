@@ -29,7 +29,7 @@ jobs:
           command: ./tests/coverage.sh html
           working_directory: ~/project/server
       - store_artifacts:
-          path: ~/project/coverage
+          path: ~/project/server/coverage
           destination: coverage
 
   server_build_clang:
