@@ -8,6 +8,7 @@
 #ifndef PARSERENGINE_HPP_
 	#define PARSERENGINE_HPP_
 
+	#include <iostream>
 	#include <string>
 
 namespace gi {
