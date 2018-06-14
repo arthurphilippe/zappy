@@ -16,18 +16,6 @@
 
 namespace gi {
 
-enum ItemType {
-	CMD,
-
-	FOOD,
-	LINEMATE,
-	DERAUMERE,
-	SIBUR,
-	MENDIANE,
-	PHIRAS,
-	THYSTAME,
-};
-
 using MapCoord = std::vector<Object>;
 typedef enum ParsingType {
 	FULL_MAP,
