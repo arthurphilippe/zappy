@@ -11,3 +11,6 @@ wiki/
 *.gcda
 *.gcno
 ref_zappy_server
+
+.vscode
+.idea
