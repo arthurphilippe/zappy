@@ -149,24 +149,25 @@ Test(Game, set_food)
 	cr_expect(!game_take_object(gm, pl, FOOD));
 	cr_expect_eq(board_get_food(gm->ga_board, pl->p_pos), 0);
 	cr_expect_eq(player_inventory_get(pl, FOOD), 2);
+
 	cr_expect(game_take_object(gm, pl, THYSTAME));
 	cr_expect(!game_take_object(gm, pl, THYSTAME));
-	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos), 0);
+	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 0);
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 1);
 
 	board_put_resource(gm->ga_board, (vector2d_t){4, 7}, THYSTAME);
 	cr_expect(game_take_object(gm, pl, THYSTAME));
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 2);
 	cr_assert(!game_set_object(gm, pl, SIBUR));
-	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos), 0);
+	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 0);
 	cr_assert(game_set_object(gm, pl, THYSTAME));
-	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos), THYSTAME);
+	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 1);
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 1);
 	cr_expect_eq(player_inventory_get(pl, SIBUR), 0);
 
-	cr_assert(!game_set_object(gm, pl, THYSTAME));
-	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos), THYSTAME);
-	cr_expect_eq(player_inventory_get(pl, THYSTAME), 1);
+	cr_assert(game_set_object(gm, pl, THYSTAME));
+	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 2);
+	cr_expect_eq(player_inventory_get(pl, THYSTAME), 0);
 
 	cr_assert(game_set_object(gm, pl, FOOD));
 	cr_expect_eq(board_get_food(gm->ga_board, pl->p_pos), 1);
@@ -213,5 +214,4 @@ Test(Game, find_pl)
 
 	tmp = game_find_pl(gm, 1);
 	cr_assert_eq(tmp, pl1);
-
 }

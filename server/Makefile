@@ -116,7 +116,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/egg.c		\
 			tests/handle/client.c	\
 			tests/board.c		\
-#			tests/game.c		\
+			tests/game.c		\
 
 SRCS_TEST	+=	$(OBJS)
 
