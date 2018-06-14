@@ -10,6 +10,7 @@
 
 	#include <stdbool.h>
 	#include <time.h>
+	#include <sys/time.h>
 
 	#define CHRONO_EXPIRED true
 	#define CHRONO_RUNNING false
@@ -17,7 +18,7 @@
 typedef struct		chrono_s
 {
 	double		c_value;
-	long long	c_counter;
+	struct timeval	c_counter;
 	bool		c_expired;
 }			chrono_t;
 
