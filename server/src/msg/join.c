@@ -15,13 +15,12 @@
 #include "stolist.h"
 #include "team.h"
 
-void msg_join(
-	selector_t *stor, handle_t *hdl, player_t *pl, const char *team_name)
+void msg_join(selector_t *stor, handle_t *hdl, player_t *pl, const char *team)
 {
 	game_t *gm = stor->s_data;
 	int ret;
 
-	pl->p_teamname = strdup(team_name);
+	pl->p_teamname = strdup(team);
 	if (!pl->p_teamname) {
 		stor->s_live = false;
 		return;
@@ -30,7 +29,7 @@ void msg_join(
 	if (ret == -1) {
 		dprintf(hdl->h_fd,
 			"%s: this team may not exist or may be full.\n",
-			team_name);
+			team);
 		free(pl->p_teamname);
 		pl->p_teamname = NULL;
 	} else {
