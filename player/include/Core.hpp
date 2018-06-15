@@ -13,6 +13,7 @@
 	#include <iostream>
 	#include "Socket.hpp"
 	#include "Processing.hpp"
+	#include "AI.hpp"
 
 namespace pl {
 
@@ -27,6 +28,7 @@ namespace pl {
 			const std::string &machine);
 		Socket		_socket;
 		Processing	_processing;
+		AI		_ai;
 		std::string	_teamName;
 
 	};

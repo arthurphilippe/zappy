@@ -48,6 +48,7 @@ void Core::parseArgs(std::vector<std::string> &args)
 void Core::initConnection(const std::string &port, const std::string &machine)
 {
 	int X, Y;
+
 	std::string test;
 	_socket.setPort(std::stoi(port));
 	_socket.setMachine(machine);
@@ -58,11 +59,13 @@ void Core::initConnection(const std::string &port, const std::string &machine)
 		throw std::runtime_error("Wrong server connection");
 	while (!_socket.tryToRead(test));
 	_processing.coordinates(test, X, Y);
-	std::cout << X << std::endl << Y << std::endl;
+	_ai.setMapX(X);
+	_ai.setMapX(Y);
 }
 
 void Core::loop()
 {
+
 }
 
 }

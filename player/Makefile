@@ -15,7 +15,8 @@ MAIN		=	src/main.cpp
 
 SRCS		=	src/Socket.cpp		\
 			src/Processing.cpp	\
-			src/Core.cpp
+			src/Core.cpp		\
+			src/AI.cpp
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 
