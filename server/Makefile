@@ -78,6 +78,7 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd_pl/connect_nbr.c	\
 			src/msg/cmd_pl/eject.c		\
 			src/msg/cmd_pl/fork.c		\
+			src/msg/cmd_pl/incantation.c	\
 			src/msg/cmd_gfx/get_map_size.c	\
 			src/msg/cmd_gfx/get_tile_cont.c	\
 			src/msg/cmd_gfx/get_map_cont.c	\

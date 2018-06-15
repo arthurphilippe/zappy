@@ -84,9 +84,11 @@ void player_on_cycle(selector_t *stor, handle_t *hdl)
 	if (pl->p_task.dc_callback &&
 		chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {
 		pl->p_task.dc_callback(stor, hdl, pl->p_task.dc_args);
-		pl->p_task.dc_callback = NULL;
-		pl->p_task.dc_args = NULL;
-		list_pop_front(msgq);
+		if (chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {
+			pl->p_task.dc_callback = NULL;
+			pl->p_task.dc_args = NULL;
+			list_pop_front(msgq);
+		}
 	}
 	if (!pl->p_task.dc_callback && ingest_msg(stor, hdl, msgq) &&
 		!msgq->l_size && !pl->p_task.dc_callback) {

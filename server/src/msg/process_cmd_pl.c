@@ -29,7 +29,7 @@ const msg_map_t MSG_CMD_PL_MAP[] = {
 	{"Eject", msg_cmd_pl_eject, 7},
 	{"Take", msg_cmd_pl_take, 7},
 	{"Set", msg_cmd_pl_set, 7},
-	{"Incantation", NULL, 300},
+	{"Incantation", msg_cmd_pl_incentation, 0},
 	{NULL, NULL, 0},
 };
 
