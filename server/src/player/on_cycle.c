@@ -37,13 +37,6 @@ static bool ingest_msg(selector_t *stor, handle_t *hdl, list_t *msgq)
 	bool ret;
 
 	if (msgq->l_size) {
-		if (!strcasecmp("shutdown", msgq->l_start->n_data)) {
-			stor->s_live = false;
-			return (false);
-		} else if (!strcasecmp("quit", msgq->l_start->n_data)) {
-			client_erase(stor, hdl);
-			return (false);
-		}
 		trucate_queue(msgq);
 		ret = split_and_process(stor, hdl, msgq->l_start->n_data);
 		if (ret && old_type == hdl->h_type)
@@ -54,11 +47,40 @@ static bool ingest_msg(selector_t *stor, handle_t *hdl, list_t *msgq)
 	return (true);
 }
 
+static bool halt_checker(selector_t *stor, handle_t *hdl, list_t *msgq)
+{
+	list_iter_t iter;
+	const char *tmp;
+
+	list_iter_init(&iter, msgq, FWD);
+	while ((tmp = list_iter_next(&iter))) {
+		if (!strcasecmp("shutdown", tmp)) {
+			stor->s_live = false;
+			return (true);
+		} else if (!strcasecmp("quit", tmp)) {
+			client_erase(stor, hdl);
+			return (true);
+		}
+	}
+	return (false);
+}
+
+/*
+** player routine to call on each cycle.
+** - if the player quit or shutown is recived the function imidiatly returns.
+** - if a callback is set and the task timer expired, the task is executed
+** . and reset.
+** - afterwards, if no callback is set, the functions tries to ingest
+** . a command. if no special case occured, the function checks if
+** . there is something to do on next cycle or not.
+*/
 void player_on_cycle(selector_t *stor, handle_t *hdl)
 {
 	player_t *pl = hdl->h_data;
 	list_t *msgq = pl->p_queued_msgs;
 
+	if (halt_checker(stor, hdl, msgq))
+		return;
 	if (pl->p_task.dc_callback &&
 		chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {
 		pl->p_task.dc_callback(stor, hdl, pl->p_task.dc_args);
