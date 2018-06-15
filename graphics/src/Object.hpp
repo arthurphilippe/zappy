@@ -28,6 +28,7 @@ enum class ObjectType {
 class Object {
 public:
 	Object(sf::Vector2i coord, std::list<ObjectType> typelist) : _coord(coord), _typelist(typelist) {}
+	Object(sf::Vector2i coord) : _coord(coord) {}
 	~Object() = default;
 	sf::Vector2i &getCoord() {return _coord;};
 	std::list<ObjectType> &getObjList() {return _typelist;};
