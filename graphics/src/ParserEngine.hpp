@@ -8,7 +8,7 @@
 #ifndef PARSERENGINE_HPP_
 	#define PARSERENGINE_HPP_
 
-	#include <iostream>
+	#include <vector>
 	#include <string>
 
 namespace gi {
@@ -17,6 +17,7 @@ public:
 	ParserEngine() = default;
 	~ParserEngine() = default;
 	static std::string getStringFromArgNb(std::string string, int nb);
+	static std::vector<std::string> createVectorString(std::string string, std::string delim);
 protected:
 private:
 };

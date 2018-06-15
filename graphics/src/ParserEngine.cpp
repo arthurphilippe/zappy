@@ -22,4 +22,10 @@ std::string ParserEngine::getStringFromArgNb(std::string string, int nb)
 	return string;
 }
 
+std::vector<std::string> ParserEngine::createVectorString(std::string string, std::string delim)
+{
+
 }
+
+}
+
