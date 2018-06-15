@@ -65,6 +65,12 @@ void Core::initConnection(const std::string &port, const std::string &machine)
 
 void Core::loop()
 {
+	std::string AIInstruction;
+
+	if (AIInstruction != "nothing") {
+		// process instruction
+	}
+
 
 }
 
