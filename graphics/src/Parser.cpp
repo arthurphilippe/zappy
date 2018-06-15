@@ -70,7 +70,7 @@ MapCoord Parser::parseFullMap(std::vector<std::string> &cmd)
 				}
 			}
 		}
-	map.push_back(Object(sf::Vector2i(x,y), objlist));
+	map.push_back(Object(sf::Vector2f(x,y), objlist));
 	objlist.clear();
 	}
 	return map;
