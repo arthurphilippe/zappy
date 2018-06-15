@@ -572,4 +572,14 @@ Test(PlayerRite, check_tile)
 	cr_expect(player_rite_check_tile(pl1 ,gm));
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 4);
 	cr_expect(!player_rite_check_tile(pl1 ,gm));
+	board_take_resource(gm->ga_board, (vector2d_t){9, 9}, 4);
+	pl1->p_lvl = 2;
+	pl2->p_pos.v_x = 9;
+	pl2->p_lvl = 2;
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 2);
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 3);
+	cr_expect(player_rite_check_tile(pl1 ,gm));
+
+	pl1->p_lvl = 42;
+	cr_expect(!player_rite_check_tile(pl1 ,gm));
 }
