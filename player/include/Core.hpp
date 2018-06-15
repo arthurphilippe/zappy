@@ -10,6 +10,9 @@
 	#include <vector>
 	#include <string>
 	#include <stdexcept>
+	#include <iostream>
+	#include "Socket.hpp"
+	#include "Processing.hpp"
 
 namespace pl {
 
@@ -17,7 +20,15 @@ namespace pl {
 	public:
 		Core(int ac, char **av);
 		~Core();
+		void loop();
 	private:
+		void parseArgs(std::vector<std::string> &args);
+		void initConnection(const std::string &port,
+			const std::string &machine);
+		Socket		_socket;
+		Processing	_processing;
+		std::string	_teamName;
+
 	};
 
 }

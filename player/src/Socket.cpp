@@ -26,6 +26,12 @@ Socket::Socket(const int ac, char **av)
 	connectSocket();
 }
 
+Socket::Socket()
+	: _port(0), _machine("localhost"), _tv({1, 0})
+{
+	createSocket();
+}
+
 Socket::~Socket()
 {
 	close(_socket);

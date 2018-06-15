@@ -14,13 +14,22 @@ namespace pl {
 class Socket {
 public:
 	Socket(const int ac, char **av);
+	Socket();
 	~Socket();
 	void operator<<(const std::string &string);
 	void operator<<(const int i);
 	bool tryToRead(std::string &data);
+	void connectSocket();
+	void setPort(int port)
+	{
+		_port = port;
+	}
+	void setMachine(const std::string &machine)
+	{
+		_machine = machine;
+	}
 private:
 	void createSocket();
-	void connectSocket();
 	int		_socket;
 	int 		_port;
 	std::string	_machine;
