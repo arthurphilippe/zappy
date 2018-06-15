@@ -8,27 +8,24 @@
 #ifndef SOCKET_HPP_
 	#define SOCKET_HPP_
 
-	#include <SFML/Network.hpp>
 	#include <iostream>
-	#include <vector>
 
-namespace gi {
+namespace pl {
 class Socket {
 public:
 	Socket(const int ac, char **av);
-	~Socket() {};
-	void operator<<(const std::string &string) {send(string);}
-	void operator<<(const int &i) {send(i);}
-	bool receive();
-protected:
+	~Socket();
+	void operator<<(const std::string &string);
+	void operator<<(const int i);
+	bool tryToRead(std::string &data);
 private:
-	void connect();
-	bool send(const std::string &string);
-	bool send(const int &i);
-	sf::TcpSocket _socket;
-	std::string _ip;
-	std::vector<std::string> _servMsg;
-	int _port;
+	void createSocket();
+	void connectSocket();
+	int		_socket;
+	int 		_port;
+	std::string	_machine;
+	fd_set		_fd_read;
+	struct timeval	_tv;
 };
 }
 
