@@ -31,5 +31,7 @@ bool game_take_object(game_t *gm, player_t *pl, resource_t resource);
 bool game_set_object(game_t *gm, player_t *pl, resource_t resource);
 
 player_t *game_find_pl(game_t *gm, int id);
+unsigned int game_count_players(game_t *gm, vector2d_t pos);
+unsigned int game_count_players_lvl(game_t *gm, player_t *pl);
 
 #endif /* !GAME_H_ */

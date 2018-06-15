@@ -33,23 +33,6 @@ const msg_map_t MSG_CMD_PL_MAP[] = {
 	{NULL, NULL, 0},
 };
 
-// static void find_and_run_cmd(selector_t *stor, handle_t *hdl, list_t *msg)
-// {
-// 	char *cmd_name;
-
-// 	if (!msg || !msg->l_size)
-// 		return;
-// 	cmd_name = msg->l_start->n_data;
-// 	for (unsigned int i = 0; MSG_CMD_PL_MAP[i].mm_name; i++) {
-// 		if (!strcasecmp(cmd_name, MSG_CMD_PL_MAP[i].mm_name) &&
-// 			MSG_CMD_PL_MAP[i].mm_func) {
-// 			list_pop_front(msg);
-// 			MSG_CMD_PL_MAP[i].mm_func(stor, hdl, msg);
-// 			return;
-// 		}
-// 	}
-// }
-
 static bool set_pending_task(
 	list_t *msg, player_t *pl, game_t *gm, const msg_map_t *key)
 {

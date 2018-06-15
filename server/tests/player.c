@@ -12,6 +12,7 @@
 #include "dynbuf.h"
 #include "game.h"
 #include "msg_cmd_pl.h"
+#include "player_rite.h"
 
 Test(Player, create)
 {
@@ -540,4 +541,35 @@ Test(Player, inventory_list_gfx)
 	dynbuf_delete(buf);
 
 	player_delete(pl);
+}
+
+Test(PlayerRite, check_tile)
+{
+	player_t *pl1 = player_create_at((vector2d_t){9, 9});
+	player_t *pl2 = player_create_at((vector2d_t){9, 9});
+	player_t *pl3 = player_create_at((vector2d_t){9, 7});
+	player_t *pl4 = player_create_at((vector2d_t){9, 15});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl1);
+	cr_assert(pl2);
+	cr_assert(pl2);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	game_add_team(gm, "red-pandas");
+	pl1->p_teamname = strdup("pandas");
+	pl3->p_teamname = strdup("pandas");
+	pl2->p_teamname = strdup("red-pandas");
+	pl4->p_teamname = strdup("red-pandas");
+	cr_assert_neq(game_register_player(gm, pl1), -1);
+	cr_assert_neq(game_register_player(gm, pl2), -1);
+	cr_assert_neq(game_register_player(gm, pl3), -1);
+	cr_assert_neq(game_register_player(gm, pl4), -1);
+
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 1);
+	cr_expect(!player_rite_check_tile(pl1 ,gm));
+	pl2->p_pos.v_x = 19;
+	cr_expect(player_rite_check_tile(pl1 ,gm));
+	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 4);
+	cr_expect(!player_rite_check_tile(pl1 ,gm));
 }

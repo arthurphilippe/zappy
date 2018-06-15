@@ -47,7 +47,7 @@ static bool ingest_msg(selector_t *stor, handle_t *hdl, list_t *msgq)
 	return (true);
 }
 
-static bool halt_checker(selector_t *stor, handle_t *hdl, list_t *msgq)
+static bool halt_check(selector_t *stor, handle_t *hdl, list_t *msgq)
 {
 	list_iter_t iter;
 	const char *tmp;
@@ -79,7 +79,7 @@ void player_on_cycle(selector_t *stor, handle_t *hdl)
 	player_t *pl = hdl->h_data;
 	list_t *msgq = pl->p_queued_msgs;
 
-	if (halt_checker(stor, hdl, msgq))
+	if (halt_check(stor, hdl, msgq))
 		return;
 	if (pl->p_task.dc_callback &&
 		chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {

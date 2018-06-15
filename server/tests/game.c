@@ -152,21 +152,25 @@ Test(Game, set_food)
 
 	cr_expect(game_take_object(gm, pl, THYSTAME));
 	cr_expect(!game_take_object(gm, pl, THYSTAME));
-	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 0);
+	cr_expect_eq(
+		board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 0);
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 1);
 
 	board_put_resource(gm->ga_board, (vector2d_t){4, 7}, THYSTAME);
 	cr_expect(game_take_object(gm, pl, THYSTAME));
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 2);
 	cr_assert(!game_set_object(gm, pl, SIBUR));
-	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 0);
+	cr_expect_eq(
+		board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 0);
 	cr_assert(game_set_object(gm, pl, THYSTAME));
-	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 1);
+	cr_expect_eq(
+		board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 1);
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 1);
 	cr_expect_eq(player_inventory_get(pl, SIBUR), 0);
 
 	cr_assert(game_set_object(gm, pl, THYSTAME));
-	cr_expect_eq(board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 2);
+	cr_expect_eq(
+		board_get_resource(gm->ga_board, pl->p_pos, THYSTAME), 2);
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 0);
 
 	cr_assert(game_set_object(gm, pl, FOOD));
@@ -214,4 +218,67 @@ Test(Game, find_pl)
 
 	tmp = game_find_pl(gm, 1);
 	cr_assert_eq(tmp, pl1);
+}
+
+Test(Game, count_pl)
+{
+	player_t *pl1 = player_create_at((vector2d_t){9, 9});
+	player_t *pl2 = player_create_at((vector2d_t){9, 9});
+	player_t *pl3 = player_create_at((vector2d_t){9, 9});
+	player_t *pl4 = player_create_at((vector2d_t){9, 15});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl1);
+	cr_assert(pl2);
+	cr_assert(pl2);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	game_add_team(gm, "red-pandas");
+	pl1->p_teamname = strdup("pandas");
+	pl3->p_teamname = strdup("pandas");
+	pl2->p_teamname = strdup("red-pandas");
+	pl4->p_teamname = strdup("red-pandas");
+	cr_assert_neq(game_register_player(gm, pl1), -1);
+	cr_assert_neq(game_register_player(gm, pl2), -1);
+	cr_assert_neq(game_register_player(gm, pl3), -1);
+	cr_assert_neq(game_register_player(gm, pl4), -1);
+
+	cr_assert_eq(game_count_players(gm, (vector2d_t){9, 9}),
+		(unsigned int) 3, "got %d",
+		game_count_players(gm, (vector2d_t){9, 9}));
+}
+
+Test(Game, count_pl_lvl)
+{
+	player_t *pl1 = player_create_at((vector2d_t){9, 9});
+	player_t *pl2 = player_create_at((vector2d_t){9, 9});
+	player_t *pl3 = player_create_at((vector2d_t){9, 9});
+	player_t *pl4 = player_create_at((vector2d_t){9, 15});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl1);
+	cr_assert(pl2);
+	cr_assert(pl2);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	game_add_team(gm, "red-pandas");
+	pl1->p_teamname = strdup("pandas");
+	pl3->p_teamname = strdup("pandas");
+	pl2->p_teamname = strdup("red-pandas");
+	pl4->p_teamname = strdup("red-pandas");
+	cr_assert_neq(game_register_player(gm, pl1), -1);
+	cr_assert_neq(game_register_player(gm, pl2), -1);
+	cr_assert_neq(game_register_player(gm, pl3), -1);
+	cr_assert_neq(game_register_player(gm, pl4), -1);
+
+	cr_assert_eq(game_count_players_lvl(gm, pl1),
+		(unsigned int) 3, "got %d",
+		game_count_players_lvl(gm, pl1));
+
+	pl2->p_lvl = 12;
+
+	cr_assert_eq(game_count_players_lvl(gm, pl1),
+		(unsigned int) 2, "got %d",
+		game_count_players_lvl(gm, pl1));
+
 }
