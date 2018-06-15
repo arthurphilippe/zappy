@@ -66,14 +66,14 @@ void Socket::connectSocket()
 
 bool Socket::tryToRead(std::string &data)
 {
-	char buf[4096];
+	static char buf[4096];
 
 	memset(buf, 0, 4096);
 	FD_ZERO(&_fd_read);
 	FD_SET(_socket, &_fd_read);
 	select(_socket + 1, &_fd_read, NULL, NULL, &_tv);
 	if (FD_ISSET(_socket, &_fd_read)) {
-		read(_socket, buf, 4096);
+		read(_socket, buf, 4095);
 		data = buf;
 		return true;
 	};

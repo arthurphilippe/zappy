@@ -15,5 +15,7 @@ int main(int ac, char **av)
 	s << "papou";
 	while (!s.tryToRead(data));
 	std::cout << data;
+	while (!s.tryToRead(data));
+	std::cout << data;
 	return 0;
 }
