@@ -16,6 +16,7 @@ MAIN		=	src/main.cpp
 SRCS		=	src/Socket.cpp		\
 			src/Parser.cpp		\
 			src/ParserEngine.cpp	\
+			src/BackgroundMap.cpp	\
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 
@@ -26,6 +27,7 @@ TEST		=	unit_tests.out
 SRCS_TEST	=	tests/socket.cpp		\
 			tests/parser.cpp		\
 			tests/parserengine.cpp		\
+			tests/backgroundMap.cpp		\
 
 SRCS_TEST	+=	$(OBJS)
 
