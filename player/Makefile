@@ -13,7 +13,8 @@ RM		=	rm -vf
 
 MAIN		=	src/main.cpp
 
-SRCS		=	src/Socket.cpp
+SRCS		=	src/Socket.cpp	\
+			src/Core.cpp
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 

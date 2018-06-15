@@ -5,17 +5,16 @@
 ** player's main
 */
 
-#include "Socket.hpp"
-#include "unistd.h"
+#include <iostream>
+#include "Core.hpp"
 
 int main(int ac, char **av)
 {
-	std::string data;
-	pl::Socket s(ac, av);
-	s << "papou";
-	while (!s.tryToRead(data));
-	std::cout << data;
-	while (!s.tryToRead(data));
-	std::cout << data;
+	try {
+		pl::Core core(ac, av);
+	} catch (std::exception &err) {
+		std::cerr << "ERROR: "<< err.what() << std::endl;
+		return 84;
+	}
 	return 0;
 }
