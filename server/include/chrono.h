@@ -10,18 +10,19 @@
 
 	#include <stdbool.h>
 	#include <time.h>
+	#include <sys/time.h>
 
 	#define CHRONO_EXPIRED true
 	#define CHRONO_RUNNING false
 
-typedef struct		chrono_s
+typedef struct		s_chrono
 {
 	double		c_value;
-	long long	c_counter;
+	struct timeval	c_counter;
 	bool		c_expired;
 }			chrono_t;
 
-void chrono_init(chrono_t *ch);
+void chrono_init(chrono_t *ch, unsigned int n);
 chrono_t *chrono_create(unsigned int n);
 bool chrono_check(chrono_t *ch);
 
