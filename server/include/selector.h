@@ -31,9 +31,10 @@ typedef enum	e_selector_mode {
 typedef struct		s_selector {
 	list_t		*s_handles;
 	void		*s_data;
+	void		(*s_on_cycle)(struct s_selector *);
+	void		(*s_delete)();
 	selector_mode_t	s_mode;
 	bool		s_live;
-	void		(*s_delete)();
 }			selector_t;
 
 /*

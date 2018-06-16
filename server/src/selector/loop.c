@@ -58,6 +58,8 @@ static int body(selector_t *selector)
 		return (SELECTOR_RET_ERR);
 	}
 	process_handles(selector, &fd_read);
+	if (selector->s_on_cycle)
+		selector->s_on_cycle(selector);
 	return (SELECTOR_RET_OK);
 }
 

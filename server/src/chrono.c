@@ -22,8 +22,6 @@ chrono_t *chrono_create(unsigned int n)
 {
 	chrono_t *ch;
 
-	if (n == 0)
-		return (NULL);
 	ch = malloc(sizeof(chrono_t));
 	if (ch == NULL)
 		return (NULL);
