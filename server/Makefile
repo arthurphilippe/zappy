@@ -41,6 +41,7 @@ SRCS		=	src/list/list.c			\
 			src/game/set_object.c		\
 			src/game/find_pl.c		\
 			src/game/count_players.c	\
+			src/game/on_cycle.c		\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
