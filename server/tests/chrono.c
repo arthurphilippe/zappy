@@ -35,6 +35,7 @@ Test(Chrono, short_duration_two) {
 Test(Chrono, time_null) {
 	chrono_t *ch = chrono_create(0);
 
-	cr_expect_eq(ch, NULL);
+	usleep(1000);
+	cr_expect_eq(chrono_check(ch), CHRONO_EXPIRED);
 }
 
