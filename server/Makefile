@@ -55,6 +55,7 @@ SRCS		=	src/list/list.c			\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\
+			src/team/consume_eggs.c		\
 			src/board/create.c		\
 			src/board/delete.c		\
 			src/board/init.c		\
