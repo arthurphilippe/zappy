@@ -592,7 +592,6 @@ Test(Player, lifespan_check_positive)
 	player_t *pl = player_create();
 
 	chrono_init(&pl->p_lifespan, 0);
-	usleep(1000);
 	player_lifespan_check(pl);
 	cr_assert_eq(pl->p_task.dc_callback, kill_player);
 }
@@ -606,7 +605,6 @@ Test(Player, lifespan_check_neg)
 	cr_assert_neq(pl->p_task.dc_callback, kill_player);
 	chrono_init(&pl->p_lifespan, 0);
 	pl->p_inventory[FOOD] = 1;
-	usleep(1000);
 	player_lifespan_check(pl);
 	cr_assert_eq(pl->p_inventory[FOOD], 0);
 	cr_assert_neq(pl->p_task.dc_callback, kill_player);

@@ -313,7 +313,6 @@ Test(Game, lifespan_checks)
 	chrono_init(&pl2->p_lifespan, 0);
 	chrono_init(&pl3->p_lifespan, 0);
 	chrono_init(&pl4->p_lifespan, 0);
-	usleep(1000);
 	game_lifespan_checks(gm);
 	cr_expect_eq(pl1->p_task.dc_callback, kill_player);
 	cr_expect_eq(pl2->p_task.dc_callback, kill_player);

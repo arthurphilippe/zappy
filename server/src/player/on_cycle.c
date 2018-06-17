@@ -90,8 +90,6 @@ void player_on_cycle(selector_t *stor, handle_t *hdl)
 			list_pop_front(msgq);
 		}
 	}
-	if (!pl->p_task.dc_callback && ingest_msg(stor, hdl, msgq) &&
-		!msgq->l_size && !pl->p_task.dc_callback) {
-		hdl->h_on_cycle = NULL;
-	}
+	if (!pl->p_task.dc_callback)
+		ingest_msg(stor, hdl, msgq);
 }
