@@ -19,5 +19,6 @@ int game_register_player(game_t *gm, player_t *pl)
 		list_push_back(tm->t_membs, pl) != LIST_OK)
 		return (-1);
 	pl->p_id = id++;
+	chrono_init(&pl->p_lifespan, LIFE_EXPECTANCY);
 	return (--tm->t_max_memb);
 }

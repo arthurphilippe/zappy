@@ -53,6 +53,7 @@ SRCS		=	src/list/list.c			\
 			src/player/inventory_list.c	\
 			src/player/on_cycle.c		\
 			src/player/rite/check_tile.c	\
+			src/player/lifespan_check.c	\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\

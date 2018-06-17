@@ -5,13 +5,14 @@
 ** player
 */
 
-#include "player.h"
 #include <criterion/assert.h>
 #include <criterion/criterion.h>
+#include <unistd.h>
 #include "board.h"
 #include "dynbuf.h"
 #include "game.h"
 #include "msg_cmd_pl.h"
+#include "player.h"
 #include "player_rite.h"
 
 Test(Player, create)
@@ -416,17 +417,17 @@ Test(Player, inv_add)
 	player_t *pl = player_create();
 
 	cr_assert(pl);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	player_inventory_add(pl, INV_FOOD);
-	cr_expect_eq(player_inventory_get(pl, INV_FOOD), 10);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	player_inventory_add(pl, FOOD);
+	cr_expect_eq(player_inventory_get(pl, FOOD), 10);
 
 	player_inventory_add(pl, SIBUR);
 	player_inventory_add(pl, THYSTAME);
@@ -435,7 +436,7 @@ Test(Player, inv_add)
 	player_inventory_add(pl, THYSTAME);
 	player_inventory_add(pl, DERAUMERE);
 	player_inventory_add(pl, DERAUMERE);
-	cr_expect_eq(player_inventory_get(pl, INV_FOOD), 10);
+	cr_expect_eq(player_inventory_get(pl, FOOD), 10);
 	cr_expect_eq(player_inventory_get(pl, SIBUR), 1);
 	cr_expect_eq(player_inventory_get(pl, THYSTAME), 4);
 	cr_expect_eq(player_inventory_get(pl, DERAUMERE), 2);
@@ -543,7 +544,7 @@ Test(Player, inventory_list_gfx)
 	player_delete(pl);
 }
 
-Test(PlayerRite, check_tile)
+Test(Player, rite_check_tile)
 {
 	player_t *pl1 = player_create_at((vector2d_t){9, 9});
 	player_t *pl2 = player_create_at((vector2d_t){9, 9});
@@ -567,19 +568,40 @@ Test(PlayerRite, check_tile)
 	cr_assert_neq(game_register_player(gm, pl4), -1);
 
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 1);
-	cr_expect(!player_rite_check_tile(pl1 ,gm));
+	cr_expect(!player_rite_check_tile(pl1, gm));
 	pl2->p_pos.v_x = 19;
-	cr_expect(player_rite_check_tile(pl1 ,gm));
+	cr_expect(player_rite_check_tile(pl1, gm));
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 4);
-	cr_expect(!player_rite_check_tile(pl1 ,gm));
+	cr_expect(!player_rite_check_tile(pl1, gm));
 	board_take_resource(gm->ga_board, (vector2d_t){9, 9}, 4);
 	pl1->p_lvl = 2;
 	pl2->p_pos.v_x = 9;
 	pl2->p_lvl = 2;
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 2);
 	board_put_resource(gm->ga_board, (vector2d_t){9, 9}, 3);
-	cr_expect(player_rite_check_tile(pl1 ,gm));
+	cr_expect(player_rite_check_tile(pl1, gm));
 
 	pl1->p_lvl = 42;
-	cr_expect(!player_rite_check_tile(pl1 ,gm));
+	cr_expect(!player_rite_check_tile(pl1, gm));
+}
+
+void kill_player(selector_t *stor, handle_t *hdl, list_t *args);
+
+Test(Player, lifespan_check_positive)
+{
+	player_t *pl = player_create();
+
+	chrono_init(&pl->p_lifespan, 0);
+	usleep(1000);
+	player_lifespan_check(pl);
+	cr_assert_eq(pl->p_task.dc_callback, kill_player);
+}
+
+Test(Player, lifespan_check_neg)
+{
+	player_t *pl = player_create();
+
+	chrono_init(&pl->p_lifespan, 1000);
+	player_lifespan_check(pl);
+	cr_assert_neq(pl->p_task.dc_callback, kill_player);
 }

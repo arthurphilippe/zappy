@@ -12,11 +12,14 @@
 	#include "board.h"
 	#include "vector2d.h"
 	#include "delayed_cmd.h"
-	#define INV_FOOD 0
+	#include "chrono.h"
+
+	#define LIFE_EXPECTANCY 126
 
 typedef struct		s_player {
 	unsigned int	p_inventory[10];
 	delayed_cmd_t	p_task;
+	chrono_t	p_lifespan;
 	char		*p_teamname;
 	list_t		*p_queued_msgs;
 	vector2d_t	p_pos;
@@ -55,5 +58,6 @@ unsigned int player_inventory_get(player_t *pl, resource_t resource);
 dynbuf_t *player_inventory_list(player_t *pl);
 dynbuf_t *player_inventory_list_gfx(player_t *pl);
 void player_eject(player_t *pl, list_t *players, board_t *bd);
+void player_lifespan_check(player_t *pl);
 
 #endif /* !PLAYER_H_ */
