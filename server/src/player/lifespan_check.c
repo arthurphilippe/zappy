@@ -19,9 +19,13 @@ void kill_player(selector_t *stor, handle_t *hdl, list_t *args)
 
 void player_lifespan_check(player_t *pl)
 {
-	if (chrono_check(&pl->p_lifespan) == CHRONO_EXPIRED) {
+	if (chrono_check(&pl->p_lifespan) == CHRONO_EXPIRED &&
+		!pl->p_inventory[FOOD]) {
 		pl->p_task.dc_callback = kill_player;
 		pl->p_task.dc_args = NULL;
 		chrono_init(&pl->p_task.dc_timer, 0);
+	} else {
+		pl->p_inventory[FOOD] -= 1;
+		chrono_init(&pl->p_lifespan, LIFE_EXPECTANCY);
 	}
 }
