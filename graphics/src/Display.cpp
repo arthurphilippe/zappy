@@ -26,11 +26,27 @@ gi::Display::~Display()
 	_window.close();
 }
 
-void gi::Display::putItem(const ItemType type, int posX, int posY) noexcept
+bool gi::Display::putItem(const ItemType type, const int posX, const int posY) noexcept
 {
 	auto match = _ItemMap.find(type);
 
 	if (match == _ItemMap.end())
-		return;
-	match->second->setPosition(_window, posX, posY);
+		return false;
+	auto sprite = match->second->getSprite();
+	sprite.setPosition(posX, posY);
+	_window.draw(sprite);
+	return true;
+}
+
+bool gi::Display::putItem(gi::Object &object) noexcept
+{
+	auto match = _ItemMap.find(object.getType());
+
+	if (match == _ItemMap.end())
+		return false;
+	sf::Vector2i pos = object.getCoord();
+	auto sprite = match->second->getSprite();
+	sprite.setPosition(pos.x, pos.y);
+	_window.draw(sprite);
+	return true;
 }
