@@ -9,6 +9,7 @@
 	#define AI_HPP_
 	#include <iostream>
 	#include <vector>
+	#include <unordered_map>
 	#include "Socket.hpp"
 	#include "Processing.hpp"
 
@@ -18,7 +19,7 @@ namespace pl {
 	public:
 		AI();
 		~AI() {};
-		void look(Socket &socket,
+		void lookAround(Socket &socket,
 			const Processing &processing);
 		void setMapX(int X)
 		{
@@ -30,9 +31,10 @@ namespace pl {
 		}
 	private:
 		void clearVision();
-		int	_mapX;
-		int	_mapY;
-		std::vector<std::string>	_vision;
+		int					_mapX;
+		int					_mapY;
+		std::vector<std::string>		_vision;
+		std::unordered_map<std::string, int>	_inventory;
 	};
 
 }
