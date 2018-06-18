@@ -12,7 +12,7 @@ namespace pl {
 AI::AI()
 {}
 
-void AI::lookAround(Socket &socket, const Processing &processing)
+void AI::look(Socket &socket, const Processing &processing)
 {
 	std::string response;
 

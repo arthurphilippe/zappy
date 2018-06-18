@@ -19,7 +19,7 @@ namespace pl {
 	public:
 		AI();
 		~AI() {};
-		void lookAround(Socket &socket,
+		void look(Socket &socket,
 			const Processing &processing);
 		void setMapX(int X)
 		{
