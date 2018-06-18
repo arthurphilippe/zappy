@@ -27,7 +27,7 @@
 	#define ASW_TILE_CONT_FMT "%d %d %d %d %d %d %d %d %d"
 	#define ASW_BAD_PARAM "sbp\n"
 	#define ASW_TEAM_NAMES "sbp\n"
-	#define ASW_PL_POS "ppo %d %d %d %s\n"
+	#define ASW_PL_POS "ppo %d %d %d %d\n"
 	#define ASW_PL_LVL "plv %d %d\n"
 	#define ASW_PL_INV "pin %d %d %d %s\n"
 	#define ASW_GET_FREQ "sgt %d\n"
@@ -48,7 +48,7 @@ typedef struct		s_msg_map {
 }			msg_map_t;
 
 void msg_process(selector_t *stor, handle_t *hdl, const char *msg);
-void msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg);
+bool msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg);
 void msg_process_cmd_gfx(selector_t *stor, handle_t *hdl, list_t *msg);
 
 void msg_join(selector_t *stor, handle_t *hdl, player_t *pl,
