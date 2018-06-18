@@ -17,7 +17,7 @@ public:
 	ParserEngine() = default;
 	~ParserEngine() = default;
 	static std::string getStringFromArgNb(std::string string, int nb);
-	static std::vector<std::string> createVectorString(std::string string, std::string delim);
+	static std::vector<std::string> createVectorString(std::string string, char delim);
 protected:
 private:
 };

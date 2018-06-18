@@ -6,6 +6,7 @@
 */
 
 #include <algorithm>
+#include <iostream>
 #include "ParserEngine.hpp"
 
 namespace gi {
@@ -22,9 +23,22 @@ std::string ParserEngine::getStringFromArgNb(std::string string, int nb)
 	return string;
 }
 
-std::vector<std::string> ParserEngine::createVectorString(std::string string, std::string delim)
+std::vector<std::string> ParserEngine::createVectorString(std::string string, char delim)
 {
-
+	int total = std::count(string.begin(), string.end(), delim);
+	std::vector<std::string> vec;
+	if (!total) {
+		return vec;
+	}
+	while (std::count(string.begin(), string.end(), delim) >= 1) {
+		unsigned long i = string.find(delim);
+		if (i != std::string::npos) {
+			std::string tmp = string.substr(0, i);
+			vec.push_back(tmp);
+			string = string.substr(i + 1, string.length());
+		}
+	}
+	return vec;
 }
 
 }
