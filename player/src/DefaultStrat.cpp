@@ -8,19 +8,47 @@
 #include "DefaultStrat.hpp"
 
 pl::DefaultStrat::DefaultStrat(Socket &socket)
-	: _socket(socket), _actionQueue(), _generator()
+	: _status(false), _socket(socket), _actionQueue(), _generator(), _limits(0, 3)
 {
 	_generator.seed(std::random_device()());
-	_limits(0, 2);
 }
 
 pl::DefaultStrat::~DefaultStrat()
 {
 }
 
-void pl::DefaultStrat::run(std::vector<std::string> &vision)
+void pl::DefaultStrat::run(std::vector<std::string> &vision) noexcept
 {
 	(void) vision;
-	if (!_actionQueue.empty())
+	if (!_actionQueue.empty()) {
+		executeAction();
+		return;
+	}
 	int action = static_cast<int>(_limits(_generator));
+	switch (action) {
+		case 1:
+			move("Left");
+			break;
+		case 2:
+			move("Right");
+			break;
+		default:
+			_socket << "Forward";
+	}
 };
+
+void pl::DefaultStrat::move(std::string direction) noexcept
+{
+	_socket << direction;
+	_actionQueue.push("Forward");
+	_status = true;
+}
+
+void pl::DefaultStrat::executeAction() noexcept
+{
+	std::string action = _actionQueue.front();
+	_socket << action;
+	_actionQueue.pop();
+	if (_actionQueue.empty())
+		_status = false;
+}

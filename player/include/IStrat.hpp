@@ -17,6 +17,7 @@ class IStrat {
 		IStrat() = default;
 		~IStrat() = default;
 		virtual void run(std::vector<std::string> &vision) = 0;
+		virtual bool isRuning() = 0;
 };
 }
 
