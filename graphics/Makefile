@@ -16,8 +16,10 @@ MAIN		=	src/main.cpp
 SRCS		=	src/Socket.cpp		\
 			src/Parser.cpp		\
 			src/Display.cpp		\
-			src/Item.cpp
+			src/Item.cpp		\
 			src/ParserEngine.cpp	\
+			src/Core.cpp		\
+			src/Server.cpp		\
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 
