@@ -22,6 +22,7 @@ enum class ObjectType {
 	MENDIANE,
 	PHIRAS,
 	THYSTAME,
+	TILESET,
 	UNKNOW,
 };
 
@@ -37,6 +38,7 @@ private:
 	std::list<ObjectType> _typelist;
 };
 
+using MapCoord = std::list<Object>;
 
 };
 

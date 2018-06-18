@@ -17,6 +17,7 @@ gi::Display::Display()
 	_ItemMap.insert(std::make_pair(ObjectType::MENDIANE, std::unique_ptr<gi::Item>(new Item("./assets/Mendiane.png"))));
 	_ItemMap.insert(std::make_pair(ObjectType::PHIRAS, std::unique_ptr<gi::Item>(new Item("./assets/Phiras.png"))));
 	_ItemMap.insert(std::make_pair(ObjectType::THYSTAME, std::unique_ptr<gi::Item>(new Item("./assets/Thystame.png"))));
+	_ItemMap.insert(std::make_pair(ObjectType::TILESET, std::unique_ptr<gi::Item>(new Item("./assets/Tileset.png"))));
 	_window.create(sf::VideoMode(1280, 720), "Zappy - But graphical <3");
 	_window.setFramerateLimit(60);
 }
@@ -52,21 +53,35 @@ bool gi::Display::putItem(const ObjectType type, const int posX, const int posY)
 bool gi::Display::putItem(gi::Object &object) noexcept
 {
 	auto list = object.getObjList();
-
+	auto tilematch = _ItemMap.find(ObjectType::TILESET);
+	auto tileset = tilematch->second->getSprite();
+	int x = 0;
+	int y = 0;
+	sf::Vector2f pos = object.getCoord();
+	pos.x = TILESIZE + (TILESIZE * pos.x) + pos.x;
+	pos.y = TILESIZE + (TILESIZE * pos.y) + pos.y;
+	tileset.setPosition(pos);
+	_window.draw(tileset);
+	pos.x -= (TILESIZE / 2) + (BUFFSIZE / 2);
+	pos.y -= (TILESIZE / 2) + (BUFFSIZE / 2);
 	for (auto i = list.begin(); i != list.end(); i++) {
 		auto match = _ItemMap.find(*i);
-
+		pos.x += (BUFFSIZE * x);
+		if ((pos.y + (BUFFSIZE * y) > TILESIZE)) {
+			y++;
+			x = 0;
+		}
 		if (match == _ItemMap.end())
 			return false;
-		sf::Vector2f pos = object.getCoord();
 		auto sprite = match->second->getSprite();
 		sprite.setPosition(pos.x, pos.y);
 		_window.draw(sprite);
+		++x;
 	}
 	return true;
 }
 
-bool gi::Display::putItem(std::vector<gi::Object> &object) noexcept
+bool gi::Display::putItem(MapCoord &object) noexcept
 {
 	bool ret = true;
 

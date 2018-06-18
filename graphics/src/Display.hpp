@@ -15,6 +15,9 @@
 
 namespace gi {
 
+	constexpr float TILESIZE = 50;
+	constexpr float BUFFSIZE = 14;
+
 class Display {
 	public:
 		Display();
@@ -23,7 +26,7 @@ class Display {
 		void refresh() noexcept {_window.display();};
 		bool putItem(const ObjectType type = ObjectType::FOOD, int posX = 0, int posY = 0) noexcept;
 		bool putItem(gi::Object &object) noexcept;
-		bool putItem(std::vector<gi::Object> &object) noexcept;
+		bool putItem(MapCoord &object) noexcept;
 	private:
 		sf::RenderWindow _window;
 		std::unordered_map<gi::ObjectType, std::unique_ptr<gi::Item>> _ItemMap;

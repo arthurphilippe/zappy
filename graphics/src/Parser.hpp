@@ -30,8 +30,6 @@ enum class FullMapDef {
 	UNKNOW,
 };
 
-using MapCoord = std::vector<Object>;
-
 enum class ParsingType {
 	FULL_MAP,
 	TILE_CONTENT,
