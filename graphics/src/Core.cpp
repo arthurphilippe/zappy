@@ -21,6 +21,9 @@ Core::~Core()
 bool Core::loop()
 {
 	while (_display.isRunning()) {
+		auto map = _serv.getMap();
+		_display.putItem(map);
+		_display.refresh();
 	}
 	return (true);
 }
