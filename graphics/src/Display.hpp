@@ -19,7 +19,7 @@ class Display {
 	public:
 		Display();
 		~Display();
-		bool isRunning() noexcept {return _window.isOpen();};
+		bool isRunning() noexcept;
 		void refresh() noexcept {_window.display();};
 		bool putItem(const ObjectType type = ObjectType::FOOD, int posX = 0, int posY = 0) noexcept;
 		bool putItem(gi::Object &object) noexcept;

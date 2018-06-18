@@ -26,6 +26,17 @@ gi::Display::~Display()
 	_window.close();
 }
 
+bool gi::Display::isRunning() noexcept
+{
+	bool ret = _window.isOpen();
+	sf::Event event;
+
+	_window.pollEvent(event);
+	if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		ret = false;
+	return ret;
+}
+
 bool gi::Display::putItem(const ObjectType type, const int posX, const int posY) noexcept
 {
 	auto match = _ItemMap.find(type);
