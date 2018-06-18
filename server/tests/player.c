@@ -593,7 +593,7 @@ Test(Player, lifespan_check_positive)
 
 	chrono_init(&pl->p_lifespan, 0);
 	player_lifespan_check(pl);
-	cr_assert_eq(pl->p_task.dc_callback, kill_player);
+	cr_expect_str_eq(pl->p_queued_msgs->l_end->n_data, "quit");
 }
 
 Test(Player, lifespan_check_neg)
@@ -602,10 +602,9 @@ Test(Player, lifespan_check_neg)
 
 	chrono_init(&pl->p_lifespan, 1000);
 	player_lifespan_check(pl);
-	cr_assert_neq(pl->p_task.dc_callback, kill_player);
 	chrono_init(&pl->p_lifespan, 0);
 	pl->p_inventory[FOOD] = 1;
 	player_lifespan_check(pl);
 	cr_assert_eq(pl->p_inventory[FOOD], 0);
-	cr_assert_neq(pl->p_task.dc_callback, kill_player);
+	cr_expect_eq(pl->p_queued_msgs->l_size, 0);
 }

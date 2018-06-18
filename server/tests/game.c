@@ -314,9 +314,12 @@ Test(Game, lifespan_checks)
 	chrono_init(&pl3->p_lifespan, 0);
 	chrono_init(&pl4->p_lifespan, 0);
 	game_lifespan_checks(gm);
-	cr_expect_eq(pl1->p_task.dc_callback, kill_player);
-	cr_expect_eq(pl2->p_task.dc_callback, kill_player);
-	cr_expect_eq(pl3->p_task.dc_callback, kill_player);
-	cr_expect_eq(pl4->p_task.dc_callback, kill_player);
-
+	cr_expect_str_eq(pl1->p_queued_msgs->l_end->n_data, "quit");
+	cr_expect_eq(pl1->p_queued_msgs->l_size, 1);
+	cr_expect_str_eq(pl2->p_queued_msgs->l_end->n_data, "quit");
+	cr_expect_eq(pl2->p_queued_msgs->l_size, 1);
+	cr_expect_str_eq(pl3->p_queued_msgs->l_end->n_data, "quit");
+	cr_expect_eq(pl3->p_queued_msgs->l_size, 1);
+	cr_expect_str_eq(pl4->p_queued_msgs->l_end->n_data, "quit");
+	cr_expect_eq(pl4->p_queued_msgs->l_size, 1);
 }
