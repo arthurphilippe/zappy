@@ -18,6 +18,7 @@ Processing::~Processing() noexcept
 
 bool Processing::checkWelcome(const std::string &welcome) const noexcept
 {
+	std::cout << welcome << "##";
 	if (welcome != "WELCOME\n")
 		return false;
 	return true;
