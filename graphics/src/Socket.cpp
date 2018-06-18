@@ -16,8 +16,6 @@ Socket::Socket(const int ac, char **av)
 		_port = std::stoi(av[1]);
 	} else if (ac == 3) {
 		_ip = av[1];
-		if (!std::count(_ip.begin(), _ip.end(), '.'))
-			throw std::runtime_error("Invalid IP: got " + _ip);
 		_port = std::stoi(av[2]);
 	} else {
 		throw std::runtime_error("Not Enough Arguments");
