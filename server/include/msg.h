@@ -27,7 +27,7 @@
 	#define ASW_TILE_CONT_FMT "%d %d %d %d %d %d %d %d %d"
 	#define ASW_BAD_PARAM "sbp\n"
 	#define ASW_TEAM_NAMES "sbp\n"
-	#define ASW_PL_POS "ppo %d %d %d %s\n"
+	#define ASW_PL_POS "ppo %d %d %d %d\n"
 	#define ASW_PL_LVL "plv %d %d\n"
 	#define ASW_PL_INV "pin %d %d %d %s\n"
 	#define ASW_GET_FREQ "sgt %d\n"
