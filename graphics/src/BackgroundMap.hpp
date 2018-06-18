@@ -17,9 +17,9 @@ namespace gi {
 	public:
 		BackgroundMap(int x, int y, int tilesize);
 		~BackgroundMap();
-		std::vector<Object> getMap() const noexcept {return _map;};
+		MapCoord getMap() const noexcept {return _map;};
 	private:
-		std::vector<Object> _map;
+		MapCoord _map;
 	};
 }
 

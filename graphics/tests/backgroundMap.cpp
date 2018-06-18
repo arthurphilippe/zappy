@@ -16,16 +16,17 @@ Test(BackgroundMap, generate_map)
 	int tilesize = 2;
 	int width = 10;
 	int height = 5;
-	std::vector<sf::Vector2f> coor;
+	std::list<sf::Vector2f> coor;
 	BackgroundMap map(width, height, tilesize);
 	cr_assert_eq(map.getMap().size(), width * height);
+	for (int i = 0; i < width; i++) {
 
-	for (int i = 0; i < width; i++)
 		for (int j = 0; j < height; j++) {
 			sf::Vector2f vec((tilesize / 2) + (tilesize * i),
 				(tilesize / 2) + (tilesize * j));
 			coor.push_back(vec);
 		}
+	}
 	cr_assert_eq(coor.size(), width * height);
 	bool test = false;
 	for (auto it = map.getMap().begin(); it != map.getMap().end(); ++it) {
