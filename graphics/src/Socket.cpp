@@ -7,6 +7,7 @@
 
 #include <cstring>
 #include "Socket.hpp"
+#include "Color.hpp"
 
 namespace gi {
 Socket::Socket(const int ac, char **av)
@@ -28,7 +29,6 @@ void Socket::connect()
 	sf::Socket::Status status = _socket.connect(_ip, _port);
 	if (status != sf::Socket::Done)
 		throw std::runtime_error("Can't Connect to IP");
-	_socket.setBlocking(false);
 }
 
 bool Socket::send(const std::string &string)
@@ -52,6 +52,21 @@ bool Socket::send(const int &i)
 	return (true);
 }
 
+bool Socket::receive()
+{
+	char data[8192];
+	size_t len;
+
+	memset(data, '\0', 8192);
+	_socket.receive(data, 8192, len);
+	if (len) {
+		std::cout << BOLD_COLOR_CYAN << "Server:: " << BOLD_COLOR_RESET <<
+		data;
+		return true;
+	}
+	return false;
+}
+
 bool Socket::receive(std::string &string)
 {
 	char data[8192];
@@ -59,9 +74,11 @@ bool Socket::receive(std::string &string)
 
 	memset(data, '\0', 8192);
 	_socket.receive(data, 8192, len);
-	if (len)
+	if (len) {
 		string = data;
-	return (true);
+		return true;
+	}
+	return false;
 }
 
 }

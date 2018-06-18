@@ -20,6 +20,7 @@ public:
 	void operator<<(const std::string &string) {send(string);}
 	void operator<<(const int &i) {send(i);}
 	bool receive(std::string &string);
+	bool receive();
 protected:
 private:
 	void connect();
