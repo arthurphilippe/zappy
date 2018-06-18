@@ -24,7 +24,6 @@ typedef struct		s_player {
 	list_t		*p_queued_msgs;
 	vector2d_t	p_pos;
 	vector2d_t	p_dir;
-	int		p_id;
 	unsigned int	p_lvl;
 }			player_t;
 

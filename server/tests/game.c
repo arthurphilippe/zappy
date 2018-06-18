@@ -209,16 +209,16 @@ Test(Game, find_pl)
 	cr_assert_neq(game_register_player(gm, pl4), -1);
 
 	player_t *tmp = game_find_pl(gm, 2);
-	cr_assert_eq(pl2, tmp);
+	cr_expect_eq(pl2, tmp);
 
 	tmp = game_find_pl(gm, 675);
-	cr_assert_eq(tmp, NULL);
+	cr_expect_eq(tmp, NULL);
 
 	tmp = game_find_pl(gm, 0);
-	cr_assert_eq(tmp, NULL);
+	cr_expect_eq(tmp, NULL);
 
 	tmp = game_find_pl(gm, 1);
-	cr_assert_eq(tmp, pl1);
+	cr_expect_eq(tmp, pl1);
 }
 
 Test(Game, count_pl)
