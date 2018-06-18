@@ -103,6 +103,7 @@ SRCS		=	src/list/list.c			\
 			src/resource.c			\
 			src/chrono.c			\
 			src/start.c			\
+			src/heading.c			\
 			src/gfx/on_cycle.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
@@ -121,6 +122,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/dynbuf.c		\
 			tests/chrono.c		\
 			tests/egg.c		\
+			tests/heading.c		\
 			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\
