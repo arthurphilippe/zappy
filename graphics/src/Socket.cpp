@@ -16,8 +16,6 @@ Socket::Socket(const int ac, char **av)
 		_port = std::stoi(av[1]);
 	} else if (ac == 3) {
 		_ip = av[1];
-		if (!std::count(_ip.begin(), _ip.end(), '.'))
-			throw std::runtime_error("Invalid IP: got " + _ip);
 		_port = std::stoi(av[2]);
 	} else {
 		throw std::runtime_error("Not Enough Arguments");
@@ -54,7 +52,7 @@ bool Socket::send(const int &i)
 	return (true);
 }
 
-bool Socket::receive()
+bool Socket::receive(std::string &string)
 {
 	char data[8192];
 	size_t len;
@@ -62,7 +60,7 @@ bool Socket::receive()
 	memset(data, '\0', 8192);
 	_socket.receive(data, 8192, len);
 	if (len)
-		std::cout << data << std::endl;
+		string = data;
 	return (true);
 }
 

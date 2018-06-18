@@ -30,5 +30,5 @@ void client_player_buffer_process(handle_t *hdl, char *buf)
 {
 	printf("recived from %d: %s\n", hdl->h_fd, buf);
 	if (player_fill_queue(hdl->h_data, buf))
-		hdl->h_on_cycle = client_on_cycle;
+		hdl->h_on_cycle = player_on_cycle;
 }

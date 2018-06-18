@@ -5,11 +5,11 @@
 ** main
 */
 
-#include "Socket.hpp"
+#include "Core.hpp"
 
 int main(int ac, char **av)
 {
-	gi::Socket sock(ac, av);
-	sock<<"Telnet Answer please";
-	while(1){sock.receive();};
+	gi::Core graphic(ac, av);
+
+	graphic.loop();
 }

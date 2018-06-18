@@ -12,6 +12,7 @@ wiki/
 *.gcno
 ref_zappy_server
 
-.vscode
 .idea
 ZappyGi
+CMakeLists.txt
+cmake-build-debug

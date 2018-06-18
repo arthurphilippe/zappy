@@ -19,7 +19,7 @@ public:
 	~Socket() {};
 	void operator<<(const std::string &string) {send(string);}
 	void operator<<(const int &i) {send(i);}
-	bool receive();
+	bool receive(std::string &string);
 protected:
 private:
 	void connect();

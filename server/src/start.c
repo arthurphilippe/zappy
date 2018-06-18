@@ -36,6 +36,7 @@ static int bstrap_stor(selector_t **stor, parser_t *parser)
 		return (84);
 	}
 	(*stor)->s_delete = game_delete;
+	(*stor)->s_on_cycle = game_on_cycle;
 	add_teams((*stor)->s_data, parser->team_name);
 	if (listener_create((*stor), parser->port)) {
 		perror("listener");
