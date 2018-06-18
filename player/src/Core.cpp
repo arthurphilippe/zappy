@@ -68,7 +68,7 @@ void Core::loop()
 	std::string AIInstruction;
 
 	while (true) {
-		_ai.look(_socket);
+		_ai.look(_socket, _processing);
 		if (AIInstruction != "nothing") {
 			// process instruction
 		}

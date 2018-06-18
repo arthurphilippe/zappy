@@ -9,6 +9,7 @@
 	#define PROCESSING_HPP_
 	#include <string>
 	#include <stdexcept>
+	#include <vector>
 
 namespace pl {
 
@@ -20,6 +21,8 @@ namespace pl {
 			const noexcept;
 		void coordinates(const std::string &coordinates,
 			int &X, int &Y) noexcept;
+		void vision(const std::string &response,
+			std::vector<std::string> &vision) const noexcept;
 	private:
 	};
 

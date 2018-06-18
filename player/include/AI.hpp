@@ -10,6 +10,7 @@
 	#include <iostream>
 	#include <vector>
 	#include "Socket.hpp"
+	#include "Processing.hpp"
 
 namespace pl {
 
@@ -17,7 +18,8 @@ namespace pl {
 	public:
 		AI();
 		~AI() {};
-		void look(Socket &socket);
+		void look(Socket &socket,
+			const Processing &processing);
 		void setMapX(int X)
 		{
 			_mapX = X;
