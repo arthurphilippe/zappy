@@ -17,9 +17,9 @@
 namespace gi {
 class Server {
 public:
-	Server();
+	Server(int ac, char **av);
 	~Server();
-	MapCoord getMap() {return _map;};
+	MapCoord getMap();
 protected:
 private:
 	MapCoord _map;
