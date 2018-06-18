@@ -69,6 +69,8 @@ SRCS		=	src/list/list.c			\
 			src/board/gfx/get_tile_cont.c	\
 			src/board/gen/gen.c		\
 			src/board/gen/random.c		\
+			src/board/gen/level.c		\
+			src/board/gen/player.c		\
 			src/msg/process.c		\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
@@ -128,6 +130,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\
+			tests/board_gen.c	\
 
 SRCS_TEST	+=	$(OBJS)
 
