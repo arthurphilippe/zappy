@@ -18,6 +18,7 @@ SRCS		=	src/Socket.cpp		\
 			src/Display.cpp		\
 			src/Item.cpp		\
 			src/ParserEngine.cpp	\
+			src/BackgroundMap.cpp	\
 			src/Core.cpp		\
 			src/Server.cpp		\
 
@@ -30,6 +31,7 @@ TEST		=	unit_tests.out
 SRCS_TEST	=	tests/socket.cpp		\
 			tests/parser.cpp		\
 			tests/parserengine.cpp		\
+			tests/backgroundMap.cpp		\
 
 SRCS_TEST	+=	$(OBJS)
 
