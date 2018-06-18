@@ -10,13 +10,13 @@
 gi::Display::Display()
 	: _window()
 {
-	_ItemMap.insert(std::make_pair(ItemType::FOOD, std::unique_ptr<gi::Item>(new Item("./assets/Food.png"))));
-	_ItemMap.insert(std::make_pair(ItemType::LINEMATE, std::unique_ptr<gi::Item>(new Item("./assets/Linemate.png"))));
-	_ItemMap.insert(std::make_pair(ItemType::DERAUMERE, std::unique_ptr<gi::Item>(new Item("./assets/Deraumere.png"))));
-	_ItemMap.insert(std::make_pair(ItemType::SIBUR, std::unique_ptr<gi::Item>(new Item("./assets/Sibur.png"))));
-	_ItemMap.insert(std::make_pair(ItemType::MENDIANE, std::unique_ptr<gi::Item>(new Item("./assets/Mendiane.png"))));
-	_ItemMap.insert(std::make_pair(ItemType::PHIRAS, std::unique_ptr<gi::Item>(new Item("./assets/Phiras.png"))));
-	_ItemMap.insert(std::make_pair(ItemType::THYSTAME, std::unique_ptr<gi::Item>(new Item("./assets/Thystame.png"))));
+	_ItemMap.insert(std::make_pair(ObjectType::FOOD, std::unique_ptr<gi::Item>(new Item("./assets/Food.png"))));
+	_ItemMap.insert(std::make_pair(ObjectType::LINEMATE, std::unique_ptr<gi::Item>(new Item("./assets/Linemate.png"))));
+	_ItemMap.insert(std::make_pair(ObjectType::DERAUMERE, std::unique_ptr<gi::Item>(new Item("./assets/Deraumere.png"))));
+	_ItemMap.insert(std::make_pair(ObjectType::SIBUR, std::unique_ptr<gi::Item>(new Item("./assets/Sibur.png"))));
+	_ItemMap.insert(std::make_pair(ObjectType::MENDIANE, std::unique_ptr<gi::Item>(new Item("./assets/Mendiane.png"))));
+	_ItemMap.insert(std::make_pair(ObjectType::PHIRAS, std::unique_ptr<gi::Item>(new Item("./assets/Phiras.png"))));
+	_ItemMap.insert(std::make_pair(ObjectType::THYSTAME, std::unique_ptr<gi::Item>(new Item("./assets/Thystame.png"))));
 	_window.create(sf::VideoMode(1280, 720), "Zappy - But graphical <3");
 	_window.setFramerateLimit(60);
 }
@@ -26,7 +26,7 @@ gi::Display::~Display()
 	_window.close();
 }
 
-bool gi::Display::putItem(const ItemType type, const int posX, const int posY) noexcept
+bool gi::Display::putItem(const ObjectType type, const int posX, const int posY) noexcept
 {
 	auto match = _ItemMap.find(type);
 
@@ -40,14 +40,18 @@ bool gi::Display::putItem(const ItemType type, const int posX, const int posY) n
 
 bool gi::Display::putItem(gi::Object &object) noexcept
 {
-	auto match = _ItemMap.find(object.getType());
+	auto list = object.getObjList();
 
-	if (match == _ItemMap.end())
-		return false;
-	sf::Vector2i pos = object.getCoord();
-	auto sprite = match->second->getSprite();
-	sprite.setPosition(pos.x, pos.y);
-	_window.draw(sprite);
+	for (auto i = list.begin(); i != list.end(); i++) {
+		auto match = _ItemMap.find(*i);
+
+		if (match == _ItemMap.end())
+			return false;
+		sf::Vector2f pos = object.getCoord();
+		auto sprite = match->second->getSprite();
+		sprite.setPosition(pos.x, pos.y);
+		_window.draw(sprite);
+	}
 	return true;
 }
 
