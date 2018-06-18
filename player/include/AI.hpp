@@ -21,6 +21,8 @@ namespace pl {
 		~AI() {};
 		void look(Socket &socket,
 			const Processing &processing);
+		void lookAtInventory(Socket &socket,
+			const Processing &processing);
 		void setMapX(int X)
 		{
 			_mapX = X;
@@ -31,6 +33,7 @@ namespace pl {
 		}
 	private:
 		void clearVision();
+		void clearInventory();
 		int					_mapX;
 		int					_mapY;
 		std::vector<std::string>		_vision;

@@ -67,12 +67,13 @@ void Core::loop()
 {
 	std::string AIInstruction;
 
-	while (true) {
+	//while (true) {
 		_ai.look(_socket, _processing);
+		_ai.lookAtInventory(_socket, _processing);
 		if (AIInstruction != "nothing") {
 			// process instruction
 		}
-	}
+	//}
 
 
 }
