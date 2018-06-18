@@ -10,16 +10,6 @@
 #include "player.h"
 #include "selector.h"
 
-void kill_player(selector_t *stor, handle_t *hdl, list_t *args)
-{
-	player_t *pl = hdl->h_data;
-
-	(void) args;
-	(void) stor;
-	dprintf(hdl->h_fd, "dead\n");
-	list_push_back(pl->p_queued_msgs, strdup("quit"));
-}
-
 void player_lifespan_check(player_t *pl)
 {
 	if (chrono_check(&pl->p_lifespan) == CHRONO_EXPIRED &&

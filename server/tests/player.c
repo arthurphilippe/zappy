@@ -585,8 +585,6 @@ Test(Player, rite_check_tile)
 	cr_expect(!player_rite_check_tile(pl1, gm));
 }
 
-void kill_player(selector_t *stor, handle_t *hdl, list_t *args);
-
 Test(Player, lifespan_check_positive)
 {
 	player_t *pl = player_create();
