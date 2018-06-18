@@ -23,6 +23,7 @@ class Display {
 		void refresh() noexcept {_window.display();};
 		bool putItem(const ItemType type = ItemType::FOOD, int posX = 0, int posY = 0) noexcept;
 		bool putItem(gi::Object &object) noexcept;
+		bool putItem(std::vector<gi::Object> &object) noexcept;
 	private:
 		sf::RenderWindow _window;
 		std::unordered_map<gi::ItemType, std::unique_ptr<gi::Item>> _ItemMap;

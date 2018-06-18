@@ -50,3 +50,15 @@ bool gi::Display::putItem(gi::Object &object) noexcept
 	_window.draw(sprite);
 	return true;
 }
+
+bool gi::Display::putItem(std::vector<gi::Object> &object) noexcept
+{
+	bool ret = true;
+
+	for (auto it = object.begin(); it != object.end(); it++) {
+		auto hasFailed = putItem(*it);
+		if (!hasFailed)
+			ret = hasFailed;
+	}
+	return ret;
+}
