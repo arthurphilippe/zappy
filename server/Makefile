@@ -42,6 +42,7 @@ SRCS		=	src/list/list.c			\
 			src/game/find_pl.c		\
 			src/game/count_players.c	\
 			src/game/on_cycle.c		\
+			src/game/lifespan_checks.c	\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
@@ -53,6 +54,7 @@ SRCS		=	src/list/list.c			\
 			src/player/inventory_list.c	\
 			src/player/on_cycle.c		\
 			src/player/rite/check_tile.c	\
+			src/player/lifespan_check.c	\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\
@@ -101,6 +103,7 @@ SRCS		=	src/list/list.c			\
 			src/resource.c			\
 			src/chrono.c			\
 			src/start.c			\
+			src/heading.c			\
 			src/gfx/on_cycle.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
@@ -119,6 +122,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/dynbuf.c		\
 			tests/chrono.c		\
 			tests/egg.c		\
+			tests/heading.c		\
 			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\

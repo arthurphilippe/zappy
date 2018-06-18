@@ -15,7 +15,7 @@ void chrono_init(chrono_t *ch, unsigned int n)
 {
 	gettimeofday(&ch->c_counter, NULL);
 	ch->c_value = n * 1000;
-	ch->c_expired = false;
+	ch->c_expired = (n) ? false : true;
 }
 
 chrono_t *chrono_create(unsigned int n)
