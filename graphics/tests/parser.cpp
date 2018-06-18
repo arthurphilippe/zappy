@@ -5,6 +5,7 @@
 ** parser
 */
 
+#include <iostream>
 #include <vector>
 #include <criterion/criterion.h>
 #include "Parser.hpp"
@@ -15,10 +16,10 @@ Test(Parser, basic)
 	std::vector<std::string> cmd;
 	cmd.push_back("bct 120 555 0 1 2 3 4 5 6");
 	auto ret = gi::Parser::parseCmd(cmd, gi::ParsingType::FULL_MAP);
-	cr_assert_eq(ret[0].getCoord().x, 120);
+	cr_assert_eq(ret.front().getCoord().x, 120);
 	cr_assert_eq(ret.size(), 1);
-	cr_assert_eq(ret[0].getCoord().y, 555);
-	auto list = ret[0].getObjList();
+	cr_assert_eq(ret.front().getCoord().y, 555);
+	auto list = ret.front().getObjList();
 	cr_assert_eq(list.size(), 21);
 	int linemate = 0;
 	for (auto i = list.begin(); i != list.end(); i++) {
