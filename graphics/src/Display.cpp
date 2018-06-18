@@ -17,7 +17,7 @@ gi::Display::Display()
 	_ItemMap.insert(std::make_pair(ItemType::MENDIANE, std::unique_ptr<gi::Item>(new Item("./assets/Mendiane.png"))));
 	_ItemMap.insert(std::make_pair(ItemType::PHIRAS, std::unique_ptr<gi::Item>(new Item("./assets/Phiras.png"))));
 	_ItemMap.insert(std::make_pair(ItemType::THYSTAME, std::unique_ptr<gi::Item>(new Item("./assets/Thystame.png"))));
-	_window.create(sf::VideoMode(800, 600), "Zappy - But graphical <3");
+	_window.create(sf::VideoMode(1280, 720), "Zappy - But graphical <3");
 	_window.setFramerateLimit(60);
 }
 
