@@ -8,6 +8,7 @@
 #include "game.h"
 #include "player.h"
 #include "team.h"
+#include "get_wait_time.h"
 
 int game_register_player(game_t *gm, player_t *pl)
 {
@@ -19,5 +20,6 @@ int game_register_player(game_t *gm, player_t *pl)
 		list_push_back(tm->t_membs, pl) != LIST_OK)
 		return (-1);
 	pl->p_id = id++;
+	chrono_init(&pl->p_lifespan, get_wait_time(gm->ga_freq, 126));
 	return (--tm->t_max_memb);
 }

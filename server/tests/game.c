@@ -5,6 +5,7 @@
 ** game
 */
 
+#include <unistd.h>
 #include "game.h"
 #include "criterion/assert.h"
 #include "criterion/criterion.h"
@@ -281,4 +282,44 @@ Test(Game, count_pl_lvl)
 		(unsigned int) 2, "got %d",
 		game_count_players_lvl(gm, pl1));
 
+}
+
+void kill_player(selector_t *stor, handle_t *hdl, list_t *args);
+
+Test(Game, lifespan_checks)
+{
+	player_t *pl1 = player_create_at((vector2d_t){9, 9});
+	player_t *pl2 = player_create_at((vector2d_t){9, 9});
+	player_t *pl3 = player_create_at((vector2d_t){9, 9});
+	player_t *pl4 = player_create_at((vector2d_t){9, 15});
+	game_t *gm = game_create(20, 20, 7, 5);
+
+	cr_assert(pl1);
+	cr_assert(pl2);
+	cr_assert(pl2);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	game_add_team(gm, "red-pandas");
+	pl1->p_teamname = strdup("pandas");
+	pl3->p_teamname = strdup("pandas");
+	pl2->p_teamname = strdup("red-pandas");
+	pl4->p_teamname = strdup("red-pandas");
+	cr_assert_neq(game_register_player(gm, pl1), -1);
+	cr_assert_neq(game_register_player(gm, pl2), -1);
+	cr_assert_neq(game_register_player(gm, pl3), -1);
+	cr_assert_neq(game_register_player(gm, pl4), -1);
+
+	chrono_init(&pl1->p_lifespan, 0);
+	chrono_init(&pl2->p_lifespan, 0);
+	chrono_init(&pl3->p_lifespan, 0);
+	chrono_init(&pl4->p_lifespan, 0);
+	game_lifespan_checks(gm);
+	cr_expect_str_eq(pl1->p_queued_msgs->l_end->n_data, "quit");
+	cr_expect_eq(pl1->p_queued_msgs->l_size, 1);
+	cr_expect_str_eq(pl2->p_queued_msgs->l_end->n_data, "quit");
+	cr_expect_eq(pl2->p_queued_msgs->l_size, 1);
+	cr_expect_str_eq(pl3->p_queued_msgs->l_end->n_data, "quit");
+	cr_expect_eq(pl3->p_queued_msgs->l_size, 1);
+	cr_expect_str_eq(pl4->p_queued_msgs->l_end->n_data, "quit");
+	cr_expect_eq(pl4->p_queued_msgs->l_size, 1);
 }

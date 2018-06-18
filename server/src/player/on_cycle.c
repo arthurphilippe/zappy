@@ -6,6 +6,7 @@
 */
 
 #include <string.h>
+#include <stdio.h>
 #include "chrono.h"
 #include "msg.h"
 #include "player.h"
@@ -58,6 +59,7 @@ static bool halt_check(selector_t *stor, handle_t *hdl, list_t *msgq)
 			stor->s_live = false;
 			return (true);
 		} else if (!strcasecmp("quit", tmp)) {
+			dprintf(hdl->h_fd, "dead\n");
 			client_erase(stor, hdl);
 			return (true);
 		}
@@ -79,7 +81,7 @@ void player_on_cycle(selector_t *stor, handle_t *hdl)
 	player_t *pl = hdl->h_data;
 	list_t *msgq = pl->p_queued_msgs;
 
-	if (halt_check(stor, hdl, msgq))
+	if (pl->p_queued_msgs->l_size && halt_check(stor, hdl, msgq))
 		return;
 	if (pl->p_task.dc_callback &&
 		chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {
@@ -90,8 +92,6 @@ void player_on_cycle(selector_t *stor, handle_t *hdl)
 			list_pop_front(msgq);
 		}
 	}
-	if (!pl->p_task.dc_callback && ingest_msg(stor, hdl, msgq) &&
-		!msgq->l_size && !pl->p_task.dc_callback) {
-		hdl->h_on_cycle = NULL;
-	}
+	if (!pl->p_task.dc_callback)
+		ingest_msg(stor, hdl, msgq);
 }
