@@ -38,6 +38,7 @@
 		"utility": "cpp",
 		"algorithm": "cpp",
 		"chrono.h": "c",
-		"time.h": "c"
+		"time.h": "c",
+		"list": "cpp"
 	}
 }
