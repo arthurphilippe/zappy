@@ -26,16 +26,6 @@ Server::~Server()
 
 MapCoord &Server::getMap()
 {
-	_sock << "mct\n";
-	std::string ret;
-	MapCoord fullMap;
-	if (_sock.receive(ret)) {
-		auto vec = ParserEngine::createVectorString(ret, '\n');
-		if (vec.size()) {
-		_map.clear();
-		_map = Parser::parseCmd(vec, ParsingType::FULL_MAP);
-		}
-	}
 	return _map;
 }
 
@@ -67,6 +57,8 @@ void Server::execCmd(const ParsingType &type, std::string &cmd)
 	case ParsingType::PDI:
 		Command::delPlayer(cmd, _playerlist);
 		break;
+	case ParsingType::BCT:
+		Command::updateTile(cmd, _map);
 	default:
 		return;
 	}
@@ -84,6 +76,27 @@ void Server::processCmd()
 		i = _interaction.begin();
 		if (i == _interaction.end())
 			return;
+	}
+}
+
+void Server::updateMap(MapCoord &map)
+{
+	int z = 0;
+	for (auto i = map.begin(); i != map.end(); i++) {
+		std::string str("bct");
+		str += " ";
+		auto pos = i->getCoord();
+		str += std::to_string(static_cast<int> (pos.x));
+		str += " ";
+		str += std::to_string(static_cast<int> (pos.y));
+		str += "\n";
+		_sock << str;
+		if (z > 10) {
+			getHints();
+			processCmd();
+			z = 0;
+		}
+		z++;
 	}
 }
 
