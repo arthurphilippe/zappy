@@ -26,14 +26,14 @@ Core::~Core()
 bool Core::loop()
 {
 	auto pos = _serv.getMapSize();
-	BackgroundMap beck(pos.x, pos.y);
-	auto map = beck.getMap();
+	BackgroundMap backMap(pos.x, pos.y);
+	auto map = backMap.getMap();
 	while (_display.isRunning()) {
 		_display.clear();
 		_serv.getHints();
-		std::cout << _serv.getPlayerList().size() << std::endl;
 		_serv.processCmd();
 		_display.putItem(map);
+		_display.putPlayer(_serv.getPlayerList());
 		_display.refresh();
 		sleep(1);
 	}
