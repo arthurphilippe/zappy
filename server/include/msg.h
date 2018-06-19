@@ -36,7 +36,8 @@
 	#define HINT_NEW_PLAYER "pnw #%d %d %d %d %d %s\n"
 	#define HINT_KICK "pex %d\n"
 	#define HINT_BROADCAST "pbc %d %s\n"
-	#define HINT_START_INCENT "pic %d %d %d"
+	#define HINT_START_INCANT "pic %d %d %d\n"
+	#define HINT_EGG_LAID "enw %d %d %d %d\n"
 
 	#define GFX_MAGIC "ZPPGFX88"
 
