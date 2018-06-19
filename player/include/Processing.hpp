@@ -23,11 +23,14 @@ namespace pl {
 		void coordinates(const std::string &coordinates,
 			int &X, int &Y) noexcept;
 		void vision(const std::string &reply,
-			std::vector<std::string> &vision) const noexcept;
+			std::vector<std::vector<std::string>> &vision) const noexcept;
 		void inventory(const std::string &reply,
 			std::unordered_map<std::string, int> &inventory)
 			const;
 	private:
+		void parseTileContent(std::string &content,
+			std::vector<std::vector<std::string>> &vision)
+			const;
 		void parseResources(std::string &info,
 			std::unordered_map<std::string, int> &inventory)
 			const;

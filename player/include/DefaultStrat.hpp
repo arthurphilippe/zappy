@@ -19,7 +19,8 @@ class DefaultStrat : public IStrat {
 	public:
 		DefaultStrat(Socket &socket);
 		~DefaultStrat();
-		void run(std::vector<std::string> &vision) noexcept override;
+		void run(std::vector<std::vector<std::string>> &vision)
+			noexcept override;
 		bool isRuning() noexcept override {return _status;};
 	private:
 		bool			_status;
