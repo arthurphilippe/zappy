@@ -78,12 +78,24 @@ static void process_unregistred(
 	}
 }
 
+static void debug_list(list_t *list)
+{
+	list_iter_t iter;
+	char *tmp;
+
+	list_iter_init(&iter, list, FWD);
+	dprintf(2, "----------\nprocessing split-cmd of size:\n");
+	while ((tmp = list_iter_next(&iter)))
+		dprintf(2, "%s\n", tmp);
+}
+
 bool msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg)
 {
 	player_t *pl = hdl->h_data;
 	bool ret;
 
 	(void) hdl;
+	debug_list(msg);
 	if (!pl->p_teamname && msg->l_size) {
 		process_unregistred(stor, hdl, pl, msg->l_start->n_data);
 		ret = true;

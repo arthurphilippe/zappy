@@ -25,6 +25,17 @@ static list_t *client_get_msgq(handle_t *hdl)
 	return (NULL);
 }
 
+static void debug_list(list_t *list)
+{
+	list_iter_t iter;
+	char *tmp;
+
+	list_iter_init(&iter, list, FWD);
+	dprintf(2, "----------\nmsgs in queue are:\n");
+	while ((tmp = list_iter_next(&iter)))
+		dprintf(2, "%s\n", tmp);
+}
+
 static void fill_queue(handle_t *hdl, const char *buf)
 {
 	list_t *msgq = client_get_msgq(hdl);
@@ -35,6 +46,7 @@ static void fill_queue(handle_t *hdl, const char *buf)
 			hdl->h_on_cycle = player_on_cycle;
 		else if (msgq->l_size && hdl->h_type == H_GFX)
 			hdl->h_on_cycle = gfx_on_cycle;
+		debug_list(msgq);
 	}
 }
 
@@ -44,6 +56,7 @@ static void fill_queue(handle_t *hdl, const char *buf)
 static void call_reader(handle_t *hdl, char *buf, int r)
 {
 	buf[r] = '\0';
+	dprintf(2, "debug: from: %d processing: \'%s`'\n", hdl->h_fd, buf);
 	fill_queue(hdl, buf);
 }
 
