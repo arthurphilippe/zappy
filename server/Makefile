@@ -140,11 +140,8 @@ SRCS_TEST	=	tests/list.c	\
 			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\
-<<<<<<< HEAD
-			tests/broadcast.c		\
-=======
+			tests/broadcast.c	\
 			tests/board_gen.c	\
->>>>>>> 9341ca9d7a109086f5b2f7d5f0a208ffe9b2ec3b
 
 SRCS_TEST	+=	$(OBJS)
 
