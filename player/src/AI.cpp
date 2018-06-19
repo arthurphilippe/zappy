@@ -41,7 +41,7 @@ void AI::lookAtInventory(Socket &socket, const Processing &processing)
 	try {
 		processing.inventory(reply, _inventory);
 	} catch (std::exception &err) {
-		std::cerr << "Error while looking at inventory";
+		std::cerr << "Error while looking at inventory" << std::endl;
 	}
 }
 

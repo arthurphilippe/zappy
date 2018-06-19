@@ -10,6 +10,7 @@
 
 	#include <string>
 	#include <vector>
+	#include "Socket.hpp"
 
 namespace pl {
 class IStrat {
