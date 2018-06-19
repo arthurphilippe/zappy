@@ -39,6 +39,8 @@
 	#define HINT_START_INCANT "pic %d %d %d\n"
 	#define HINT_EGG_LAID "enw %d %d %d %d\n"
 	#define HINT_EGG_HACTHED "eht %d\n"
+	#define HINT_DROPED_RES "pdr %d %d\n"
+	#define HINT_TOOK_RES "pgt %d %d\n"
 
 	#define GFX_MAGIC "ZPPGFX88"
 

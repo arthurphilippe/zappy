@@ -110,6 +110,8 @@ SRCS		=	src/list/list.c			\
 			src/gfx/hint/pex.c		\
 			src/gfx/hint/enw.c		\
 			src/gfx/hint/eht.c		\
+			src/gfx/hint/pdr.c		\
+			src/gfx/hint/pgt.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
