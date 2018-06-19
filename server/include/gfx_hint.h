@@ -17,5 +17,6 @@ int gfx_hint_get_fd(void);
 void gfx_hint_pnw(player_t *pl);
 void gfx_hint_pex(player_t *pl);
 void gfx_hint_enw(player_t *pl, egg_t *egg);
+void gfx_hint_eht(egg_t *egg);
 
 #endif /* !GFX_HINT_H_ */
