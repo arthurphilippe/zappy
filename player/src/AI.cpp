@@ -10,7 +10,16 @@
 namespace pl {
 
 AI::AI()
-{}
+{
+	_stratLevel = 0;
+}
+
+void AI::initStrats(Socket &socket)
+{
+	DefaultStrat def(socket);
+
+	_strats.push_back(&def);
+}
 
 void AI::look(Socket &socket, const Processing &processing)
 {
@@ -52,6 +61,13 @@ void AI::clearInventory()
 	_inventory["mendiane"] = 0;
 	_inventory["phiras"] = 0;
 	_inventory["thystame"] = 0;
+}
+
+void AI::executeStrat() noexcept
+{
+	std::cout << "KOOKOO, O REVWAR";
+	_strats[_stratLevel]->run(_vision);
+	std::cout << "CHEVRON CHEVRON";
 }
 
 }

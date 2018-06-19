@@ -20,6 +20,7 @@ Core::Core(int ac, char **av)
 	if (args.size() != 4 && args.size() != 6)
 		throw std::invalid_argument("Wrong arguments number");
 	parseArgs(args);
+	_ai.initStrats(_socket);
 }
 
 Core::~Core()
@@ -67,13 +68,11 @@ void Core::loop()
 {
 	std::string AIInstruction;
 
-	//while (true) {
+	while (true) {
 		_ai.look(_socket, _processing);
 		_ai.lookAtInventory(_socket, _processing);
-		if (AIInstruction != "nothing") {
-			// process instruction
-		}
-	//}
+		_ai.executeStrat();
+	}
 
 
 }
