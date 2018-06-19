@@ -27,9 +27,10 @@ bool Core::loop()
 {
 	auto pos = _serv.getMapSize();
 	BackgroundMap backMap(pos.x, pos.y);
-	auto map = backMap.getMap();
+	auto &map = _serv.getMap();
 	while (_display.isRunning()) {
 		_display.clear();
+		_serv.updateMap(map);
 		_serv.getHints();
 		_serv.processCmd();
 		_display.putItem(map);
