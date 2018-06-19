@@ -105,6 +105,14 @@ SRCS		=	src/list/list.c			\
 			src/start.c			\
 			src/heading.c			\
 			src/gfx/on_cycle.c		\
+			src/gfx/hint/init.c		\
+			src/gfx/hint/pnw.c		\
+			src/gfx/hint/pex.c		\
+			src/gfx/hint/enw.c		\
+			src/gfx/hint/eht.c		\
+			src/gfx/hint/pdr.c		\
+			src/gfx/hint/pgt.c		\
+			src/gfx/hint/pdi.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
