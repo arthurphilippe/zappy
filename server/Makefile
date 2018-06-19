@@ -28,8 +28,6 @@ SRCS		=	src/list/list.c			\
 			src/handle/delete.c		\
 			src/handle/client_create.c	\
 			src/handle/client_erase.c	\
-			src/handle/client_on_cycle.c	\
-			src/handle/client_get_msgq.c	\
 			src/handle/client_read.c	\
 			src/handle/listener_create.c	\
 			src/handle/listener_read.c	\
@@ -42,6 +40,9 @@ SRCS		=	src/list/list.c			\
 			src/game/take_object.c		\
 			src/game/set_object.c		\
 			src/game/find_pl.c		\
+			src/game/count_players.c	\
+			src/game/on_cycle.c		\
+			src/game/lifespan_checks.c	\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
@@ -51,9 +52,13 @@ SRCS		=	src/list/list.c			\
 			src/player/eject.c		\
 			src/player/inventory.c		\
 			src/player/inventory_list.c	\
+			src/player/on_cycle.c		\
+			src/player/rite/check_tile.c	\
+			src/player/lifespan_check.c	\
 			src/team/create.c		\
 			src/team/delete.c		\
 			src/team/find.c			\
+			src/team/consume_eggs.c		\
 			src/board/create.c		\
 			src/board/delete.c		\
 			src/board/init.c		\
@@ -77,6 +82,7 @@ SRCS		=	src/list/list.c			\
 			src/msg/cmd_pl/connect_nbr.c	\
 			src/msg/cmd_pl/eject.c		\
 			src/msg/cmd_pl/fork.c		\
+			src/msg/cmd_pl/incantation.c	\
 			src/msg/cmd_gfx/get_map_size.c	\
 			src/msg/cmd_gfx/get_tile_cont.c	\
 			src/msg/cmd_gfx/get_map_cont.c	\
@@ -97,6 +103,16 @@ SRCS		=	src/list/list.c			\
 			src/resource.c			\
 			src/chrono.c			\
 			src/start.c			\
+			src/heading.c			\
+			src/gfx/on_cycle.c		\
+			src/gfx/hint/init.c		\
+			src/gfx/hint/pnw.c		\
+			src/gfx/hint/pex.c		\
+			src/gfx/hint/enw.c		\
+			src/gfx/hint/eht.c		\
+			src/gfx/hint/pdr.c		\
+			src/gfx/hint/pgt.c		\
+			src/gfx/hint/pdi.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -114,6 +130,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/dynbuf.c		\
 			tests/chrono.c		\
 			tests/egg.c		\
+			tests/heading.c		\
 			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\

@@ -9,6 +9,7 @@
 #include "msg.h"
 #include "game.h"
 #include "player.h"
+#include "gfx_hint.h"
 
 void msg_cmd_pl_eject(selector_t *stor, handle_t *hdl, list_t *args)
 {
@@ -18,4 +19,5 @@ void msg_cmd_pl_eject(selector_t *stor, handle_t *hdl, list_t *args)
 	(void) args;
 	player_eject(pl, gm->ga_players, gm->ga_board);
 	dprintf(hdl->h_fd, "ok\n");
+	gfx_hint_pex(pl);
 }
