@@ -107,6 +107,7 @@ SRCS		=	src/list/list.c			\
 			src/resource.c			\
 			src/chrono.c			\
 			src/start.c			\
+			src/broadcast.c			\
 			src/heading.c			\
 			src/gfx/on_cycle.c		\
 			src/gfx/hint/init.c		\
@@ -118,6 +119,7 @@ SRCS		=	src/list/list.c			\
 			src/gfx/hint/pgt.c		\
 			src/gfx/hint/pdi.c		\
 			src/gfx/hint/ebo.c		\
+			src/gfx/hint/pbc.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -139,6 +141,7 @@ SRCS_TEST	=	tests/list.c	\
 			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\
+			tests/broadcast.c	\
 			tests/board_gen.c	\
 
 SRCS_TEST	+=	$(OBJS)
@@ -147,7 +150,7 @@ OBJS_TEST	=	$(SRCS_TEST:.c=.o)
 
 CFLAGS		=	-W -Wextra -Wall -Iinclude/
 
-LDFLAGS		=
+LDFLAGS		=	-lm
 
 %.o: %.c
 	@printf "[\033[0;36mcompiling\033[0m]% 39s\r" $< | tr " " "."

@@ -84,7 +84,7 @@ static void debug_list(list_t *list)
 	char *tmp;
 
 	list_iter_init(&iter, list, FWD);
-	dprintf(2, "----------\nprocessing split-cmd of size:\n");
+	dprintf(2, "----------\nprocessing split-cmd:\n");
 	while ((tmp = list_iter_next(&iter)))
 		dprintf(2, "%s\n", tmp);
 }
