@@ -16,7 +16,7 @@ namespace pl {
 class IStrat {
 	public:
 		IStrat() = default;
-		~IStrat() = default;
+		virtual ~IStrat() = default;
 		virtual void run(std::vector<std::string> &vision) = 0;
 		virtual bool isRuning() = 0;
 };

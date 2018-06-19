@@ -14,11 +14,14 @@ AI::AI()
 	_stratLevel = 0;
 }
 
+AI::~AI()
+{}
+
 void AI::initStrats(Socket &socket)
 {
-	auto def = new DefaultStrat(socket);
+	std::unique_ptr<IStrat> def(new DefaultStrat(socket));
 
-	_strats.push_back(def);
+	_strats.push_back(std::move(def));
 }
 
 void AI::look(Socket &socket, const Processing &processing)

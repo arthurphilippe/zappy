@@ -10,6 +10,7 @@
 	#include <iostream>
 	#include <vector>
 	#include <unordered_map>
+	#include <memory>
 	#include "Socket.hpp"
 	#include "Processing.hpp"
 	#include "IStrat.hpp"
@@ -20,7 +21,7 @@ namespace pl {
 	class AI {
 	public:
 		AI();
-		~AI() {};
+		~AI();
 		void initStrats(Socket &socket);
 		void look(Socket &socket,
 			const Processing &processing);
@@ -43,7 +44,7 @@ namespace pl {
 		int					_stratLevel;
 		std::vector<std::string>		_vision;
 		std::unordered_map<std::string, int>	_inventory;
-		std::vector<IStrat *>			_strats;
+		std::vector<std::unique_ptr<IStrat>>	_strats;
 	};
 
 }
