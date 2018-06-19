@@ -17,6 +17,7 @@
 void client_erase(selector_t *stor, handle_t *hdl)
 {
 	if (hdl->h_type == H_PLAYER) {
+		gfx_hint_pdi(hdl->h_data);
 		game_unreg_player(stor->s_data, hdl->h_data);
 	} else if (hdl->h_type == H_GFX) {
 		gfx_hint_init(-1);

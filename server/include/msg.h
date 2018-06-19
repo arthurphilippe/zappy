@@ -41,6 +41,7 @@
 	#define HINT_EGG_HACTHED "eht %d\n"
 	#define HINT_DROPED_RES "pdr %d %d\n"
 	#define HINT_TOOK_RES "pgt %d %d\n"
+	#define HINT_PLAYER_DIED "pdi %d\n"
 
 	#define GFX_MAGIC "ZPPGFX88"
 
