@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** Zappy
 ** File description:
-** Created by hexa,
+** Created by hexa
 */
 
 #ifndef BOARD_GEN_H_
@@ -13,24 +13,21 @@
 	#include "board.h"
 
 /*
-** PROCEDURAL RULES
+** PROCEDURAL RULES Struct
 */
-
-typedef struct procedural_rule_s {
-	resource_t type;
-	int number;
-} procedural_rule_t;
+typedef struct		s_procedural_rule {
+	resource_t	type;
+	int 		number;
+}			procedural_rule_t;
 
 /*
 ** RANDOMNESS
 */
-
 int random_int(int, int);
 
 /*
 ** RESOURCES GEN
 */
-
 void board_gen(board_t *, list_t *);
 unsigned int count_players(list_t *);
 unsigned int get_max_level_reachable(list_t *);
