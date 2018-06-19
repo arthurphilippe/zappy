@@ -25,6 +25,7 @@ typedef struct		s_player {
 	vector2d_t	p_pos;
 	vector2d_t	p_dir;
 	unsigned int	p_lvl;
+	unsigned int	p_id;
 }			player_t;
 
 typedef struct		s_look_key {

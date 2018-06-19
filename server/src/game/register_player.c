@@ -12,6 +12,7 @@
 
 int game_register_player(game_t *gm, player_t *pl)
 {
+	static unsigned int id = 0;
 	team_t *tm = team_find_by_name(gm->ga_teams, pl->p_teamname);
 
 	if (!tm || !tm->t_max_memb ||
@@ -19,5 +20,6 @@ int game_register_player(game_t *gm, player_t *pl)
 		list_push_back(tm->t_membs, pl) != LIST_OK)
 		return (-1);
 	chrono_init(&pl->p_lifespan, get_wait_time(gm->ga_freq, 126));
+	pl->p_id = ++id;
 	return (--tm->t_max_memb);
 }
