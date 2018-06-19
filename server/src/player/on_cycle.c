@@ -28,7 +28,8 @@ static bool split_and_process(
 	if (!split_msg)
 		return ret;
 	ret = msg_process_cmd_pl(stor, hdl, split_msg);
-	list_destroy(split_msg);
+	if (ret)
+		list_destroy(split_msg);
 	return (ret);
 }
 
@@ -87,7 +88,9 @@ void player_on_cycle(selector_t *stor, handle_t *hdl)
 		chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {
 		pl->p_task.dc_callback(stor, hdl, pl->p_task.dc_args);
 		if (chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {
+			dprintf(2, "kappa\n");
 			pl->p_task.dc_callback = NULL;
+			list_destroy(pl->p_task.dc_args);
 			pl->p_task.dc_args = NULL;
 			list_pop_front(msgq);
 		}
