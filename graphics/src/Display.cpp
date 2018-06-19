@@ -50,6 +50,7 @@ bool gi::Display::putItem(const ObjectType type, const int posX, const int posY)
 	return true;
 }
 
+#include <iostream>
 bool gi::Display::putItem(gi::Object &object) noexcept
 {
 	auto list = object.getObjList();
@@ -58,8 +59,8 @@ bool gi::Display::putItem(gi::Object &object) noexcept
 	int x = 0;
 	int y = 0;
 	sf::Vector2f pos = object.getCoord();
-	pos.x = TILESIZE + (TILESIZE * pos.x) + pos.x;
-	pos.y = TILESIZE + (TILESIZE * pos.y) + pos.y;
+	pos.x = TILESIZE + (TILESIZE * pos.x) + pos.x + 250;
+	pos.y = TILESIZE + (TILESIZE * pos.y) + pos.y + 250;
 	tileset.setPosition(pos);
 	_window.draw(tileset);
 	pos.x -= (TILESIZE / 2) + (BUFFSIZE / 2);
