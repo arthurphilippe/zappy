@@ -21,5 +21,7 @@ void gfx_hint_eht(egg_t *egg);
 void gfx_hint_pdr(player_t *pl, unsigned int res);
 void gfx_hint_pgt(player_t *pl, unsigned int res);
 void gfx_hint_pdi(player_t *pl);
+void gfx_hint_ebo(egg_t *egg);
+void gfx_hint_pbc(player_t *pl, const char *str);
 
 #endif /* !GFX_HINT_H_ */
