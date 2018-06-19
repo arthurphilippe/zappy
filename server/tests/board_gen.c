@@ -5,12 +5,12 @@
 ** Created by hexa,
 */
 
+#include <criterion/assert.h>
+#include <criterion/criterion.h>
 #include "board_gen.h"
+#include "list.h"
 #include "player.h"
 #include "team.h"
-#include "list.h"
-#include "criterion/assert.h"
-#include "criterion/criterion.h"
 
 Test(Board_Gen, count_player)
 {
@@ -131,12 +131,12 @@ Test(Board_Gen, board_generation)
 	list_push_back(teams, team3);
 
 	board_gen(board, teams);
-	for (int i = 0; i < (int)(board->b_max_x * board->b_max_y); i++)
+	for (int i = 0; i < (int) (board->b_max_x * board->b_max_y); i++)
 		count += board->b_data[i][LINEMATE];
 	cr_assert_eq(count, 9);
 	count = 0;
 	board_gen(board, teams);
-	for (int i = 0; i < (int)(board->b_max_x * board->b_max_y); i++)
+	for (int i = 0; i < (int) (board->b_max_x * board->b_max_y); i++)
 		count += board->b_data[i][LINEMATE];
 	cr_assert_eq(count, 2 * 9);
 	count = 0;
@@ -144,7 +144,7 @@ Test(Board_Gen, board_generation)
 	p1->p_lvl = 3;
 	p2->p_lvl = 3;
 	board_gen(board, teams);
-	for (int i = 0; i < (int)(board->b_max_x * board->b_max_y); i++)
+	for (int i = 0; i < (int) (board->b_max_x * board->b_max_y); i++)
 		count += board->b_data[i][LINEMATE];
 	cr_assert_eq(count, 45);
 	count = 0;
@@ -156,7 +156,7 @@ Test(Board_Gen, board_generation)
 	p5->p_lvl = 7;
 	p6->p_lvl = 7;
 	board_gen(board, teams);
-	for (int i = 0; i < (int)(board->b_max_x * board->b_max_y); i++)
+	for (int i = 0; i < (int) (board->b_max_x * board->b_max_y); i++)
 		count += board->b_data[i][THYSTAME];
 	cr_assert_eq(count, 9);
 	count = 0;

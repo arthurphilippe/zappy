@@ -6,8 +6,8 @@
 */
 
 #include <memory.h>
-#include "team.h"
 #include "player.h"
+#include "team.h"
 
 static unsigned int max_level(const unsigned int levels[8])
 {

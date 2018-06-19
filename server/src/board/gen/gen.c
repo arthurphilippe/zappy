@@ -7,7 +7,7 @@
 
 #include "board_gen.h"
 
-procedural_rule_t rules[][6] = {
+const procedural_rule_t rules[][6] = {
 	{{LINEMATE, 1}, {DERAUMERE, 0}, {SIBUR, 0}, {MENDIANE, 0},
 		{PHIRAS, 0}, {THYSTAME, 0}},
 	{{LINEMATE, 1}, {DERAUMERE, 1}, {SIBUR, 1}, {MENDIANE, 0},
@@ -29,8 +29,8 @@ static void board_gen_resource(board_t *board, resource_t type, int nb)
 	vector2d_t pos;
 
 	for (int i = 0; i < nb; i++) {
-		pos.v_x = random_int(0, (int)board->b_max_x);
-		pos.v_y = random_int(0, (int)board->b_max_y);
+		pos.v_x = random_int(0, (int) board->b_max_x);
+		pos.v_y = random_int(0, (int) board->b_max_y);
 		board_put_resource(board, pos, type);
 	}
 }
@@ -38,7 +38,7 @@ static void board_gen_resource(board_t *board, resource_t type, int nb)
 void board_gen(board_t *board, list_t *teams)
 {
 	unsigned int levels[7];
-	procedural_rule_t *rule;
+	const procedural_rule_t *rule;
 	unsigned int nb_players = count_players(teams);
 
 	get_levels_reachable(levels, teams);
@@ -46,11 +46,8 @@ void board_gen(board_t *board, list_t *teams)
 	for (int level = 0; level < 7; level++) {
 		rule = (levels[level] == 1) ? rules[level] : 0;
 		for (int i = 0; i < 6 && rule != 0; i++) {
-			board_gen_resource(
-				board,
-				rule[i].type,
-				nb_players * rule[i].number
-			);
+			board_gen_resource(board, rule[i].type,
+				nb_players * rule[i].number);
 		}
 	}
 }

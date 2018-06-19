@@ -15,7 +15,7 @@ int random_int(int min, int max)
 
 	while (rvalue < min) {
 		clock_gettime(CLOCK_MONOTONIC, &ts);
-		srand((unsigned int)ts.tv_nsec);
+		srand((unsigned int) ts.tv_nsec);
 		rvalue = rand() % (max + 1);
 	}
 	return (rvalue);

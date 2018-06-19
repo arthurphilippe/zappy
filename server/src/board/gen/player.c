@@ -5,8 +5,8 @@
 ** Created by hexa,
 */
 
-#include "team.h"
 #include "player.h"
+#include "team.h"
 
 unsigned int count_players(list_t *teams)
 {

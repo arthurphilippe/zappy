@@ -124,7 +124,7 @@ OBJS		=	$(SRCS:.c=.o)
 
 TEST		=	unit_tests.out
 
-SRCS_TEST	=	tests/test-list.c	\
+SRCS_TEST	=	tests/list.c	\
 			tests/team.c		\
 			tests/player.c		\
 			tests/stolist.c		\
