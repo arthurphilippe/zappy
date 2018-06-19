@@ -36,6 +36,9 @@
 		"typeinfo": "cpp",
 		"utility": "cpp",
 		"algorithm": "cpp",
-		"list": "cpp"
+		"list": "cpp",
+		"chrono": "cpp",
+		"ratio": "cpp",
+		"thread": "cpp"
 	}
 }
