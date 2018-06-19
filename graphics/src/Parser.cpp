@@ -23,6 +23,11 @@ static const std::vector<FullMapDef> _FullMapObjDef = {
 	FullMapDef::THYSTAME,
 };
 
+static const std::unordered_map<std::string, ParsingType> _ParsingTypeDef = {
+	{"pnw", ParsingType::PNW},
+	{"ppo", ParsingType::PPO},
+};
+
 static const std::unordered_map<FullMapDef, ObjectType> _ObjTypeDef = {
 	{FullMapDef::FOOD, ObjectType::FOOD},
 	{FullMapDef::LINEMATE, ObjectType::LINEMATE},
@@ -33,7 +38,7 @@ static const std::unordered_map<FullMapDef, ObjectType> _ObjTypeDef = {
 	{FullMapDef::THYSTAME, ObjectType::THYSTAME},
 };
 
-MapCoord Parser::parseCmd(std::vector<std::string> &cmd, const ParsingType type){
+MapCoord Parser::parseCmd(std::vector<std::string> &cmd, const ParsingType type) {
 	switch (type) {
 	case ParsingType::FULL_MAP:
 		return (parseFullMap(cmd));
@@ -45,6 +50,25 @@ MapCoord Parser::parseCmd(std::vector<std::string> &cmd, const ParsingType type)
 	}
 }
 
+ParsingType Parser::getParsingType(const std::string type)
+{
+	for (auto i = _ParsingTypeDef.begin(); i != _ParsingTypeDef.end(); i++) {
+		if (i->first == type)
+			return (i->second);
+	}
+	return ParsingType::UNKNOW;
+}
+
+ParsingType Parser::getCmdType(std::string &cmd)
+{
+	auto vec = ParserEngine::createVectorString(cmd, ' ');
+	if (!vec.size())
+		return ParsingType::UNKNOW;
+	auto parse = getParsingType(vec[0]);
+	return parse;
+}
+
+
 ObjectType Parser::getObjType(const FullMapDef def)
 {
 	for (auto i = _ObjTypeDef.begin(); i != _ObjTypeDef.end(); i++) {
@@ -54,15 +78,21 @@ ObjectType Parser::getObjType(const FullMapDef def)
 	return ObjectType::UNKNOW;
 }
 
+
+
 MapCoord Parser::parseFullMap(std::vector<std::string> &cmd)
 {
 	MapCoord map;
 	std::list<ObjectType> objlist;
 	for (auto i = cmd.begin(); i != cmd.end(); i++) {
-		int x = std::stoi(ParserEngine::getStringFromArgNb((*i), static_cast<int>(FullMapDef::COORD_X)));
-		int y = std::stoi(ParserEngine::getStringFromArgNb((*i), static_cast<int>(FullMapDef::COORD_Y)));
+		if (i->length()) {
+		int x = std::stoi(ParserEngine::getStringFromArgNb((*i),
+			static_cast<int>(FullMapDef::COORD_X)));
+		int y = std::stoi(ParserEngine::getStringFromArgNb((*i),
+			static_cast<int>(FullMapDef::COORD_Y)));
 		for (auto u = _FullMapObjDef.begin(); u != _FullMapObjDef.end(); u++) {
-			int blocks = std::stoi(ParserEngine::getStringFromArgNb((*i), static_cast<int>(*u)));
+			int blocks = std::stoi(ParserEngine::getStringFromArgNb((*i),
+				static_cast<int>(*u)));
 			if (blocks) {
 				while (blocks > 0) {
 					objlist.push_back(getObjType(*u));
@@ -72,6 +102,7 @@ MapCoord Parser::parseFullMap(std::vector<std::string> &cmd)
 		}
 	map.push_back(Object(sf::Vector2f(x,y), objlist));
 	objlist.clear();
+	}
 	}
 	return map;
 }

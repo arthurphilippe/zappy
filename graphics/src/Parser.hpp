@@ -33,6 +33,9 @@ enum class FullMapDef {
 enum class ParsingType {
 	FULL_MAP,
 	TILE_CONTENT,
+	PNW,
+	PPO,
+	UNKNOW,
 };
 
 class Parser {
@@ -41,6 +44,8 @@ class Parser {
 		~Parser() = delete;
 		static MapCoord parseCmd(std::vector<std::string> &cmd, const ParsingType);
 		static ObjectType getObjType(const FullMapDef def);
+		static ParsingType getCmdType(std::string &cmd);
+		static ParsingType getParsingType(const std::string type);
 	protected:
 	private:
 		static MapCoord parseFullMap(std::vector<std::string> &cmd);
