@@ -16,10 +16,10 @@
 ** PROCEDURAL RULES
 */
 
-typedef struct procedural_rules_s {
+typedef struct procedural_rule_s {
 	resource_t type;
 	int number;
-} procedural_rules_t;
+} procedural_rule_t;
 
 /*
 ** RANDOMNESS
@@ -34,5 +34,6 @@ int random_int(int, int);
 void board_gen(board_t *, list_t *);
 unsigned int count_players(list_t *);
 unsigned int get_max_level_reachable(list_t *);
+unsigned int *get_levels_reachable(unsigned int [7], list_t *);
 
 #endif /* !BOARD_GEN_H_ */

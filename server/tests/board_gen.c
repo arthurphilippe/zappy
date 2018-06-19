@@ -135,17 +135,18 @@ Test(Board_Gen, board_generation)
 		count += board->b_data[i][LINEMATE];
 	cr_assert_eq(count, 9);
 	count = 0;
+	board_gen(board, teams);
 	for (int i = 0; i < (int)(board->b_max_x * board->b_max_y); i++)
-		count += board->b_data[i][DERAUMERE];
-	cr_assert_eq(count, 0);
+		count += board->b_data[i][LINEMATE];
+	cr_assert_eq(count, 2 * 9);
 	count = 0;
 
 	p1->p_lvl = 3;
 	p2->p_lvl = 3;
 	board_gen(board, teams);
 	for (int i = 0; i < (int)(board->b_max_x * board->b_max_y); i++)
-		count += board->b_data[i][PHIRAS];
-	cr_assert_eq(count, 9 * 2);
+		count += board->b_data[i][LINEMATE];
+	cr_assert_eq(count, 45);
 	count = 0;
 
 	p1->p_lvl = 7;

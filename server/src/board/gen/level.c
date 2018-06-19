@@ -39,3 +39,27 @@ unsigned int get_max_level_reachable(list_t *teams)
 	}
 	return (max_level(levels) + 1);
 }
+
+unsigned int *get_levels_reachable(unsigned int levels[7], list_t *teams)
+{
+	team_t *team;
+	player_t *player;
+	list_iter_t iter_team;
+	list_iter_t iter_player;
+
+	memset(levels, 0, sizeof(int) * 7);
+	list_iter_init(&iter_team, teams, FWD);
+	while ((team = list_iter_next(&iter_team))) {
+		list_iter_init(&iter_player, team->t_membs, FWD);
+		while ((player = list_iter_next(&iter_player)))
+			levels[player->p_lvl - 1]++;
+	}
+	levels[0] = (levels[0] >= 1) ? 1 : 0;
+	levels[1] = (levels[1] >= 2) ? 1 : 0;
+	levels[2] = (levels[2] >= 2) ? 1 : 0;
+	levels[3] = (levels[3] >= 4) ? 1 : 0;
+	levels[4] = (levels[4] >= 4) ? 1 : 0;
+	levels[5] = (levels[5] >= 6) ? 1 : 0;
+	levels[6] = (levels[6] >= 6) ? 1 : 0;
+	return (levels);
+}

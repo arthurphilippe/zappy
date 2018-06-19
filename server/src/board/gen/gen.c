@@ -7,9 +7,7 @@
 
 #include "board_gen.h"
 
-const procedural_rules_t rules[][6] = {
-	{{LINEMATE, 0}, {DERAUMERE, 0}, {SIBUR, 0}, {MENDIANE, 0},
-		{PHIRAS, 0}, {THYSTAME, 0}},
+procedural_rule_t rules[][6] = {
 	{{LINEMATE, 1}, {DERAUMERE, 0}, {SIBUR, 0}, {MENDIANE, 0},
 		{PHIRAS, 0}, {THYSTAME, 0}},
 	{{LINEMATE, 1}, {DERAUMERE, 1}, {SIBUR, 1}, {MENDIANE, 0},
@@ -39,15 +37,20 @@ static void board_gen_resource(board_t *board, resource_t type, int nb)
 
 void board_gen(board_t *board, list_t *teams)
 {
+	unsigned int levels[7];
+	procedural_rule_t *rule;
 	unsigned int nb_players = count_players(teams);
-	unsigned int max_level = get_max_level_reachable(teams);
 
+	get_levels_reachable(levels, teams);
 	board_gen_resource(board, FOOD, nb_players * 25);
-	for (int i = 0; i < 6; i++) {
-		board_gen_resource(
-			board,
-			rules[max_level - 1][i].type,
-			nb_players * rules[max_level - 1][i].number
-		);
+	for (int level = 0; level < 7; level++) {
+		rule = (levels[level] == 1) ? rules[level] : 0;
+		for (int i = 0; i < 6 && rule != 0; i++) {
+			board_gen_resource(
+				board,
+				rule[i].type,
+				nb_players * rule[i].number
+			);
+		}
 	}
 }
