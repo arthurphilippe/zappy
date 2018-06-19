@@ -13,6 +13,7 @@
 typedef struct		s_team {
 	char		*t_name;
 	list_t		*t_membs;
+	list_t		*t_hatched_eggs;
 	unsigned int	t_max_memb;
 }			team_t;
 
