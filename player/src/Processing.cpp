@@ -37,7 +37,7 @@ void Processing::coordinates(const std::string &coordinates,
 }
 
 void Processing::vision(const std::string &reply,
-	std::vector<std::string> &vision) const noexcept
+	std::vector<std::vector<std::string>> &vision) const noexcept
 {
 	std::string info;
 
@@ -46,9 +46,11 @@ void Processing::vision(const std::string &reply,
 	while (beginPos != std::string::npos) {
 		info = reply.substr(beginPos + 1, endPos - (beginPos + 1));
 		info = info.substr(0, info.find("]"));
+		if (info.find(" ") == 0)
+			info = info.substr(1);
 		if (info == "")
 			info = "empty";
-		vision.push_back(info);
+		parseTileContent(info, vision);
 		beginPos = endPos;
 		endPos = reply.find(",", endPos + 1);
 	}
@@ -69,6 +71,28 @@ void Processing::inventory(const std::string &reply,
 		beginPos = endPos;
 		endPos = reply.find(",", endPos + 1);
 	}
+}
+
+void Processing::parseTileContent(std::string &content,
+	std::vector<std::vector<std::string>> &vision) const
+{
+	std::vector<std::string> tile;
+	std::string item;
+	if (content == "empty") {
+		vision.push_back(tile);
+		return;
+	}
+	size_t beginPos = 0;
+	size_t endPos = content.find(" ");
+	while (beginPos != std::string::npos) {
+		item = content.substr(beginPos, endPos - beginPos);
+		if (item.find(" ") == 0)
+			item = item.substr(1);
+		tile.push_back(item);
+		beginPos = endPos;
+		endPos = content.find(" ", endPos + 1);
+	}
+	vision.push_back(tile);
 }
 
 void Processing::parseResources(std::string &info,

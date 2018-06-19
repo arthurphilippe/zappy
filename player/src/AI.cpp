@@ -50,9 +50,9 @@ void AI::lookAtInventory(Socket &socket, const Processing &processing)
 
 void AI::clearVision()
 {
-	while (!_vision.empty()) {
-		_vision.pop_back();
-	}
+	for (auto &tile : _vision)
+		tile.clear();
+	_vision.clear();
 }
 
 void AI::clearInventory()

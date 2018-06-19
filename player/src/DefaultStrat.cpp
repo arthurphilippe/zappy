@@ -17,7 +17,8 @@ pl::DefaultStrat::~DefaultStrat()
 {
 }
 
-void pl::DefaultStrat::run(std::vector<std::string> &vision) noexcept
+void pl::DefaultStrat::run(std::vector<std::vector<std::string>> &vision)
+	noexcept
 {
 	(void) vision;
 	if (!_actionQueue.empty()) {
