@@ -5,7 +5,12 @@
 ** Core
 */
 
+#include <chrono>
+#include <thread>
 #include "Core.hpp"
+#include "BackgroundMap.hpp"
+#include <SFML/Graphics.hpp>
+#include <unistd.h>
 
 namespace gi {
 
@@ -20,13 +25,17 @@ Core::~Core()
 
 bool Core::loop()
 {
+	auto pos = _serv.getMapSize();
+	BackgroundMap beck(pos.x, pos.y);
+	auto map = beck.getMap();
 	while (_display.isRunning()) {
-		auto map = _serv.getMap();
+		_display.clear();
+		_serv.getHints();
+		_serv.processCmd();
 		_display.putItem(map);
 		_display.refresh();
+		sleep(1);
 	}
 	return (true);
 }
-
-
 }

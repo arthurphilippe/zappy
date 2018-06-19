@@ -10,6 +10,7 @@
 
 #include "Socket.hpp"
 #include "Parser.hpp"
+#include "Player.hpp"
 
 /*
 **	This class is used to get the server information
@@ -19,11 +20,17 @@ class Server {
 public:
 	Server(int ac, char **av);
 	~Server();
-	MapCoord getMap();
+	sf::Vector2f getMapSize();
+	MapCoord &getMap();
+	std::list<std::string> &getHints();
+	void execCmd(const ParsingType &type, std::string &cmd);
+	void processCmd();
 protected:
 private:
 	MapCoord _map;
 	Socket _sock;
+	std::list<std::string> _interaction;
+	std::list<Player> _playerlist;
 };
 };
 
