@@ -9,6 +9,7 @@
 #include "ParserEngine.hpp"
 #include "Server.hpp"
 #include "Command.hpp"
+#include "Color.hpp"
 
 namespace gi {
 
@@ -57,6 +58,8 @@ sf::Vector2f Server::getMapSize()
 
 void Server::execCmd(const ParsingType &type, std::string &cmd)
 {
+	std::cout << BOLD_COLOR_YELLOW << "ZappyGi:: " << BOLD_COLOR_RESET
+	<< BOLD_COLOR_GREEN << "processing: '" << BOLD_COLOR_RESET << cmd << BOLD_COLOR_GREEN << "'"  << std::endl;
 	switch (type) {
 	case ParsingType::PNW:
 		Command::addNewPlayer(cmd, _playerlist);
