@@ -23,7 +23,7 @@ public:
 	sf::Vector2f getMapSize();
 	MapCoord &getMap();
 	std::list<std::string> &getHints();
-	std::list<Player> getPlayerList() {return _playerlist;};
+	std::list<Player> &getPlayerList() {return _playerlist;};
 	void execCmd(const ParsingType &type, std::string &cmd);
 	void processCmd();
 protected:
