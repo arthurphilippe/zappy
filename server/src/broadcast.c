@@ -21,10 +21,10 @@ static float calc_prod_s(vector2d_t pt, vector2d_t pt2, vector2d_t height)
 
 static float calc_dist(vector2d_t pt, vector2d_t pt2, vector2d_t height)
 {
-	float dist = sqrt(abs(pow(pt2.v_x - pt.v_x, 2)) +
-		abs(pow(pt2.v_y - pt.v_y, 2)));
-	float dist2 = sqrt(abs(pow(height.v_x - pt.v_x, 2)) +
-		abs(pow(height.v_y - pt.v_y, 2)));
+	float dist = sqrt(fabs(pow(pt2.v_x - pt.v_x, 2)) +
+		fabs(pow(pt2.v_y - pt.v_y, 2)));
+	float dist2 = sqrt(fabs(pow(height.v_x - pt.v_x, 2)) +
+		fabs(pow(height.v_y - pt.v_y, 2)));
 
 	return (dist * dist2);
 }
