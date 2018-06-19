@@ -20,6 +20,7 @@ Core::Core(int ac, char **av)
 	if (args.size() != 4 && args.size() != 6)
 		throw std::invalid_argument("Wrong arguments number");
 	parseArgs(args);
+	_ai.initStrats(_socket);
 }
 
 Core::~Core()
@@ -48,17 +49,17 @@ void Core::parseArgs(std::vector<std::string> &args)
 void Core::initConnection(const std::string &port, const std::string &machine)
 {
 	int X, Y;
+	std::string reply;
 
-	std::string test;
 	_socket.setPort(std::stoi(port));
 	_socket.setMachine(machine);
 	_socket.connectSocket();
-	_socket << _teamName;
-	while (!_socket.tryToRead(test));
-	if (!_processing.checkWelcome(test))
+	while (!_socket.tryToRead(reply));
+	if (!_processing.checkWelcome(reply))
 		throw std::runtime_error("Wrong server connection");
-	while (!_socket.tryToRead(test));
-	_processing.coordinates(test, X, Y);
+	_socket << _teamName;
+	while (!_socket.tryToRead(reply));
+	_processing.coordinates(reply, X, Y);
 	_ai.setMapX(X);
 	_ai.setMapX(Y);
 }
@@ -69,12 +70,10 @@ void Core::loop()
 
 	while (true) {
 		_ai.look(_socket, _processing);
-		if (AIInstruction != "nothing") {
-			// process instruction
-		}
+		_ai.lookAtInventory(_socket, _processing);
+		_ai.executeStrat();
+		while (!_socket.tryToRead(AIInstruction));
 	}
-
-
 }
 
 }

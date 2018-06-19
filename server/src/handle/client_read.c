@@ -10,14 +10,32 @@
 #include "player.h"
 #include "selector.h"
 #include "stolist.h"
+#include "gfx.h"
 
-static void fill_gfx_queue(handle_t *hdl, const char *buf)
+static list_t *client_get_msgq(handle_t *hdl)
+{
+	player_t *pl;
+
+	if (hdl->h_type == H_PLAYER) {
+		pl = hdl->h_data;
+		return (pl->p_queued_msgs);
+	} else if (hdl->h_type == H_GFX) {
+		return (hdl->h_data);
+	}
+	return (NULL);
+}
+
+static void fill_queue(handle_t *hdl, const char *buf)
 {
 	list_t *msgq = client_get_msgq(hdl);
 
-	stolist_existing(msgq, buf, "\r\n");
-	if (msgq->l_size)
-		hdl->h_on_cycle = client_on_cycle;
+	if (msgq) {
+		stolist_existing(msgq, buf, "\r\n");
+		if (msgq->l_size && hdl->h_type == H_PLAYER)
+			hdl->h_on_cycle = player_on_cycle;
+		else if (msgq->l_size && hdl->h_type == H_GFX)
+			hdl->h_on_cycle = gfx_on_cycle;
+	}
 }
 
 /*
@@ -26,11 +44,7 @@ static void fill_gfx_queue(handle_t *hdl, const char *buf)
 static void call_reader(handle_t *hdl, char *buf, int r)
 {
 	buf[r] = '\0';
-	if (hdl->h_type == H_PLAYER) {
-		client_player_buffer_process(hdl, buf);
-	} else if (hdl->h_type == H_GFX) {
-		fill_gfx_queue(hdl, buf);
-	}
+	fill_queue(hdl, buf);
 }
 
 void client_read(selector_t *selector, handle_t *hdl)

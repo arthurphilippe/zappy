@@ -31,9 +31,10 @@ typedef enum	e_selector_mode {
 typedef struct		s_selector {
 	list_t		*s_handles;
 	void		*s_data;
+	void		(*s_on_cycle)(struct s_selector *);
+	void		(*s_delete)();
 	selector_mode_t	s_mode;
 	bool		s_live;
-	void		(*s_delete)();
 }			selector_t;
 
 /*
@@ -62,8 +63,5 @@ void listener_read(selector_t *selector, handle_t *port_hdl);
 int client_create(selector_t *selector, int sock);
 void client_erase(selector_t *stor, handle_t *hdl);
 void client_read(selector_t *selector, handle_t *client_hdl);
-void client_on_cycle(selector_t *stor, handle_t *hdl);
-void client_player_buffer_process(handle_t *hdl, char *buf);
-list_t *client_get_msgq(handle_t *hdl);
 
 #endif /* !SELECTOR_H_ */

@@ -32,6 +32,7 @@ static parser_t *parser_alloc()
 		return (NULL);
 	memset(game_info, 0, sizeof(parser_t));
 	game_info->team_name = list_create((free));
+	game_info->freq = 100;
 	return (game_info);
 }
 

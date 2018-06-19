@@ -14,6 +14,7 @@
 #include "selector.h"
 #include "stolist.h"
 #include "team.h"
+#include "gfx_hint.h"
 
 void msg_join(selector_t *stor, handle_t *hdl, player_t *pl, const char *team)
 {
@@ -35,5 +36,6 @@ void msg_join(selector_t *stor, handle_t *hdl, player_t *pl, const char *team)
 	} else {
 		dprintf(hdl->h_fd, "%d\n%ld %ld\n", ret,
 			gm->ga_board->b_max_x, gm->ga_board->b_max_y);
+		gfx_hint_pnw(pl);
 	}
 }

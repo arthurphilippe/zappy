@@ -17,3 +17,4 @@ CMakeLists.txt
 cmake-build-debug/
 .vscode
 .idea
+zappy_ai

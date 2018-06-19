@@ -36,22 +36,73 @@ void Processing::coordinates(const std::string &coordinates,
 	Y = std::stoi(y);
 }
 
-void Processing::vision(const std::string &response,
-	std::vector<std::string> &vision) const noexcept
+void Processing::vision(const std::string &reply,
+	std::vector<std::vector<std::string>> &vision) const noexcept
 {
 	std::string info;
 
 	size_t beginPos = 0;
-	size_t endPos = response.find(",");
+	size_t endPos = reply.find(",");
 	while (beginPos != std::string::npos) {
-		info = response.substr(beginPos + 1, endPos - (beginPos + 1));
+		info = reply.substr(beginPos + 1, endPos - (beginPos + 1));
 		info = info.substr(0, info.find("]"));
+		if (info.find(" ") == 0)
+			info = info.substr(1);
 		if (info == "")
 			info = "empty";
-		vision.push_back(info);
+		parseTileContent(info, vision);
 		beginPos = endPos;
-		endPos = response.find(",", endPos + 1);
+		endPos = reply.find(",", endPos + 1);
 	}
+}
+
+void Processing::inventory(const std::string &reply,
+	std::unordered_map<std::string, int> &inventory) const
+{
+	std::string info;
+
+	size_t beginPos = 0;
+	size_t endPos = reply.find(",");
+	while (beginPos != std::string::npos) {
+		info = reply.substr(beginPos + 1, endPos - (beginPos + 1));
+		info = info.substr(0, info.find("]"));
+		if (info != "" && info != " ")
+			this->parseResources(info, inventory);
+		beginPos = endPos;
+		endPos = reply.find(",", endPos + 1);
+	}
+}
+
+void Processing::parseTileContent(std::string &content,
+	std::vector<std::vector<std::string>> &vision) const
+{
+	std::vector<std::string> tile;
+	std::string item;
+	if (content == "empty") {
+		vision.push_back(tile);
+		return;
+	}
+	size_t beginPos = 0;
+	size_t endPos = content.find(" ");
+	while (beginPos != std::string::npos) {
+		item = content.substr(beginPos, endPos - beginPos);
+		if (item.find(" ") == 0)
+			item = item.substr(1);
+		tile.push_back(item);
+		beginPos = endPos;
+		endPos = content.find(" ", endPos + 1);
+	}
+	vision.push_back(tile);
+}
+
+void Processing::parseResources(std::string &info,
+	std::unordered_map<std::string, int> &inventory) const
+{
+	if (info.find(" ") == 0)
+		info = info.substr(1);
+	std::string resource = info.substr(0, info.find(" "));
+	int amount = std::stoi(info.substr(info.find(" ") + 1));
+	inventory[resource] = amount;
 }
 
 }
