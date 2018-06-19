@@ -19,6 +19,7 @@ SRCS		=	src/Socket.cpp		\
 			src/Item.cpp		\
 			src/ParserEngine.cpp	\
 			src/BackgroundMap.cpp	\
+			src/Command.cpp		\
 			src/Core.cpp		\
 			src/Server.cpp		\
 
