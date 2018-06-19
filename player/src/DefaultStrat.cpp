@@ -8,7 +8,7 @@
 #include "DefaultStrat.hpp"
 
 pl::DefaultStrat::DefaultStrat(Socket &socket)
-	: _status(false), _socket(socket), _actionQueue(), _generator(), _limits(0, 3)
+	: _status(false), _socket(socket), _actionQueue(), _generator(), _limits(0, 2)
 {
 	_generator.seed(std::random_device()());
 }
@@ -27,20 +27,20 @@ void pl::DefaultStrat::run(std::vector<std::string> &vision) noexcept
 	int action = static_cast<int>(_limits(_generator));
 	switch (action) {
 		case 1:
-			move("Left");
+			move("Left\n");
 			break;
 		case 2:
-			move("Right");
+			move("Right\n");
 			break;
 		default:
-			_socket << "Forward";
+			_socket << "Forward\n";
 	}
 };
 
 void pl::DefaultStrat::move(std::string direction) noexcept
 {
 	_socket << direction;
-	_actionQueue.push("Forward");
+	_actionQueue.push("Forward\n");
 	_status = true;
 }
 

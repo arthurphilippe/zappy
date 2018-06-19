@@ -73,8 +73,6 @@ void Core::loop()
 		_ai.lookAtInventory(_socket, _processing);
 		_ai.executeStrat();
 	}
-
-
 }
 
 }

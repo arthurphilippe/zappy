@@ -16,9 +16,9 @@ AI::AI()
 
 void AI::initStrats(Socket &socket)
 {
-	DefaultStrat def(socket);
+	auto def = new DefaultStrat(socket);
 
-	_strats.push_back(&def);
+	_strats.push_back(def);
 }
 
 void AI::look(Socket &socket, const Processing &processing)
@@ -26,7 +26,7 @@ void AI::look(Socket &socket, const Processing &processing)
 	std::string reply;
 
 	this->clearVision();
-	socket << "Look";
+	socket << "Look\n";
 	while (!socket.tryToRead(reply));
 	processing.vision(reply, _vision);
 }
@@ -36,7 +36,7 @@ void AI::lookAtInventory(Socket &socket, const Processing &processing)
 	std::string reply;
 
 	this->clearInventory();
-	socket << "Inventory";
+	socket << "Inventory\n";
 	while (!socket.tryToRead(reply));
 	try {
 		processing.inventory(reply, _inventory);
@@ -65,9 +65,7 @@ void AI::clearInventory()
 
 void AI::executeStrat() noexcept
 {
-	std::cout << "KOOKOO, O REVWAR";
 	_strats[_stratLevel]->run(_vision);
-	std::cout << "CHEVRON CHEVRON";
 }
 
 }
