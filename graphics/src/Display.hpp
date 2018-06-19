@@ -12,6 +12,7 @@
 	#include <SFML/Graphics.hpp>
 	#include "Object.hpp"
 	#include "Item.hpp"
+	#include "Player.hpp"
 
 namespace gi {
 
@@ -28,9 +29,12 @@ class Display {
 		bool putItem(const ObjectType type = ObjectType::FOOD, int posX = 0, int posY = 0) noexcept;
 		bool putItem(gi::Object &object) noexcept;
 		bool putItem(MapCoord &object) noexcept;
+		bool putPlayer(gi::Player &player) noexcept;
+		bool putPlayer(std::list<gi::Player> &playerlist) noexcept;
 	private:
 		sf::RenderWindow _window;
 		std::unordered_map<gi::ObjectType, std::unique_ptr<gi::Item>> _ItemMap;
+		std::unordered_map<gi::Orientation, std::unique_ptr<gi::Item>> _PlayerMap;
 };
 }
 

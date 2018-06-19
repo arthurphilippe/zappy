@@ -18,6 +18,10 @@ gi::Display::Display()
 	_ItemMap.insert(std::make_pair(ObjectType::PHIRAS, std::unique_ptr<gi::Item>(new Item("./assets/Phiras.png"))));
 	_ItemMap.insert(std::make_pair(ObjectType::THYSTAME, std::unique_ptr<gi::Item>(new Item("./assets/Thystame.png"))));
 	_ItemMap.insert(std::make_pair(ObjectType::TILESET, std::unique_ptr<gi::Item>(new Item("./assets/Tileset.png"))));
+	_PlayerMap.insert(std::make_pair(Orientation::EAST, std::unique_ptr<gi::Item>(new Item("./assets/right/1.png"))));
+	_PlayerMap.insert(std::make_pair(Orientation::NORTH, std::unique_ptr<gi::Item>(new Item("./assets/back/1.png"))));
+	_PlayerMap.insert(std::make_pair(Orientation::WEST, std::unique_ptr<gi::Item>(new Item("./assets/left/1.png"))));
+	_PlayerMap.insert(std::make_pair(Orientation::SOUTH, std::unique_ptr<gi::Item>(new Item("./assets/front/1.png"))));
 	_window.create(sf::VideoMode(1280, 720), "Zappy - But graphical <3");
 	_window.setFramerateLimit(60);
 }
@@ -59,8 +63,9 @@ bool gi::Display::putItem(gi::Object &object) noexcept
 	int x = 0;
 	int y = 0;
 	sf::Vector2f pos = object.getCoord();
-	pos.x = TILESIZE + (TILESIZE * pos.x) + pos.x + 250;
-	pos.y = TILESIZE + (TILESIZE * pos.y) + pos.y + 250;
+	pos.x = TILESIZE + (TILESIZE * pos.x);
+	pos.y = TILESIZE + (TILESIZE * pos.y);
+	tileset.setOrigin(25, 25);
 	tileset.setPosition(pos);
 	_window.draw(tileset);
 	pos.x -= (TILESIZE / 2) + (BUFFSIZE / 2);
@@ -81,6 +86,29 @@ bool gi::Display::putItem(gi::Object &object) noexcept
 	}
 	return true;
 }
+
+bool gi::Display::putPlayer(gi::Player &player) noexcept
+{
+	auto playermatch = _PlayerMap.find(player.getOri());
+	auto spr = playermatch->second->getSprite();
+	sf::Vector2f pos = player.getPos();
+	pos.x = TILESIZE + (TILESIZE * pos.x);
+	pos.y = TILESIZE + (TILESIZE * pos.y);
+	spr.setOrigin(68, 90);
+	spr.setPosition(pos);
+	_window.draw(spr);
+	return true;
+}
+
+
+bool gi::Display::putPlayer(std::list<gi::Player> &player) noexcept
+{
+	for (auto i = player.begin(); i != player.end(); i++) {
+		putPlayer(*i);
+	}
+	return true;
+}
+
 
 bool gi::Display::putItem(MapCoord &object) noexcept
 {
