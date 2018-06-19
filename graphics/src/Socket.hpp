@@ -21,6 +21,8 @@ public:
 	void operator<<(const int &i) {send(i);}
 	bool receive(std::string &string);
 	bool receive();
+	bool setBlocking(bool block) {_socket.setBlocking(block); return isBlocking();};
+	bool isBlocking() {return _socket.isBlocking();};
 protected:
 private:
 	void connect();

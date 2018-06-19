@@ -60,8 +60,7 @@ bool Socket::receive()
 	memset(data, '\0', 8192);
 	_socket.receive(data, 8192, len);
 	if (len) {
-		std::cout << BOLD_COLOR_CYAN << "Server:: " << BOLD_COLOR_RESET <<
-		data;
+		std::cout << BOLD_COLOR_CYAN << "Server:: " << BOLD_COLOR_RESET << data;
 		return true;
 	}
 	return false;
@@ -75,6 +74,7 @@ bool Socket::receive(std::string &string)
 	memset(data, '\0', 8192);
 	_socket.receive(data, 8192, len);
 	if (len) {
+		std::cout << BOLD_COLOR_CYAN << "Server:: " << BOLD_COLOR_RESET << data;
 		string = data;
 		return true;
 	}
