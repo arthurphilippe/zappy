@@ -20,24 +20,6 @@ Test(Player, create)
 	player_t *pl = player_create();
 
 	cr_assert(pl);
-	cr_assert_eq(pl->p_id, 1);
-	player_delete(pl);
-}
-
-Test(Player, id)
-{
-	player_t *pl = player_create();
-
-	cr_assert(pl);
-	cr_assert_eq(pl->p_id, 1);
-	pl = player_create();
-	cr_assert_eq(pl->p_id, 2);
-	player_delete(pl);
-	pl = player_create();
-	cr_assert_eq(pl->p_id, 3);
-	player_delete(pl);
-	pl = player_create();
-	cr_assert_eq(pl->p_id, 4);
 	player_delete(pl);
 }
 

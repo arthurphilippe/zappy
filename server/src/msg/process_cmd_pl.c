@@ -16,6 +16,7 @@
 #include "player.h"
 #include "selector.h"
 #include "stolist.h"
+#include "gfx_hint.h"
 
 const msg_map_t MSG_CMD_PL_MAP[] = {
 	{"Forward", msg_cmd_pl_forward, 7},
@@ -71,9 +72,21 @@ static void process_unregistred(
 		hdl->h_delete = (void (*)(void *)) list_destroy;
 		hdl->h_type = H_GFX;
 		hdl->h_on_cycle = NULL;
+		gfx_hint_init(hdl->h_fd);
 	} else {
 		msg_join(stor, hdl, pl, str);
 	}
+}
+
+static void debug_list(list_t *list)
+{
+	list_iter_t iter;
+	char *tmp;
+
+	list_iter_init(&iter, list, FWD);
+	dprintf(2, "----------\nprocessing split-cmd of size:\n");
+	while ((tmp = list_iter_next(&iter)))
+		dprintf(2, "%s\n", tmp);
 }
 
 bool msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg)
@@ -82,6 +95,7 @@ bool msg_process_cmd_pl(selector_t *stor, handle_t *hdl, list_t *msg)
 	bool ret;
 
 	(void) hdl;
+	debug_list(msg);
 	if (!pl->p_teamname && msg->l_size) {
 		process_unregistred(stor, hdl, pl, msg->l_start->n_data);
 		ret = true;

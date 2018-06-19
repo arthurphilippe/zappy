@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "game.h"
+#include "heading.h"
 #include "msg.h"
 #include "player.h"
 
@@ -31,7 +32,7 @@ void msg_cmd_gfx_get_pl_pos(selector_t *stor, handle_t *hdl, list_t *args)
 		tmp = game_find_pl(gm, pl_id);
 		if (tmp)
 			dprintf(hdl->h_fd, ASW_PL_POS, pl_id, tmp->p_pos.v_x,
-				tmp->p_pos.v_y, "salut");
+				tmp->p_pos.v_y, heading_get_code(tmp->p_dir));
 		else
 			dprintf(hdl->h_fd, ASW_BAD_PARAM);
 	}

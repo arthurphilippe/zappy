@@ -67,6 +67,10 @@ SRCS		=	src/list/list.c			\
 			src/board/look_at.c		\
 			src/board/trunc_coords.c	\
 			src/board/gfx/get_tile_cont.c	\
+			src/board/gen/gen.c		\
+			src/board/gen/random.c		\
+			src/board/gen/level.c		\
+			src/board/gen/player.c		\
 			src/msg/process.c		\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
@@ -104,7 +108,17 @@ SRCS		=	src/list/list.c			\
 			src/chrono.c			\
 			src/start.c			\
 			src/broadcast.c			\
+			src/heading.c			\
 			src/gfx/on_cycle.c		\
+			src/gfx/hint/init.c		\
+			src/gfx/hint/pnw.c		\
+			src/gfx/hint/pex.c		\
+			src/gfx/hint/enw.c		\
+			src/gfx/hint/eht.c		\
+			src/gfx/hint/pdr.c		\
+			src/gfx/hint/pgt.c		\
+			src/gfx/hint/pdi.c		\
+			src/gfx/hint/ebo.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -112,7 +126,7 @@ OBJS		=	$(SRCS:.c=.o)
 
 TEST		=	unit_tests.out
 
-SRCS_TEST	=	tests/test-list.c	\
+SRCS_TEST	=	tests/list.c	\
 			tests/team.c		\
 			tests/player.c		\
 			tests/stolist.c		\
@@ -122,10 +136,15 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/dynbuf.c		\
 			tests/chrono.c		\
 			tests/egg.c		\
+			tests/heading.c		\
 			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\
+<<<<<<< HEAD
 			tests/broadcast.c		\
+=======
+			tests/board_gen.c	\
+>>>>>>> 9341ca9d7a109086f5b2f7d5f0a208ffe9b2ec3b
 
 SRCS_TEST	+=	$(OBJS)
 

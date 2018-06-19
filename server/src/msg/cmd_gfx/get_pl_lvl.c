@@ -30,7 +30,7 @@ void msg_cmd_gfx_get_pl_lvl(selector_t *stor, handle_t *hdl, list_t *args)
 	} else {
 		tmp = game_find_pl(gm, pl_id);
 		if (tmp)
-			dprintf(hdl->h_fd, ASW_PL_LVL, tmp->p_id, tmp->p_lvl);
+			dprintf(hdl->h_fd, ASW_PL_LVL, pl_id, tmp->p_lvl);
 		else
 			dprintf(hdl->h_fd, ASW_BAD_PARAM);
 	}
