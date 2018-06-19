@@ -63,23 +63,25 @@ bool gi::Display::putItem(gi::Object &object) noexcept
 	int x = 0;
 	int y = 0;
 	sf::Vector2f pos = object.getCoord();
-	pos.x = TILESIZE + (TILESIZE * pos.x);
-	pos.y = TILESIZE + (TILESIZE * pos.y);
+	pos.x = TILESIZE / 2 + (TILESIZE * pos.x);
+	pos.y = TILESIZE / 2 + (TILESIZE * pos.y);
 	tileset.setOrigin(25, 25);
 	tileset.setPosition(pos);
 	_window.draw(tileset);
-	pos.x -= (TILESIZE / 2) + (BUFFSIZE / 2);
-	pos.y -= (TILESIZE / 2) + (BUFFSIZE / 2);
+	pos.x -= (TILESIZE / 2);
+	pos.y -= (TILESIZE / 2);
+	auto pos_save = pos;
 	for (auto i = list.begin(); i != list.end(); i++) {
 		auto match = _ItemMap.find(*i);
-		pos.x += (BUFFSIZE * x);
+		pos.x += (BUFFSIZE * x) + BUFFSIZE / 1.3;
 		if ((pos.y + (BUFFSIZE * y) > TILESIZE)) {
 			y++;
-			x = 0;
+			x = pos_save.x;
 		}
 		if (match == _ItemMap.end())
 			return false;
 		auto sprite = match->second->getSprite();
+		sprite.setOrigin(12, 0);
 		sprite.setPosition(pos.x, pos.y);
 		_window.draw(sprite);
 		++x;

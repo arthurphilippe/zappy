@@ -22,7 +22,9 @@ public:
 	~Server();
 	sf::Vector2f getMapSize();
 	MapCoord &getMap();
+	void setMap(MapCoord &map) noexcept {_map = map;};
 	std::list<std::string> &getHints();
+	void updateMap(MapCoord &map);
 	std::list<Player> &getPlayerList() {return _playerlist;};
 	void execCmd(const ParsingType &type, std::string &cmd);
 	void processCmd();
