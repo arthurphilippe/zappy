@@ -91,9 +91,8 @@ void Server::updateMap(MapCoord &map)
 		str += std::to_string(static_cast<int> (pos.y));
 		str += "\n";
 		_sock << str;
-		if (z > 10) {
+		if (z > 20) {
 			getHints();
-			processCmd();
 			z = 0;
 		}
 		z++;
