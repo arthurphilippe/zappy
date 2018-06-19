@@ -26,6 +26,7 @@ static const std::vector<FullMapDef> _FullMapObjDef = {
 static const std::unordered_map<std::string, ParsingType> _ParsingTypeDef = {
 	{"pnw", ParsingType::PNW},
 	{"ppo", ParsingType::PPO},
+	{"pdi", ParsingType::PDI},
 };
 
 static const std::unordered_map<FullMapDef, ObjectType> _ObjTypeDef = {
@@ -50,6 +51,19 @@ MapCoord Parser::parseCmd(std::vector<std::string> &cmd, const ParsingType type)
 	}
 }
 
+Orientation Parser::getOri(const std::string &ori)
+{
+	if (!ori.compare("1"))
+		return Orientation::NORTH;
+	if (!ori.compare("2"))
+		return Orientation::EAST;
+	if (!ori.compare("3"))
+		return Orientation::SOUTH;
+	if (!ori.compare("4"))
+		return Orientation::WEST;
+	return Orientation::NORTH;
+}
+
 ParsingType Parser::getParsingType(const std::string type)
 {
 	for (auto i = _ParsingTypeDef.begin(); i != _ParsingTypeDef.end(); i++) {
@@ -68,7 +82,6 @@ ParsingType Parser::getCmdType(std::string &cmd)
 	return parse;
 }
 
-
 ObjectType Parser::getObjType(const FullMapDef def)
 {
 	for (auto i = _ObjTypeDef.begin(); i != _ObjTypeDef.end(); i++) {
@@ -77,8 +90,6 @@ ObjectType Parser::getObjType(const FullMapDef def)
 	}
 	return ObjectType::UNKNOW;
 }
-
-
 
 MapCoord Parser::parseFullMap(std::vector<std::string> &cmd)
 {

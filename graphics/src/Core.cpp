@@ -31,6 +31,7 @@ bool Core::loop()
 	while (_display.isRunning()) {
 		_display.clear();
 		_serv.getHints();
+		std::cout << _serv.getPlayerList().size() << std::endl;
 		_serv.processCmd();
 		_display.putItem(map);
 		_display.refresh();

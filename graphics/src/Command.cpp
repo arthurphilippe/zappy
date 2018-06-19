@@ -16,7 +16,7 @@ void Command::addNewPlayer(std::string &cmd, std::list<Player> &playerlist)
 	auto vec = ParserEngine::createVectorString(cmd, ' ');
 	if (vec.size() != 7)
 		return;
-	std::cout << "YEAY" << std::endl;
+	playerlist.push_back(Player(sf::Vector2f(std::stoi(vec[2]), std::stoi(vec[3])), Parser::getOri(vec[4]), vec[6], std::stoi(vec[1])));
 }
 
 void Command::delPlayer(std::string &cmd, std::list<Player> &playerlist)

@@ -60,6 +60,10 @@ void Server::execCmd(const ParsingType &type, std::string &cmd)
 	switch (type) {
 	case ParsingType::PNW:
 		Command::addNewPlayer(cmd, _playerlist);
+		break;
+	case ParsingType::PDI:
+		Command::delPlayer(cmd, _playerlist);
+		break;
 	default:
 		return;
 	}
