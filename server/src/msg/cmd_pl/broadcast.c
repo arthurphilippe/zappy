@@ -5,10 +5,11 @@
 ** broadcast
 */
 
-#include <stdio.h>
 #include "broadcast.h"
+#include <stdio.h>
 #include "dynbuf.h"
 #include "game.h"
+#include "gfx_hint.h"
 #include "msg.h"
 #include "player.h"
 
@@ -22,7 +23,7 @@ static void notify_all_players(
 
 	list_iter_init(&iter, stor->s_handles, FWD);
 	while ((hdl = list_iter_next(&iter))) {
-		if (hdl->h_type == H_PLAYER) {
+		if (hdl->h_type == H_PLAYER && hdl->h_data != pl) {
 			tmp_pl = hdl->h_data;
 			tile = broacast_get_prior_tile(
 				pl->p_pos, tmp_pl->p_pos, tmp_pl->p_dir);
@@ -53,6 +54,7 @@ void msg_cmd_pl_boradcast(selector_t *stor, handle_t *hdl, list_t *args)
 
 	if (buf) {
 		notify_all_players(stor, hdl->h_data, buf->b_data);
+		gfx_hint_pbc(hdl->h_data, buf->b_data);
 		dynbuf_delete(buf);
 	}
 	dprintf(hdl->h_fd, "ok\n");
