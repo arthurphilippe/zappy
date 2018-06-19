@@ -33,10 +33,15 @@
 	#define ASW_GET_FREQ "sgt %d\n"
 	#define ASW_SET_FREQ "sst %d\n"
 
-	#define HINT_NEW_PLAYER "pnw #%ld %d %d %d %d %s\n"
-	#define HINT_KICK "pex %ld\n"
-	#define HINT_BROADCAST "pbc %ld %s\n"
-	#define HINT_START_INCENT "pic %d %d %d"
+	#define HINT_NEW_PLAYER "pnw %d %d %d %d %d %s\n"
+	#define HINT_KICK "pex %d\n"
+	#define HINT_BROADCAST "pbc %d %s\n"
+	#define HINT_START_INCANT "pic %d %d %d\n"
+	#define HINT_EGG_LAID "enw %d %d %d %d\n"
+	#define HINT_EGG_HACTHED "eht %d\n"
+	#define HINT_DROPED_RES "pdr %d %d\n"
+	#define HINT_TOOK_RES "pgt %d %d\n"
+	#define HINT_PLAYER_DIED "pdi %d\n"
 
 	#define GFX_MAGIC "ZPPGFX88"
 

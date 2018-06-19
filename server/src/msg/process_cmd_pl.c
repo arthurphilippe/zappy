@@ -16,6 +16,7 @@
 #include "player.h"
 #include "selector.h"
 #include "stolist.h"
+#include "gfx_hint.h"
 
 const msg_map_t MSG_CMD_PL_MAP[] = {
 	{"Forward", msg_cmd_pl_forward, 7},
@@ -71,6 +72,7 @@ static void process_unregistred(
 		hdl->h_delete = (void (*)(void *)) list_destroy;
 		hdl->h_type = H_GFX;
 		hdl->h_on_cycle = NULL;
+		gfx_hint_init(hdl->h_fd);
 	} else {
 		msg_join(stor, hdl, pl, str);
 	}
