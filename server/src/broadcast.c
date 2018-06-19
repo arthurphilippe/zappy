@@ -53,14 +53,14 @@ static int get_prior_tile_idx(float angle)
 	return (0);
 }
 
-int calc_broadcast(vector2d_t send, vector2d_t receive, vector2d_t dir)
+int broacast_get_prior_tile(
+	vector2d_t send, vector2d_t receive, vector2d_t dir)
 {
 	vector2d_t height = {receive.v_x + dir.v_x, receive.v_y + dir.v_y};
 	float dist = calc_dist(receive, send, height);
 	float prod_s = calc_prod_s(receive, send, height);
 	float angle = acos(prod_s / dist) * 180 / M_PI;
 
-	printf("angle : %f \n", angle);
 	if (send.v_x - receive.v_x < 0)
 		angle = 360 - angle;
 	return (get_prior_tile_idx(angle));
