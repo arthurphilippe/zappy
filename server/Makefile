@@ -67,6 +67,10 @@ SRCS		=	src/list/list.c			\
 			src/board/look_at.c		\
 			src/board/trunc_coords.c	\
 			src/board/gfx/get_tile_cont.c	\
+			src/board/gen/gen.c		\
+			src/board/gen/random.c		\
+			src/board/gen/level.c		\
+			src/board/gen/player.c		\
 			src/msg/process.c		\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
@@ -120,7 +124,7 @@ OBJS		=	$(SRCS:.c=.o)
 
 TEST		=	unit_tests.out
 
-SRCS_TEST	=	tests/test-list.c	\
+SRCS_TEST	=	tests/list.c	\
 			tests/team.c		\
 			tests/player.c		\
 			tests/stolist.c		\
@@ -134,6 +138,7 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\
+			tests/board_gen.c	\
 
 SRCS_TEST	+=	$(OBJS)
 
