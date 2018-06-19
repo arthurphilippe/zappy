@@ -9,6 +9,7 @@
 #include "msg.h"
 #include "egg.h"
 #include "game.h"
+#include "gfx_hint.h"
 
 void msg_cmd_pl_fork(selector_t *stor, handle_t *hdl, list_t *args)
 {
@@ -19,5 +20,6 @@ void msg_cmd_pl_fork(selector_t *stor, handle_t *hdl, list_t *args)
 	(void) args;
 	list_push_back(gm->ga_eggs, egg);
 	dprintf(hdl->h_fd, "ok\n");
+	gfx_hint_enw(pl, egg);
 }
 

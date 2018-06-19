@@ -13,6 +13,7 @@
 
 egg_t *egg_create(const char *team, vector2d_t pos, unsigned int freq)
 {
+	static unsigned int id = 0;
 	egg_t *egg = malloc(sizeof(egg_t));
 
 	if (!egg)
@@ -29,6 +30,7 @@ egg_t *egg_create(const char *team, vector2d_t pos, unsigned int freq)
 		return (NULL);
 	}
 	egg->eg_pos = pos;
+	egg->eg_id = ++id;
 	return (egg);
 }
 

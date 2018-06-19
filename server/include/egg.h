@@ -17,6 +17,7 @@ typedef struct		s_egg {
 	char		*eg_team_name;
 	chrono_t	*eg_timer;
 	vector2d_t	eg_pos;
+	unsigned int	eg_id;
 }			egg_t;
 
 egg_t *egg_create(const char *team, vector2d_t pos, unsigned int freq);
