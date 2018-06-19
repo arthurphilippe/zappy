@@ -30,6 +30,7 @@ int random_int(int, int);
 */
 void board_gen(board_t *, list_t *);
 unsigned int count_players(list_t *);
+unsigned int count_players_by_level(list_t *, unsigned int);
 unsigned int get_max_level_reachable(list_t *);
 unsigned int *get_levels_reachable(unsigned int [7], list_t *);
 
