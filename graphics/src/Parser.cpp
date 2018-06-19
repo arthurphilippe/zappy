@@ -27,6 +27,7 @@ static const std::unordered_map<std::string, ParsingType> _ParsingTypeDef = {
 	{"pnw", ParsingType::PNW},
 	{"ppo", ParsingType::PPO},
 	{"pdi", ParsingType::PDI},
+	{"bct", ParsingType::BCT},
 };
 
 static const std::unordered_map<FullMapDef, ObjectType> _ObjTypeDef = {

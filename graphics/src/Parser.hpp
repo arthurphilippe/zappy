@@ -37,6 +37,7 @@ enum class ParsingType {
 	PNW,
 	PDI,
 	PPO,
+	BCT,
 	UNKNOW,
 };
 
