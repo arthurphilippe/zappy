@@ -10,6 +10,7 @@
 #include "team.h"
 #include "get_wait_time.h"
 #include "egg.h"
+#include "gfx_hint.h"
 
 static bool use_egg(team_t *tm, player_t *pl)
 {
@@ -22,6 +23,7 @@ static bool use_egg(team_t *tm, player_t *pl)
 	pl->p_pos.v_y = egg->eg_pos.v_y;
 	list_pop_front(tm->t_hatched_eggs);
 	tm->t_max_memb += 1;
+	gfx_hint_ebo(egg);
 	return (true);
 }
 
