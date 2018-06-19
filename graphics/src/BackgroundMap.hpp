@@ -15,9 +15,9 @@ namespace gi {
 
 	class BackgroundMap {
 	public:
-		BackgroundMap(int x, int y, int tilesize);
+		BackgroundMap(int x, int y);
 		~BackgroundMap();
-		MapCoord getMap() const noexcept {return _map;};
+		MapCoord &getMap() noexcept {return _map;};
 	private:
 		MapCoord _map;
 	};
