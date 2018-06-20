@@ -56,7 +56,7 @@ static bool halt_check(selector_t *stor, handle_t *hdl, list_t *msgq)
 
 	list_iter_init(&iter, msgq, FWD);
 	while ((tmp = list_iter_next(&iter))) {
-		if (!strcasecmp("shutdown", tmp)) {
+		if (!strncasecmp("shutdown", tmp, 4)) {
 			stor->s_live = false;
 			return (true);
 		} else if (!strcasecmp("quit", tmp)) {
@@ -88,7 +88,6 @@ void player_on_cycle(selector_t *stor, handle_t *hdl)
 		chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {
 		pl->p_task.dc_callback(stor, hdl, pl->p_task.dc_args);
 		if (chrono_check(&pl->p_task.dc_timer) == CHRONO_EXPIRED) {
-			dprintf(2, "kappa\n");
 			pl->p_task.dc_callback = NULL;
 			list_destroy(pl->p_task.dc_args);
 			pl->p_task.dc_args = NULL;

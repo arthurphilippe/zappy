@@ -12,6 +12,7 @@
 	#include <stdbool.h>
 	#include "vector2d.h"
 	#include "resource.h"
+	#include "chrono.h"
 
 	#define BOARD_OK 0
 	#define BOARD_ERR -1
@@ -20,6 +21,7 @@
 ** Declaring new board struct
 */
 typedef struct		s_board {
+	chrono_t	b_refresh_timer;
 	unsigned int	**b_data;
 	size_t		b_max_x;
 	size_t		b_max_y;

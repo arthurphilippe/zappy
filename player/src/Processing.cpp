@@ -105,4 +105,11 @@ void Processing::parseResources(std::string &info,
 	inventory[resource] = amount;
 }
 
+bool Processing::catchMessage(const std::string &reply) const
+{
+	if (reply.substr(0, reply.find(" ")) == "message")
+		return true;
+	return false;
+}
+
 }
