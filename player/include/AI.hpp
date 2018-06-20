@@ -20,6 +20,10 @@ namespace pl {
 
 	class AI {
 	public:
+		enum STRAT {
+			DEFAULT,
+			GO_TO_ELEVATION
+		};
 		AI();
 		~AI();
 		void initStrats(Socket &socket);
@@ -27,7 +31,8 @@ namespace pl {
 			const Processing &processing);
 		void lookAtInventory(Socket &socket,
 			const Processing &processing);
-		void executeStrat() noexcept;
+		void executeStrat(Socket &_socket,
+			const Processing &processing) noexcept;
 		void setMapX(int X)
 		{
 			_mapX = X;
@@ -41,7 +46,7 @@ namespace pl {
 		void clearInventory();
 		int					_mapX;
 		int					_mapY;
-		int					_stratLevel;
+		STRAT					_stratLevel;
 		std::vector<std::vector<std::string>>	_vision;
 		std::unordered_map<std::string, int>	_inventory;
 		std::vector<std::unique_ptr<IStrat>>	_strats;

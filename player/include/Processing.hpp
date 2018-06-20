@@ -27,6 +27,7 @@ namespace pl {
 		void inventory(const std::string &reply,
 			std::unordered_map<std::string, int> &inventory)
 			const;
+		void catchMessage(const std::string &reply);
 	private:
 		void parseTileContent(std::string &content,
 			std::vector<std::vector<std::string>> &vision)
