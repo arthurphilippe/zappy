@@ -10,7 +10,7 @@
 namespace pl {
 
 AI::AI()
-	: _stratLevel = DEFAULT
+	: _stratLevel(DEFAULT)
 {}
 
 AI::~AI()
@@ -19,8 +19,10 @@ AI::~AI()
 void AI::initStrats(Socket &socket)
 {
 	std::unique_ptr<IStrat> def(new DefaultStrat(socket));
+	std::unique_ptr<IStrat> goToElev(new GoToElevationStrat(socket));
 
 	_strats.push_back(std::move(def));
+	_strats.push_back(std::move(goToElev));
 }
 
 void AI::look(Socket &socket, const Processing &processing)
@@ -30,9 +32,8 @@ void AI::look(Socket &socket, const Processing &processing)
 	this->clearVision();
 	socket << "Look\n";
 	while (!socket.tryToRead(reply));
-	if (processing.catchMessage(reply)) {
+	if (processing.catchMessage(reply))
 		_stratLevel = GO_TO_ELEVATION;
-	}
 	else
 		processing.vision(reply, _vision);
 }
@@ -45,9 +46,8 @@ void AI::lookAtInventory(Socket &socket, const Processing &processing)
 	socket << "Inventory\n";
 	while (!socket.tryToRead(reply));
 	try {
-		if (processing.catchMessage(reply)) {
+		if (processing.catchMessage(reply))
 			_stratLevel = GO_TO_ELEVATION;
-		}
 		else
 			processing.inventory(reply, _inventory);
 	} catch (std::exception &err) {
@@ -78,9 +78,8 @@ void AI::executeStrat(Socket &_socket, const Processing &processing) noexcept
 	std::string reply;
 	_strats[_stratLevel]->run(_vision);
 	while (!_socket.tryToRead(reply));
-	if (processing.catchMessage(reply)) {
+	if (processing.catchMessage(reply))
 		_stratLevel = GO_TO_ELEVATION;
-	}
 }
 
 }
