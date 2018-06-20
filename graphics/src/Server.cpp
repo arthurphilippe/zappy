@@ -59,6 +59,10 @@ void Server::execCmd(const ParsingType &type, std::string &cmd)
 		break;
 	case ParsingType::BCT:
 		Command::updateTile(cmd, _map);
+		break;
+	case ParsingType::PPO:
+		Command::movePlayer(cmd, _playerlist);
+		break;
 	default:
 		return;
 	}
@@ -79,24 +83,20 @@ void Server::processCmd()
 	}
 }
 
-void Server::updateMap(MapCoord &map)
+void Server::updatePlayer()
 {
-	int z = 0;
-	for (auto i = map.begin(); i != map.end(); i++) {
-		std::string str("bct");
+	for (auto i = _playerlist.begin(); i != _playerlist.end(); i++) {
+		std::string str("ppo");
 		str += " ";
-		auto pos = i->getCoord();
-		str += std::to_string(static_cast<int> (pos.x));
-		str += " ";
-		str += std::to_string(static_cast<int> (pos.y));
+		str += std::to_string(i->getID());
 		str += "\n";
 		_sock << str;
-		if (z > 20) {
-			getHints();
-			z = 0;
-		}
-		z++;
 	}
+}
+
+void Server::updateMap()
+{
+	_sock << "mct\n";
 }
 
 std::list<std::string> &Server::getHints()
@@ -105,9 +105,12 @@ std::list<std::string> &Server::getHints()
 	if (_sock.isBlocking())
 		_sock.setBlocking(false);
 	if (_sock.receive(str)) {
-		while (str.length()) {
+		while (str.length() && std::count(str.begin(), str.end(), '\n')) {
 			_interaction.push_back(ParserEngine::extractFirstString(str));
 		}
+	}
+	if (str.length()) {
+		_interaction.push_back(str);
 	}
 	return _interaction;
 }

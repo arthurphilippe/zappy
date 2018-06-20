@@ -29,9 +29,11 @@ bool Core::loop()
 	BackgroundMap backMap(pos.x, pos.y);
 	_serv.setMap(backMap.getMap());
 	auto &map = _serv.getMap();
+	map.front().getObjList().push_back(ObjectType::FOOD);
 	while (_display.isRunning()) {
 		_display.clear();
-		_serv.updateMap(map);
+		_serv.updateMap();
+		_serv.updatePlayer();
 		_serv.getHints();
 		_serv.processCmd();
 		_display.putItem(map);
