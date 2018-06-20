@@ -20,6 +20,7 @@ class Command {
 	static void addNewPlayer(std::string &cmd, std::list<Player> &playerlist);
 	static void delPlayer(std::string &cmd, std::list<Player> &playerlist);
 	static void updateTile(std::string &cmd, MapCoord &map);
+	static void movePlayer(std::string &cmd, std::list<Player> &playerlist);
 	protected:
 	private:
 

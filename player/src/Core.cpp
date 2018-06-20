@@ -6,6 +6,7 @@
 */
 
 #include "Core.hpp"
+#include "color.h"
 
 namespace pl {
 

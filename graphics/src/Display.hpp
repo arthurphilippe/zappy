@@ -16,6 +16,7 @@
 
 namespace gi {
 
+	constexpr float OFF_SET = 30;
 	constexpr float TILESIZE = 50;
 	constexpr float BUFFSIZE = 14;
 

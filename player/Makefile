@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-CXX		=	clang++
+CXX		=	g++
 
 NAME		=	zappy_ai
 
@@ -18,6 +18,7 @@ SRCS		=	src/Socket.cpp		\
 			src/Core.cpp		\
 			src/AI.cpp		\
 			src/DefaultStrat.cpp	\
+			src/FocusStrat.cpp	\
 			src/GoToElevationStrat.cpp
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)

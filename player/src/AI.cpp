@@ -10,7 +10,7 @@
 namespace pl {
 
 AI::AI()
-	: _stratLevel(DEFAULT), _elevationLevel(0)
+	: _stratLevel(DEFAULT), _elevationLevel(0), _status(false)
 {}
 
 AI::~AI()
@@ -18,11 +18,13 @@ AI::~AI()
 
 void AI::initStrats(Socket &socket)
 {
-	std::unique_ptr<IStrat> def(new DefaultStrat(socket));
 	std::unique_ptr<IStrat> goToElev(new GoToElevationStrat(socket));
+	std::unique_ptr<IStrat> def(new DefaultStrat(socket));
+	std::unique_ptr<IStrat> focus(new FocusStrat(socket));
 
 	_strats.push_back(std::move(def));
 	_strats.push_back(std::move(goToElev));
+	_strats.push_back(std::move(focus));
 }
 
 void AI::look(Socket &socket, const Processing &processing)
@@ -45,6 +47,7 @@ void AI::lookAtInventory(Socket &socket, const Processing &processing)
 	this->clearInventory();
 	socket << "Inventory\n";
 	while (!socket.tryToRead(reply));
+	std::cout << "Inventory: "<< reply <<std::endl;
 	try {
 		if (processing.catchMessage(reply))
 			_stratLevel = GO_TO_ELEVATION;
@@ -80,6 +83,7 @@ void AI::executeStrat(Socket &_socket, const Processing &processing) noexcept
 	while (!_socket.tryToRead(reply));
 	if (processing.catchMessage(reply))
 		_stratLevel = GO_TO_ELEVATION;
+	_status = _strats[_stratLevel]->isRuning();
 }
 
 }
