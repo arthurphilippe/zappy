@@ -36,15 +36,15 @@ void pl::DefaultStrat::run(std::vector<std::vector<std::string>> &vision)
 			break;
 		default:
 			_socket << "Forward\n";
-			_actionQueue.push("Harvest");
+			_actionQueue.push_back("Harvest");
 	}
 };
 
 void pl::DefaultStrat::move(std::string direction) noexcept
 {
 	_socket << direction;
-	_actionQueue.push("Forward\n");
-	_actionQueue.push("Harvest");
+	_actionQueue.push_back("Forward\n");
+	_actionQueue.push_back("Harvest");
 	_status = true;
 }
 
@@ -53,7 +53,7 @@ void pl::DefaultStrat::harvest(std::vector<std::vector<std::string>> &vision) no
 	for (auto it = vision[0].begin(); it != vision[0].end(); it++) {
 		if (*it != "player") {
 			std::string action = "Take " + *it + "\n";
-			_actionQueue.push(action);
+			_actionQueue.push_front(action);
 			_status = true;
 		}
 	}
@@ -64,14 +64,14 @@ void pl::DefaultStrat::executeAction(std::vector<std::vector<std::string>> &visi
 	std::string action = _actionQueue.front();
 	if (action != "Harvest") {
 		_socket << action;
-		_actionQueue.pop();
+		_actionQueue.pop_front();
 	} else {
-		_actionQueue.pop();
+		_actionQueue.pop_front();
 		harvest(vision);
 		std::string somthingToHarvest = _actionQueue.front();
 		if (somthingToHarvest.size() > 0) {
 			_socket << somthingToHarvest;
-			_actionQueue.pop();
+			_actionQueue.pop_front();
 		} else
 			_socket << "Forward\n";
 	}
@@ -95,11 +95,11 @@ void pl::DefaultStrat::showVision(std::vector<std::vector<std::string>> &vision)
 
 void pl::DefaultStrat::showQueue() noexcept
 {
-	std::queue<std::string> cpyQueue = _actionQueue;
+	std::deque<std::string> cpyQueue = _actionQueue;
 	std::cout << "\nIn Queue: [";
 	while (!cpyQueue.empty()) {
 		std::cout << ANSI_BOLD_COLOR_YELLOW<< cpyQueue.front() << ANSI_BOLD_COLOR_RESET<< ",";
-		cpyQueue.pop();
+		cpyQueue.pop_front();
 	}
 	std::cout << "]" << std::endl;
 }
