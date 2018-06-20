@@ -18,8 +18,9 @@ void msg_cmd_pl_take(selector_t *stor, handle_t *hdl, list_t *args)
 
 	if (args && args->l_size >= 1) {
 		val = resource_get_value(args->l_end->n_data);
-		if (val != (unsigned int) -1)
-			ret = game_take_object(stor->s_data, hdl->h_data, val);
+		if (val != RES_COUNT)
+			ret = game_take_object(
+				stor->s_data, hdl->h_data, val);
 	}
 	dprintf(hdl->h_fd, (!ret) ? "ko\n" : "ok\n");
 	if (ret)

@@ -47,13 +47,16 @@ Test(Team, consume_eggs) {
 	list_push_back(eggs, egg);
 	usleep(10000);
 	team_consume_eggs(teams, eggs);
-	cr_expect_eq(tm2->t_max_memb, 8, "got %d", tm2->t_max_memb);
-	cr_expect_eq(tm1->t_max_memb, 7);
+	cr_expect_eq(tm2->t_hatched_eggs->l_size, 2);
+	cr_expect_eq(tm2->t_max_memb, 6, "got %d", tm2->t_max_memb);
+	cr_expect_eq(tm1->t_hatched_eggs->l_size, 1);
+	cr_expect_eq(tm1->t_max_memb, 6);
 	egg = egg_create("findus", (vector2d_t) {0, 0}, 1);
 	cr_assert(egg);
 	list_push_back(eggs, egg);
 	team_consume_eggs(teams, eggs);
-	cr_expect_eq(tm2->t_max_memb, 8, "got %d", tm2->t_max_memb);
+	cr_expect_eq(tm2->t_max_memb, 6, "got %d", tm2->t_max_memb);
+	cr_expect_eq(tm2->t_hatched_eggs->l_size, 2);
 
 	list_destroy(eggs);
 	list_destroy(teams);
