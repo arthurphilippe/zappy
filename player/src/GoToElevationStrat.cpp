@@ -10,7 +10,7 @@
 namespace pl {
 
 GoToElevationStrat::GoToElevationStrat(Socket &socket)
-	: _status(false), _socket(socket)
+	: _status(false), _socket(socket), _direction(1)
 {}
 
 GoToElevationStrat::~GoToElevationStrat()
@@ -38,8 +38,37 @@ void GoToElevationStrat::tryToReadDirection(std::string &reply)
 void GoToElevationStrat::move()
 {
 	switch (_direction) {
+		case 2:
+			_socket << "Forward\n";
+			_socket << "Left\n";
+			_socket << "Forward\n";
+			break;
+		case 4:
+			_socket << "Left\n";
+			_socket << "Forward\n";
+		case 3:
+			_socket << "Left\n";
+			_socket << "Forward\n";
+			break;
+		case 5:
+			_socket << "Left\n";
+			_socket << "Left\n";
+			_socket << "Forward\n";
+			break;
+		case 6:
+			_socket << "Right\n";
+			_socket << "Forward\n";
+		case 7:
+			_socket << "Right\n";
+			_socket << "Forward\n";
+			break;
+		case 8:
+			_socket << "Forward\n";
+			_socket << "Right\n";
+			_socket << "Forward\n";
+			break;
 		default:
-			_socket << "Forward";
+			_socket << "Forward\n";
 	}
 }
 
