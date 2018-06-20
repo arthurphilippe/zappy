@@ -58,6 +58,6 @@ unsigned int player_inventory_get(player_t *pl, resource_t resource);
 dynbuf_t *player_inventory_list(player_t *pl);
 dynbuf_t *player_inventory_list_gfx(player_t *pl);
 void player_eject(player_t *pl, list_t *players, board_t *bd);
-void player_lifespan_check(player_t *pl);
+void player_lifespan_check(player_t *pl, unsigned int freq);
 
 #endif /* !PLAYER_H_ */
