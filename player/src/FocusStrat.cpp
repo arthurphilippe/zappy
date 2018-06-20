@@ -29,7 +29,7 @@ void pl::FocusStrat::run(std::vector<std::vector<std::string>> &vision) noexcept
 void pl::FocusStrat::move(std::string direction) noexcept
 {
 	_socket << direction;
-	_actionQueue.push("Forward\n");
+	_actionQueue.push_back("Forward\n");
 	_status = true;
 }
 
@@ -38,7 +38,7 @@ void pl::FocusStrat::executeAction() noexcept
 	std::string action = _actionQueue.front();
 
 	_socket << action;
-	_actionQueue.pop();
+	_actionQueue.pop_back();
 	if (_actionQueue.empty())
 		_status = false;
 }
@@ -61,7 +61,7 @@ int pl::FocusStrat::getClosestItemPos(std::vector<std::vector<std::string>> &vis
 void pl::FocusStrat::moveToItem(int itemPos)
 {
 	int visionLevel = 1;
-	int middle = 0, min, max;
+	int middle = 0, nbForward, min, max;
 	bool findLine = false;
 
 	while (findLine != true) {
@@ -72,17 +72,19 @@ void pl::FocusStrat::moveToItem(int itemPos)
 			findLine = true;
 		else {
 			visionLevel++;
-			_actionQueue.push("Forward\n");
+			_actionQueue.push_back("Forward\n");
 		}
 	}
-	while (itemPos != middle) {
-		if (itemPos < middle) {
-			_actionQueue.push("Left\n");
-			middle--;
-		} else if (itemPos > middle) {
-			_actionQueue.push("Right\n");
-			middle++;
-		}
+	if (itemPos < middle)
+		_actionQueue.push_back("Left\n");
+	else if (itemPos > middle)
+		_actionQueue.push_back("Right\n");
+	nbForward = itemPos - middle;
+	if (nbForward < 0)
+		nbForward *= -1;
+	while (nbForward > 0) {
+		_actionQueue.push_back("Forward\n");
+		nbForward--;
 	}
-	_actionQueue.push("Take " + _itemName + "\n");
+	_actionQueue.push_back("Take " + _itemName + "\n");
 }

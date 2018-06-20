@@ -29,7 +29,7 @@ namespace pl {
 			void move(std::string direction) noexcept;
 			bool			_status;
 			Socket			&_socket;
-			std::queue<std::string>	_actionQueue;
+			std::deque<std::string>	_actionQueue;
 			std::string _itemName;
 	};
 }
