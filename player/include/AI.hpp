@@ -48,6 +48,7 @@ namespace pl {
 		int					_mapX;
 		int					_mapY;
 		STRAT					_stratLevel;
+		int					_elevationLevel;
 		std::vector<std::vector<std::string>>	_vision;
 		std::unordered_map<std::string, int>	_inventory;
 		std::vector<std::unique_ptr<IStrat>>	_strats;
