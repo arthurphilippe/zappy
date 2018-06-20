@@ -5,18 +5,18 @@
 ** parser
 */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <stdbool.h>
-#include "parser.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "color.h"
+#include "parser.h"
 
 static bool parser_check(parser_t *game_info)
 {
-	if ((game_info->client_nb) && (game_info->freq) && (game_info->height)
-		&& (game_info->port) && list_get_size(game_info->team_name) &&
-		(game_info->width)) {
+	if ((game_info->client_nb) && (game_info->freq) &&
+		(game_info->height) && (game_info->port) &&
+		list_get_size(game_info->team_name) && (game_info->width)) {
 		return (true);
 	} else {
 		parser_destroy(game_info);
@@ -32,9 +32,9 @@ static parser_t *parser_alloc()
 		return (NULL);
 	memset(game_info, 0, sizeof(parser_t));
 	game_info->team_name = list_create((free));
+	game_info->freq = 100;
 	return (game_info);
 }
-
 
 parser_t *parser_create(int ac, char **av)
 {
@@ -42,7 +42,7 @@ parser_t *parser_create(int ac, char **av)
 
 	if (ac < 12) {
 		dprintf(2, "zappy_server: %sNot Enough Arguments\n",
-			ANSI_BOLD_COLOR_RED"error : "ANSI_COLOR_RESET);
+			ANSI_BOLD_COLOR_RED "error : " ANSI_COLOR_RESET);
 		return (NULL);
 	}
 	game_info = parser_alloc();

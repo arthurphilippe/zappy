@@ -5,14 +5,15 @@
 ** egg
 */
 
+#include "egg.h"
 #include <stdlib.h>
 #include <string.h>
-#include "egg.h"
 #include "chrono.h"
 #include "get_wait_time.h"
 
 egg_t *egg_create(const char *team, vector2d_t pos, unsigned int freq)
 {
+	static unsigned int id = 0;
 	egg_t *egg = malloc(sizeof(egg_t));
 
 	if (!egg)
@@ -29,6 +30,7 @@ egg_t *egg_create(const char *team, vector2d_t pos, unsigned int freq)
 		return (NULL);
 	}
 	egg->eg_pos = pos;
+	egg->eg_id = ++id;
 	return (egg);
 }
 
@@ -43,5 +45,6 @@ void egg_delete(void *ptr)
 
 bool egg_has_hatched(egg_t *egg)
 {
-	return (chrono_check(egg->eg_timer) == CHRONO_EXPIRED);
+	return (!egg->eg_timer ||
+		chrono_check(egg->eg_timer) == CHRONO_EXPIRED);
 }

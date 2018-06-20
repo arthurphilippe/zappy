@@ -13,5 +13,7 @@ wiki/
 ref_zappy_server
 
 .idea
+zappy_ai
+ZappyGi
 CMakeLists.txt
 cmake-build-debug

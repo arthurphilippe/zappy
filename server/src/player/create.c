@@ -12,13 +12,11 @@
 player_t *player_create(void)
 {
 	player_t *pl = calloc(1, sizeof(player_t));
-	static int id = 1;
 
 	if (!pl)
 		return (NULL);
 	pl->p_teamname = NULL;
 	pl->p_queued_msgs = list_create(free);
-	pl->p_id = id++;
 	pl->p_pos = (vector2d_t){0, 0};
 	pl->p_dir = (vector2d_t){1, 0};
 	pl->p_lvl = 1;

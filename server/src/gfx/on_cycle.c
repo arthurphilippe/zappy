@@ -6,11 +6,12 @@
 */
 
 #include <string.h>
-#include "stolist.h"
-#include "selector.h"
 #include "msg.h"
+#include "selector.h"
+#include "stolist.h"
 
-static void split_and_process(selector_t *stor, handle_t *hdl, const char *msg)
+static void split_and_process(
+	selector_t *stor, handle_t *hdl, const char *msg)
 {
 	list_t *split_msg = stolist(msg, " ");
 

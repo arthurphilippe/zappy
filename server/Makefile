@@ -47,7 +47,6 @@ SRCS		=	src/list/list.c			\
 			src/player/delete.c		\
 			src/player/move.c		\
 			src/player/turn.c		\
-			src/player/read.c		\
 			src/player/look.c		\
 			src/player/eject.c		\
 			src/player/inventory.c		\
@@ -67,6 +66,10 @@ SRCS		=	src/list/list.c			\
 			src/board/look_at.c		\
 			src/board/trunc_coords.c	\
 			src/board/gfx/get_tile_cont.c	\
+			src/board/gen/gen.c		\
+			src/board/gen/random.c		\
+			src/board/gen/level.c		\
+			src/board/gen/player.c		\
 			src/msg/process.c		\
 			src/msg/process_cmd_pl.c	\
 			src/msg/process_cmd_gfx.c	\
@@ -103,7 +106,19 @@ SRCS		=	src/list/list.c			\
 			src/resource.c			\
 			src/chrono.c			\
 			src/start.c			\
+			src/broadcast.c			\
+			src/heading.c			\
 			src/gfx/on_cycle.c		\
+			src/gfx/hint/init.c		\
+			src/gfx/hint/pnw.c		\
+			src/gfx/hint/pex.c		\
+			src/gfx/hint/enw.c		\
+			src/gfx/hint/eht.c		\
+			src/gfx/hint/pdr.c		\
+			src/gfx/hint/pgt.c		\
+			src/gfx/hint/pdi.c		\
+			src/gfx/hint/ebo.c		\
+			src/gfx/hint/pbc.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 
@@ -111,7 +126,7 @@ OBJS		=	$(SRCS:.c=.o)
 
 TEST		=	unit_tests.out
 
-SRCS_TEST	=	tests/test-list.c	\
+SRCS_TEST	=	tests/list.c	\
 			tests/team.c		\
 			tests/player.c		\
 			tests/stolist.c		\
@@ -121,9 +136,11 @@ SRCS_TEST	=	tests/test-list.c	\
 			tests/dynbuf.c		\
 			tests/chrono.c		\
 			tests/egg.c		\
-			tests/handle/client.c	\
+			tests/heading.c		\
 			tests/board.c		\
 			tests/game.c		\
+			tests/broadcast.c	\
+			tests/board_gen.c	\
 
 SRCS_TEST	+=	$(OBJS)
 
@@ -131,7 +148,7 @@ OBJS_TEST	=	$(SRCS_TEST:.c=.o)
 
 CFLAGS		=	-W -Wextra -Wall -Iinclude/
 
-LDFLAGS		=
+LDFLAGS		=	-lm
 
 %.o: %.c
 	@printf "[\033[0;36mcompiling\033[0m]% 39s\r" $< | tr " " "."

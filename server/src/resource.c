@@ -16,7 +16,7 @@ const resource_key_t RESOURCES_MAP[] = {
 	{"mendiane", MENDIANE},
 	{"phiras", PHIRAS},
 	{"thystame", THYSTAME},
-	{"", -1},
+	{"", RES_COUNT},
 };
 
 /*
