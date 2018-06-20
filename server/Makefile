@@ -137,7 +137,6 @@ SRCS_TEST	=	tests/list.c	\
 			tests/chrono.c		\
 			tests/egg.c		\
 			tests/heading.c		\
-			tests/handle/client.c	\
 			tests/board.c		\
 			tests/game.c		\
 			tests/broadcast.c	\
