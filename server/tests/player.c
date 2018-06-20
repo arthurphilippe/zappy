@@ -572,7 +572,7 @@ Test(Player, lifespan_check_positive)
 	player_t *pl = player_create();
 
 	chrono_init(&pl->p_lifespan, 0);
-	player_lifespan_check(pl);
+	player_lifespan_check(pl, 1);
 	cr_expect_str_eq(pl->p_queued_msgs->l_end->n_data, "quit");
 }
 
@@ -581,10 +581,10 @@ Test(Player, lifespan_check_neg)
 	player_t *pl = player_create();
 
 	chrono_init(&pl->p_lifespan, 1000);
-	player_lifespan_check(pl);
+	player_lifespan_check(pl, 1);
 	chrono_init(&pl->p_lifespan, 0);
 	pl->p_inventory[FOOD] = 1;
-	player_lifespan_check(pl);
+	player_lifespan_check(pl, 1);
 	cr_assert_eq(pl->p_inventory[FOOD], 0);
 	cr_expect_eq(pl->p_queued_msgs->l_size, 0);
 }
