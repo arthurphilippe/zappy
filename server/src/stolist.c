@@ -18,6 +18,8 @@ static int push_back_substr(list_t *list, const char *str,
 
 	if (!tmp)
 		return (-1);
+	if (!cpy_size)
+		return (cpy_size);
 	strncpy(tmp, str, cpy_size);
 	if (list_push_back(list, tmp) == LIST_OK)
 		return (cpy_size);

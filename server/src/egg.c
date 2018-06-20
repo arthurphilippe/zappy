@@ -5,9 +5,9 @@
 ** egg
 */
 
+#include "egg.h"
 #include <stdlib.h>
 #include <string.h>
-#include "egg.h"
 #include "chrono.h"
 #include "get_wait_time.h"
 
@@ -45,5 +45,6 @@ void egg_delete(void *ptr)
 
 bool egg_has_hatched(egg_t *egg)
 {
-	return (chrono_check(egg->eg_timer) == CHRONO_EXPIRED);
+	return (!egg->eg_timer ||
+		chrono_check(egg->eg_timer) == CHRONO_EXPIRED);
 }

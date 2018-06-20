@@ -14,5 +14,6 @@ void team_delete(void *ptr)
 
 	free(tm->t_name);
 	list_destroy(tm->t_membs);
+	list_destroy(tm->t_hatched_eggs);
 	free(tm);
 }

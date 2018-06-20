@@ -14,6 +14,6 @@ void game_lifespan_checks(game_t *gm)
 
 	list_iter_init(&iter, gm->ga_players, FWD);
 	while ((pl = list_iter_next(&iter))) {
-		player_lifespan_check(pl);
+		player_lifespan_check(pl, gm->ga_freq);
 	}
 }

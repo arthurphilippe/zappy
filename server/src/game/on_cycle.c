@@ -16,7 +16,7 @@ static void update_board(game_t *gm)
 	if (chrono_check(&gm->ga_board->b_refresh_timer) == CHRONO_EXPIRED) {
 		board_gen(gm->ga_board, gm->ga_teams);
 		chrono_init(&gm->ga_board->b_refresh_timer,
-			get_wait_time(gm->ga_freq, 50));
+			get_wait_time(gm->ga_freq, 1000));
 	}
 }
 
