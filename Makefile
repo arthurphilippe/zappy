@@ -1,26 +1,48 @@
-SERVER	= zappy_server
-SERVER_DIRECTORY = server
+##
+## EPITECH PROJECT, 2018
+## server
+## File description:
+## Makefile
+##
 
-AI = zappy_ai
-AI_DIRECTORY = ai
+SERVER		=	zappy_server
+SERVER_DIR	=	server
 
-all: server ##ai
+AI		=	zappy_ai
+AI_DIR		=	player
+
+GRAPHICAL	=	ZappyGi
+GRAPHICAL_DIR	=	graphics
+
+# ifndef VERBOSE
+# 	MAKEFLAGS	+=	--no-print-directory
+# endif
+
+all: server ai graphical
 
 server:
-	@make -C $(SERVER_DIRECTORY)
-	@mv $(SERVER_DIRECTORY)/zappy_server ./
+	@$(MAKE) -C $(SERVER_DIR)
+	@ln -f $(SERVER_DIR)/$(SERVER) ./
 
-##ai:
-##	make -C $(AI_DIRECTORY)
-##	mv $(AI_DIRECTORY)/zappy_ai ./
+ai:
+	@$(MAKE) -C $(AI_DIR)
+	@ln -f $(AI_DIR)/$(AI) ./
+
+graphical:
+	@$(MAKE) -C $(GRAPHICAL_DIR)
+	@ln -f $(GRAPHICAL_DIR)/$(GRAPHICAL) ./
 
 clean:
-	@make clean -C $(SERVER_DIRECTORY)
-##	make clean -C $(AI_DIRECTORY)
+	@$(MAKE) clean -C $(SERVER_DIR)
+	@$(MAKE) clean -C $(AI_DIR)
+	@$(MAKE) clean -C $(GRAPHICAL_DIR)
 
-fclean: clean
+fclean:
+	@$(MAKE) fclean -C $(SERVER_DIR)
+	@$(MAKE) fclean -C $(AI_DIR)
+	@$(MAKE) fclean -C $(GRAPHICAL_DIR)
 	$(RM) $(SERVER)
-##	$(RM) $(AI)
+	$(RM) $(AI)
 
 re: fclean all
 
