@@ -6,6 +6,7 @@
 */
 
 #include "Core.hpp"
+#include "color.h"
 
 namespace pl {
 
@@ -66,13 +67,17 @@ void Core::initConnection(const std::string &port, const std::string &machine)
 
 void Core::loop()
 {
-	std::string AIInstruction;
-
 	while (true) {
-		_ai.look(_socket, _processing);
-		_ai.lookAtInventory(_socket, _processing);
+		std::cout << "_____"<< ANSI_BOLD_COLOR_CYAN << "START CYCLE" << ANSI_BOLD_COLOR_RESET << "_____" << std::endl;
+		if (!_ai.getStratStatus()) {
+			_ai.look(_socket, _processing);
+			_ai.lookAtInventory(_socket, _processing);
+		}
 		_ai.executeStrat();
-		while (!_socket.tryToRead(AIInstruction));
+		std::string coucou;
+		while(!_socket.tryToRead(coucou));
+		std::cout << "Server: "<< coucou <<std::endl;
+		std::cout << "_____"<< ANSI_BOLD_COLOR_CYAN << "END CYCLE" << ANSI_BOLD_COLOR_RESET << "_____" << std::endl;
 	}
 }
 

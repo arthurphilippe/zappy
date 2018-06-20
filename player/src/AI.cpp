@@ -12,6 +12,7 @@ namespace pl {
 AI::AI()
 {
 	_stratLevel = 0;
+	_status = false;
 }
 
 AI::~AI()
@@ -41,6 +42,7 @@ void AI::lookAtInventory(Socket &socket, const Processing &processing)
 	this->clearInventory();
 	socket << "Inventory\n";
 	while (!socket.tryToRead(reply));
+	std::cout << "Inventory: "<< reply <<std::endl;
 	try {
 		processing.inventory(reply, _inventory);
 	} catch (std::exception &err) {
@@ -69,6 +71,7 @@ void AI::clearInventory()
 void AI::executeStrat() noexcept
 {
 	_strats[_stratLevel]->run(_vision);
+	_status = _strats[_stratLevel]->isRuning();
 }
 
 }

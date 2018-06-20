@@ -36,12 +36,14 @@ namespace pl {
 		{
 			_mapX = Y;
 		}
+		bool getStratStatus() {return _status;};
 	private:
 		void clearVision();
 		void clearInventory();
 		int					_mapX;
 		int					_mapY;
 		int					_stratLevel;
+		bool					_status;
 		std::vector<std::vector<std::string>>	_vision;
 		std::unordered_map<std::string, int>	_inventory;
 		std::vector<std::unique_ptr<IStrat>>	_strats;

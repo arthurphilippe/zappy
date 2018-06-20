@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <netdb.h>
 #include "Socket.hpp"
+#include "color.h"
 
 
 namespace pl {
@@ -39,6 +40,7 @@ Socket::~Socket()
 
 void Socket::operator<<(const std::string &string)
 {
+	std::cout << "Sending to server :" << ANSI_BOLD_COLOR_MAGENTA << string << ANSI_BOLD_COLOR_RESET << std::endl;
 	if (write(_socket, string.c_str(), string.length()) == -1)
 		throw std::runtime_error("Cannot write on socket");
 }
