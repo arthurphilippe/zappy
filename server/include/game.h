@@ -30,7 +30,7 @@ void game_unreg_player(game_t *gm, player_t *pl);
 bool game_take_object(game_t *gm, player_t *pl, resource_t resource);
 bool game_set_object(game_t *gm, player_t *pl, resource_t resource);
 
-player_t *game_find_pl(game_t *gm, int id);
+player_t *game_find_pl(game_t *gm, unsigned int id);
 unsigned int game_count_players(game_t *gm, vector2d_t pos);
 unsigned int game_count_players_lvl(game_t *gm, player_t *pl);
 
