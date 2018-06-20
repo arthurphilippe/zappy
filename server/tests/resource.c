@@ -34,4 +34,6 @@ Test(Resource, get_value)
 	cr_expect_eq(tmp, PHIRAS);
 	tmp = resource_get_value("thystame");
 	cr_expect_eq(tmp, THYSTAME);
+	tmp = resource_get_value("sdqfkl");
+	cr_expect_eq(tmp, RES_COUNT);
 }
