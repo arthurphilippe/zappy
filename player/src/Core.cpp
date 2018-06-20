@@ -66,13 +66,11 @@ void Core::initConnection(const std::string &port, const std::string &machine)
 
 void Core::loop()
 {
-	std::string AIInstruction;
-
 	while (true) {
+		std::cout << "ahhhh";
 		_ai.look(_socket, _processing);
 		_ai.lookAtInventory(_socket, _processing);
-		_ai.executeStrat();
-		while (!_socket.tryToRead(AIInstruction));
+		_ai.executeStrat(_socket, _processing);
 	}
 }
 
