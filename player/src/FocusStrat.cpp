@@ -6,6 +6,7 @@
 */
 
 #include "FocusStrat.hpp"
+#include "color.h"
 
 pl::FocusStrat::FocusStrat(pl::Socket &socket) :
 _status(false), _socket(socket), _actionQueue()
@@ -16,14 +17,17 @@ void pl::FocusStrat::run(std::vector<std::vector<std::string>> &vision) noexcept
 {
 	int itemPos = 0;
 
+	showVision(vision);
 	if (!_actionQueue.empty()) {
 		executeAction();
+		showQueue();
 		return;
 	}
 	if ((itemPos = getClosestItemPos(vision)) > 0)
 		moveToItem(itemPos);
 	else
 		move("Right\n");
+	showQueue();
 }
 
 void pl::FocusStrat::move(std::string direction) noexcept
@@ -51,6 +55,7 @@ int pl::FocusStrat::getClosestItemPos(std::vector<std::vector<std::string>> &vis
 		for (auto item = itemList.begin(); item != itemList.end(); item++, itemPos++) {
 			if (!item->empty() && *item != "player") {
 				_itemName = *item;
+				std::cout << ANSI_BOLD_COLOR_BLUE << "Item Found" << ANSI_BOLD_COLOR_RESET << std::endl;
 				return (itemPos);
 			}
 		}
@@ -87,4 +92,28 @@ void pl::FocusStrat::moveToItem(int itemPos)
 		nbForward--;
 	}
 	_actionQueue.push_back("Take " + _itemName + "\n");
+}
+
+void pl::FocusStrat::showVision(std::vector<std::vector<std::string>> &vision) noexcept
+{
+	int b = 0;
+	for (auto it: vision) {
+		std::cout << "Case [" << ANSI_BOLD_COLOR_CYAN << b << ANSI_BOLD_COLOR_RESET << "] : [";
+		for (auto i: it){
+			std::cout << ANSI_BOLD_COLOR_YELLOW << i << ANSI_BOLD_COLOR_RESET << ", ";
+		}
+		std::cout << "]\n";
+		b++;
+	}
+}
+
+void pl::FocusStrat::showQueue() noexcept
+{
+	std::deque<std::string> cpyQueue = _actionQueue;
+	std::cout << "\nIn Queue: [";
+	while (!cpyQueue.empty()) {
+		std::cout << ANSI_BOLD_COLOR_YELLOW<< cpyQueue.front() << ANSI_BOLD_COLOR_RESET<< ",";
+		cpyQueue.pop_front();
+	}
+	std::cout << "]" << std::endl;
 }

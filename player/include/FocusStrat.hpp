@@ -27,6 +27,8 @@ namespace pl {
 			void moveToItem(int itemPos);
 			int getClosestItemPos(std::vector<std::vector<std::string>> &vision);
 			void move(std::string direction) noexcept;
+			void showVision(std::vector<std::vector<std::string>> &vision) noexcept;
+			void showQueue() noexcept;
 			bool			_status;
 			Socket			&_socket;
 			std::deque<std::string>	_actionQueue;

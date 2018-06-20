@@ -15,6 +15,7 @@
 	#include "Processing.hpp"
 	#include "IStrat.hpp"
 	#include "DefaultStrat.hpp"
+	#include "FocusStrat.hpp"
 
 namespace pl {
 
