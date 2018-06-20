@@ -41,6 +41,9 @@
 		"time.h": "c",
 		"list": "cpp",
 		"chrono": "cpp",
-		"ratio": "cpp"
+		"ratio": "cpp",
+		"deque": "cpp",
+		"numeric": "cpp",
+		"thread": "cpp"
 	}
 }
