@@ -47,7 +47,6 @@ SRCS		=	src/list/list.c			\
 			src/player/delete.c		\
 			src/player/move.c		\
 			src/player/turn.c		\
-			src/player/read.c		\
 			src/player/look.c		\
 			src/player/eject.c		\
 			src/player/inventory.c		\

@@ -56,7 +56,7 @@ static bool halt_check(selector_t *stor, handle_t *hdl, list_t *msgq)
 
 	list_iter_init(&iter, msgq, FWD);
 	while ((tmp = list_iter_next(&iter))) {
-		if (!strcasecmp("shutdown", tmp)) {
+		if (!strncasecmp("shutdown", tmp, 4)) {
 			stor->s_live = false;
 			return (true);
 		} else if (!strcasecmp("quit", tmp)) {
