@@ -31,7 +31,6 @@ namespace pl {
 			bool			_status;
 			Socket			&_socket;
 			std::queue<std::string>	_actionQueue;
-			//bool itemInVision(std::vector<std::vector<std::string>> &vision);
 	};
 }
 

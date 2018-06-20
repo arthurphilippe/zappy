@@ -84,16 +84,3 @@ void pl::FocusStrat::moveToItem(int nbForward, int itemPos, int myPos)
 		}
 	}
 }
-
-/*bool pl::FocusStrat::itemInVision(std::vector<std::vector<std::string>> &vision)
-{
-	if (std::find(vision.begin(), vision.end(), "linemate") != vision.end() ||
-		std::find(vision.begin(), vision.end(), "sibur") != vision.end() ||
-		std::find(vision.begin(), vision.end(), "phiras") != vision.end() ||
-		std::find(vision.begin(), vision.end(), "thystame") != vision.end() ||
-		std::find(vision.begin(), vision.end(), "mendiane") != vision.end() ||
-		std::find(vision.begin(), vision.end(), "deraumere") != vision.end() ||
-		std::find(vision.begin(), vision.end(), "food") != vision.end())
-			return (true);
-	return (false);
-}*/
