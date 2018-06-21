@@ -23,34 +23,31 @@ void pl::DefaultStrat::run(std::vector<std::vector<std::string>> &vision)
 {
 	showVision(vision);
 	if (!_actionQueue.empty()) {
-		executeAction(vision);
+		executeAction();
 		return;
 	}
 	int action = static_cast<int>(_limits(_generator));
 	switch (action) {
 		case 1:
-			move("Left\n");
+			harvest(vision[0]);
+			_actionQueue.push_back("Left\n");
+			_actionQueue.push_back("Forward\n");
 			break;
 		case 2:
-			move("Right\n");
+			harvest(vision[0]);
+			_actionQueue.push_back("Right\n");
+			_actionQueue.push_back("Forward\n");
 			break;
 		default:
-			_socket << "Forward\n";
-			_actionQueue.push_back("Harvest");
+			harvest(vision[0]);
+			_actionQueue.push_back("Forward\n");
 	}
+	executeAction();
 };
 
-void pl::DefaultStrat::move(std::string direction) noexcept
+void pl::DefaultStrat::harvest(std::vector<std::string> &vision) noexcept
 {
-	_socket << direction;
-	_actionQueue.push_back("Forward\n");
-	_actionQueue.push_back("Harvest");
-	_status = true;
-}
-
-void pl::DefaultStrat::harvest(std::vector<std::vector<std::string>> &vision) noexcept
-{
-	for (auto it = vision[0].begin(); it != vision[0].end(); it++) {
+	for (auto it = vision.begin(); it != vision.end(); it++) {
 		if (*it != "player") {
 			std::string action = "Take " + *it + "\n";
 			_actionQueue.push_front(action);
@@ -59,22 +56,11 @@ void pl::DefaultStrat::harvest(std::vector<std::vector<std::string>> &vision) no
 	}
 }
 
-void pl::DefaultStrat::executeAction(std::vector<std::vector<std::string>> &vision) noexcept
+void pl::DefaultStrat::executeAction() noexcept
 {
 	std::string action = _actionQueue.front();
-	if (action != "Harvest") {
-		_socket << action;
-		_actionQueue.pop_front();
-	} else {
-		_actionQueue.pop_front();
-		harvest(vision);
-		std::string somthingToHarvest = _actionQueue.front();
-		if (somthingToHarvest.size() > 0) {
-			_socket << somthingToHarvest;
-			_actionQueue.pop_front();
-		} else
-			_socket << "Forward\n";
-	}
+	_socket << action;
+	_actionQueue.pop_front();
 	showQueue();
 	if (_actionQueue.empty())
 		_status = false;
@@ -96,7 +82,7 @@ void pl::DefaultStrat::showVision(std::vector<std::vector<std::string>> &vision)
 void pl::DefaultStrat::showQueue() noexcept
 {
 	std::deque<std::string> cpyQueue = _actionQueue;
-	std::cout << "\nIn Queue: [";
+	std::cout << ANSI_BOLD_COLOR_GREEN << "\nIn Queue:" << ANSI_BOLD_COLOR_RESET << "[" ;
 	while (!cpyQueue.empty()) {
 		std::cout << ANSI_BOLD_COLOR_YELLOW<< cpyQueue.front() << ANSI_BOLD_COLOR_RESET<< ",";
 		cpyQueue.pop_front();

@@ -39,7 +39,7 @@ bool Core::loop()
 		_display.putItem(map);
 		_display.putPlayer(_serv.getPlayerList());
 		_display.refresh();
-		sleep(1);
+		// sleep(1);
 	}
 	return (true);
 }

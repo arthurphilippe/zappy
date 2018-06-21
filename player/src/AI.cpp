@@ -20,7 +20,7 @@ AI::~AI()
 
 void AI::initStrats(Socket &socket)
 {
-	std::unique_ptr<IStrat> def(new FocusStrat(socket));
+	std::unique_ptr<IStrat> def(new DefaultStrat(socket));
 
 	_strats.push_back(std::move(def));
 }

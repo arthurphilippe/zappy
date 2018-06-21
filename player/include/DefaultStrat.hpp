@@ -29,9 +29,9 @@ class DefaultStrat : public IStrat {
 		std::mt19937		_generator;
 		std::uniform_int_distribution<std::mt19937::result_type> _limits;
 
-		void executeAction(std::vector<std::vector<std::string>> &vision) noexcept;
+		void executeAction() noexcept;
 		void move(std::string direction) noexcept;
-		void harvest(std::vector<std::vector<std::string>> &vision) noexcept;
+		void harvest(std::vector<std::string> &vision) noexcept;
 		void showVision(std::vector<std::vector<std::string>> &vision) noexcept;
 		void showQueue() noexcept;
 };
