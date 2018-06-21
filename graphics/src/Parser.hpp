@@ -28,6 +28,7 @@ enum class FullMapDef {
 	MENDIANE,
 	PHIRAS,
 	THYSTAME,
+	EGG,
 	UNKNOW,
 };
 
@@ -38,6 +39,7 @@ enum class ParsingType {
 	PDI,
 	PPO,
 	BCT,
+	ENW,
 	UNKNOW,
 };
 
