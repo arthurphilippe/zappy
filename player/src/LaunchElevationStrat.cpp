@@ -10,8 +10,9 @@
 namespace pl {
 
 LaunchElevationStrat::LaunchElevationStrat(Socket &socket,
-	int &elevationLevel)
-	: _status(false), _elevationLevel(elevationLevel),
+	STRAT &stratLevel, int &elevationLevel)
+	: _status(false), _stratLevel(stratLevel),
+		_elevationLevel(elevationLevel),
 		_socket(socket), _isElevated(false)
 {}
 
@@ -22,11 +23,16 @@ void LaunchElevationStrat::run(std::vector<std::vector<std::string>> &vision)
 	noexcept
 {
 	if (!_isElevated) {
-		_socket << "Broadcast zappy-cléfèss\n";
+		std::string toSend = "Broadcast Come:";
+		toSend += _elevationLevel;
+		toSend += "\n";
+		_socket << toSend;
 		checkForPlayers(vision);
 	}
-	else
-		_socket << "Broadcast zappy-mendésspeulète\n";
+	else {
+		_socket << "Broadcast Stop\n";
+		_stratLevel = DEFAULT;
+	}
 }
 
 void LaunchElevationStrat::checkForPlayers(std::vector<std::vector<std::string>>

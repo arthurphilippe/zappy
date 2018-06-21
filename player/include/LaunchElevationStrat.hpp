@@ -16,7 +16,8 @@ namespace pl {
 
 	class LaunchElevationStrat : public IStrat {
 	public:
-		LaunchElevationStrat(Socket &socket, int &elevationLevel);
+		LaunchElevationStrat(Socket &socket, STRAT &stratLevel,
+			int &elevationLevel);
 		~LaunchElevationStrat();
 		void run(std::vector<std::vector<std::string>> &vision)
 			noexcept override;
@@ -26,6 +27,7 @@ namespace pl {
 			&vison) noexcept;
 		int nbOfPlayersNeeded();
 		bool			_status;
+		STRAT			&_stratLevel;
 		int			&_elevationLevel;
 		Socket			&_socket;
 		bool			_isElevated;
