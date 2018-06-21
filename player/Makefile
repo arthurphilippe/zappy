@@ -20,7 +20,8 @@ SRCS		=	src/Socket.cpp			\
 			src/DefaultStrat.cpp		\
 			src/FocusStrat.cpp		\
 			src/GoToElevationStrat.cpp	\
-			src/LaunchElevationStrat.cpp
+			src/LaunchElevationStrat.cpp	\
+			src/AStrat.cpp
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 

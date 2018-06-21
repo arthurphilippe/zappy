@@ -13,26 +13,16 @@
 	#include <iostream>
 	#include <algorithm>
 	#include "Socket.hpp"
-	#include "IStrat.hpp"
+	#include "AStrat.hpp"
 
 namespace pl {
-	class FocusStrat : public IStrat {
+	class FocusStrat : public AStrat {
 		public:
 			FocusStrat(Socket &socket);
-			~FocusStrat() {};
-			void run(std::vector<std::vector<std::string>> &vision) noexcept override;
-			bool isRuning() noexcept override {return _status;};
+			~FocusStrat();
 		private:
-			void executeAction() noexcept;
 			void moveToItem(int itemPos);
-			int getClosestItemPos(std::vector<std::vector<std::string>> &vision);
-			void move(std::string direction) noexcept;
-			void showVision(std::vector<std::vector<std::string>> &vision) noexcept;
-			void showQueue() noexcept;
-			bool			_status;
-			Socket			&_socket;
-			std::deque<std::string>	_actionQueue;
-			std::string _itemName;
+			void run(std::vector<std::vector<std::string>> &vision) noexcept;
 	};
 }
 
