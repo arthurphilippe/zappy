@@ -18,6 +18,7 @@ SRCS		=	src/Socket.cpp		\
 			src/Core.cpp		\
 			src/AI.cpp		\
 			src/DefaultStrat.cpp	\
+			src/GoToElevationStrat.cpp
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 
