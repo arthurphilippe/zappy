@@ -323,3 +323,43 @@ Test(Game, lifespan_checks)
 	cr_expect_str_eq(pl4->p_queued_msgs->l_end->n_data, "quit");
 	cr_expect_eq(pl4->p_queued_msgs->l_size, 1);
 }
+
+Test(Game, has_ended) {
+	player_t *pl1 = player_create_at((vector2d_t){9, 9});
+	player_t *pl2 = player_create_at((vector2d_t){9, 9});
+	player_t *pl3 = player_create_at((vector2d_t){9, 9});
+	player_t *pl4 = player_create_at((vector2d_t){9, 15});
+	player_t *pl5 = player_create_at((vector2d_t){9, 15});
+	player_t *pl6 = player_create_at((vector2d_t){9, 15});
+	game_t *gm = game_create(20, 20, 7, 6);
+
+	cr_assert(pl1);
+	cr_assert(pl2);
+	cr_assert(pl3);
+	cr_assert(pl4);
+	cr_assert(pl5);
+	cr_assert(pl6);
+	cr_assert(gm);
+	game_add_team(gm, "pandas");
+	pl1->p_teamname = strdup("pandas");
+	pl1->p_lvl = 8;
+	pl2->p_teamname = strdup("pandas");
+	pl2->p_lvl = 8;
+	pl3->p_teamname = strdup("pandas");
+	pl3->p_lvl = 8;
+	pl4->p_teamname = strdup("pandas");
+	pl4->p_lvl = 8;
+	pl5->p_teamname = strdup("pandas");
+	pl5->p_lvl = 8;
+	pl6->p_teamname = strdup("pandas");
+	cr_assert_neq(game_register_player(gm, pl1), -1);
+	cr_assert_neq(game_register_player(gm, pl2), -1);
+	cr_assert_neq(game_register_player(gm, pl3), -1);
+	cr_assert_neq(game_register_player(gm, pl4), -1);
+	cr_assert_neq(game_register_player(gm, pl5), -1);
+	cr_assert_neq(game_register_player(gm, pl6), -1);
+
+	cr_assert_eq(game_has_ended(gm), false);
+	pl6->p_lvl = 8;
+	cr_assert_eq(game_has_ended(gm), true);
+}

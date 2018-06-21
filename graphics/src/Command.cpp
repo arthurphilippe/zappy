@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "ParserEngine.hpp"
+#include "Egg.hpp"
 #include "Command.hpp"
 #include "Parser.hpp"
 #include "ParserEngine.hpp"
@@ -45,7 +46,7 @@ void Command::delPlayer(std::string &cmd, std::list<Player> &playerlist)
 		return;
 	for (auto i = playerlist.begin(); i != playerlist.end(); i++) {
 		if (std::to_string(i->getID()) == vec[1]) {
-			playerlist.erase(i);
+			i->setOri(Orientation::DEAD);
 			return;
 		}
 
@@ -66,7 +67,6 @@ void Command::updateTile(std::string &cmd, MapCoord &map)
 	auto vec = ParserEngine::createVectorString(cmd, ' ');
 	if (vec.size() != 10)
 		return;
-	bool empty = true;
 	int x = std::stoi(vec[1]);
 	int y = std::stoi(vec[2]);
 	for (auto i = map.begin(); i != map.end(); i++) {
@@ -80,11 +80,22 @@ void Command::updateTile(std::string &cmd, MapCoord &map)
 					i->getObjList().push_back(Parser::getObjType(*u));
 					--blocks;
 				}
-				empty = false;
 			}
 			}
 		}
 		}
+}
+
+void Command::addEgg(std::string &cmd, MapCoord &map)
+{
+	auto vec = ParserEngine::createVectorString(cmd, ' ');
+	if (vec.size() != 5)
+		return;
+	sf::Vector2f pos = {std::stof(vec.at(3)), std::stof(vec.at(4))};
+	Egg egg(pos, std::stoul(vec.at(1)));
+	for (auto i = map.begin(); i != map.end(); i++)
+		if (i->getCoord().x == pos.x && i->getCoord().y == pos.y)
+			i->getObjList().push_back(ObjectType::EGG);
 }
 
 }

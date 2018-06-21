@@ -22,6 +22,7 @@ gi::Display::Display()
 	_PlayerMap.insert(std::make_pair(Orientation::NORTH, std::unique_ptr<gi::Item>(new Item("./assets/back/1.png"))));
 	_PlayerMap.insert(std::make_pair(Orientation::WEST, std::unique_ptr<gi::Item>(new Item("./assets/left/1.png"))));
 	_PlayerMap.insert(std::make_pair(Orientation::SOUTH, std::unique_ptr<gi::Item>(new Item("./assets/front/1.png"))));
+	_PlayerMap.insert(std::make_pair(Orientation::DEAD, std::unique_ptr<gi::Item>(new Item("./assets/dead.png"))));
 	_window.create(sf::VideoMode(1280, 720), "Zappy - But graphical <3");
 	_window.setFramerateLimit(60);
 }
@@ -61,7 +62,6 @@ bool gi::Display::putItem(gi::Object &object) noexcept
 	auto tilematch = _ItemMap.find(ObjectType::TILESET);
 	auto tileset = tilematch->second->getSprite();
 	int x = 0;
-	int y = 0;
 	sf::Vector2f pos = object.getCoord();
 	pos.x = TILESIZE / 2 + (TILESIZE * pos.x) + OFF_SET;
 	pos.y = TILESIZE / 2 + (TILESIZE * pos.y) + OFF_SET;
@@ -104,7 +104,12 @@ bool gi::Display::putPlayer(gi::Player &player) noexcept
 bool gi::Display::putPlayer(std::list<gi::Player> &player) noexcept
 {
 	for (auto i = player.begin(); i != player.end(); i++) {
-		putPlayer(*i);
+		if (i->getOri() == Orientation::DEAD)
+			putPlayer(*i);
+	}
+	for (auto i = player.begin(); i != player.end(); i++) {
+		if (i->getOri() != Orientation::DEAD)
+				putPlayer(*i);
 	}
 	return true;
 }
