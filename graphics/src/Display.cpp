@@ -22,6 +22,7 @@ gi::Display::Display()
 	_PlayerMap.insert(std::make_pair(Orientation::NORTH, std::unique_ptr<gi::Item>(new Item("./assets/back/1.png"))));
 	_PlayerMap.insert(std::make_pair(Orientation::WEST, std::unique_ptr<gi::Item>(new Item("./assets/left/1.png"))));
 	_PlayerMap.insert(std::make_pair(Orientation::SOUTH, std::unique_ptr<gi::Item>(new Item("./assets/front/1.png"))));
+	_PlayerMap.insert(std::make_pair(Orientation::DEAD, std::unique_ptr<gi::Item>(new Item("./assets/dead.png"))));
 	_window.create(sf::VideoMode(1280, 720), "Zappy - But graphical <3");
 	_window.setFramerateLimit(60);
 }
@@ -104,7 +105,12 @@ bool gi::Display::putPlayer(gi::Player &player) noexcept
 bool gi::Display::putPlayer(std::list<gi::Player> &player) noexcept
 {
 	for (auto i = player.begin(); i != player.end(); i++) {
-		putPlayer(*i);
+		if (i->getOri() == Orientation::DEAD)
+			putPlayer(*i);
+	}
+	for (auto i = player.begin(); i != player.end(); i++) {
+		if (i->getOri() != Orientation::DEAD)
+			putPlayer(*i);
 	}
 	return true;
 }

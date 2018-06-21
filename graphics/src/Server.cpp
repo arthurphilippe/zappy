@@ -48,8 +48,6 @@ sf::Vector2f Server::getMapSize()
 
 void Server::execCmd(const ParsingType &type, std::string &cmd)
 {
-	std::cout << BOLD_COLOR_YELLOW << "ZappyGi:: " << BOLD_COLOR_RESET
-	<< BOLD_COLOR_GREEN << "processing: '" << BOLD_COLOR_RESET << cmd << BOLD_COLOR_GREEN << "'"  << std::endl;
 	switch (type) {
 	case ParsingType::PNW:
 		Command::addNewPlayer(cmd, _playerlist);
@@ -86,11 +84,13 @@ void Server::processCmd()
 void Server::updatePlayer()
 {
 	for (auto i = _playerlist.begin(); i != _playerlist.end(); i++) {
-		std::string str("ppo");
-		str += " ";
-		str += std::to_string(i->getID());
-		str += "\n";
-		_sock << str;
+		if (i->getOri() != Orientation::DEAD) {
+			std::string str("ppo");
+			str += " ";
+			str += std::to_string(i->getID());
+			str += "\n";
+			_sock << str;
+		}
 	}
 }
 

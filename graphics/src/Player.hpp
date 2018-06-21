@@ -19,6 +19,7 @@ enum class Orientation {
 	EAST,
 	SOUTH,
 	WEST,
+	DEAD,
 };
 
 class Player {
