@@ -71,6 +71,7 @@ void Command::updateTile(std::string &cmd, MapCoord &map)
 	int y = std::stoi(vec[2]);
 	for (auto i = map.begin(); i != map.end(); i++) {
 		if (i->getCoord().x == x && i->getCoord().y == y) {
+			i->getObjList().clear();
 			for (auto u = _FullMapObjDef.begin(); u != _FullMapObjDef.end(); u++) {
 			int blocks = std::stoi(ParserEngine::getStringFromArgNb(cmd,
 				static_cast<int>(*u)));
@@ -82,13 +83,8 @@ void Command::updateTile(std::string &cmd, MapCoord &map)
 				empty = false;
 			}
 			}
-			if (empty) {
-				i->getObjList().clear();
-			}
 		}
-		map.front().getObjList().clear();
-		empty = true;
-	}
+		}
 }
 
 }
