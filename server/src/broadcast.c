@@ -59,8 +59,11 @@ int broacast_get_prior_tile(
 	vector2d_t height = {receive.v_x + dir.v_x, receive.v_y + dir.v_y};
 	float dist = calc_dist(receive, send, height);
 	float prod_s = calc_prod_s(receive, send, height);
-	float angle = acos(prod_s / dist) * 180 / M_PI;
+	float angle;
 
+	if (dist == 0 && prod_s == 0)
+		return 0;
+	angle = acos(prod_s / dist) * 180 / M_PI;
 	if (send.v_x - receive.v_x < 0)
 		angle = 360 - angle;
 	return (get_prior_tile_idx(angle));
