@@ -6,6 +6,7 @@
 */
 
 #include "Core.hpp"
+#include "color.h"
 
 namespace pl {
 
@@ -67,9 +68,11 @@ void Core::initConnection(const std::string &port, const std::string &machine)
 void Core::loop()
 {
 	while (true) {
+		std::cout << "_____"<< ANSI_BOLD_COLOR_CYAN << "START CYCLE" << ANSI_BOLD_COLOR_RESET << "_____" << std::endl;
 		_ai.look(_socket, _processing);
 		_ai.lookAtInventory(_socket, _processing);
 		_ai.executeStrat(_socket, _processing);
+
 	}
 }
 

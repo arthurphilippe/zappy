@@ -14,7 +14,8 @@ namespace pl {
 
 	class GoToElevationStrat : public IStrat {
 	public:
-		GoToElevationStrat(Socket &socket);
+		GoToElevationStrat(Socket &socket, STRAT &stratLevel,
+			int &elevationLevel);
 		~GoToElevationStrat();
 		void run(std::vector<std::vector<std::string>> &vision)
 			noexcept override;
@@ -25,6 +26,8 @@ namespace pl {
 		bool			_status;
 		Socket			&_socket;
 		int			_direction;
+		STRAT			&_stratLevel;
+		int			&_elevationLevel;
 	};
 
 }

@@ -107,8 +107,10 @@ void Processing::parseResources(std::string &info,
 
 bool Processing::catchMessage(const std::string &reply) const
 {
-	if (reply.substr(0, reply.find(" ")) == "message")
-		return true;
+	if (reply.substr(0, reply.find(" ")) == "message") {
+		if (reply.substr(reply.find_last_of(" "), 4) == "Come")
+			return true;
+	}
 	return false;
 }
 
