@@ -27,4 +27,6 @@ void game_on_cycle(selector_t *stor)
 	team_consume_eggs(game->ga_teams, game->ga_eggs);
 	game_lifespan_checks(game);
 	update_board(game);
+	if (game_has_ended(game))
+		stor->s_live = false;
 }
