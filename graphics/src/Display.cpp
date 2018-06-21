@@ -62,7 +62,6 @@ bool gi::Display::putItem(gi::Object &object) noexcept
 	auto tilematch = _ItemMap.find(ObjectType::TILESET);
 	auto tileset = tilematch->second->getSprite();
 	int x = 0;
-	int y = 0;
 	sf::Vector2f pos = object.getCoord();
 	pos.x = TILESIZE / 2 + (TILESIZE * pos.x) + OFF_SET;
 	pos.y = TILESIZE / 2 + (TILESIZE * pos.y) + OFF_SET;
@@ -110,7 +109,7 @@ bool gi::Display::putPlayer(std::list<gi::Player> &player) noexcept
 	}
 	for (auto i = player.begin(); i != player.end(); i++) {
 		if (i->getOri() != Orientation::DEAD)
-			putPlayer(*i);
+				putPlayer(*i);
 	}
 	return true;
 }

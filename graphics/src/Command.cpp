@@ -67,7 +67,6 @@ void Command::updateTile(std::string &cmd, MapCoord &map)
 	auto vec = ParserEngine::createVectorString(cmd, ' ');
 	if (vec.size() != 10)
 		return;
-	bool empty = true;
 	int x = std::stoi(vec[1]);
 	int y = std::stoi(vec[2]);
 	for (auto i = map.begin(); i != map.end(); i++) {
@@ -81,7 +80,6 @@ void Command::updateTile(std::string &cmd, MapCoord &map)
 					i->getObjList().push_back(Parser::getObjType(*u));
 					--blocks;
 				}
-				empty = false;
 			}
 			}
 		}

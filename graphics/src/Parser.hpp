@@ -47,14 +47,12 @@ class Parser {
 	public:
 		Parser() = delete;
 		~Parser() = delete;
-		static MapCoord parseCmd(std::vector<std::string> &cmd, const ParsingType);
 		static ObjectType getObjType(const FullMapDef def);
 		static ParsingType getCmdType(std::string &cmd);
 		static ParsingType getParsingType(const std::string type);
 		static Orientation getOri(const std::string &ori);
 	protected:
 	private:
-		static MapCoord parseFullMap(std::vector<std::string> &cmd);
 };
 }
 
