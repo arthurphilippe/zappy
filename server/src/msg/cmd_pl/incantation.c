@@ -13,24 +13,52 @@
 void msg_cmd_pl_incentation_callback(
 	selector_t *stor, handle_t *hdl, list_t *args)
 {
-	player_t *pl = hdl->h_data;
+	list_iter_t iter;
+	player_t *pl;
 
 	(void) stor;
-	(void) args;
-	pl->p_lvl += 1;
+	(void) hdl;
+	list_iter_init(&iter, args, FWD);
+	while ((pl = list_iter_next(&iter))) {
+		pl->p_lvl += 1;
+	}
+}
+
+static void check_pos_and_set_callback(
+	player_t *pl1, player_t *pl2, list_t *args, int fd)
+{
+	if (pl1->p_pos.v_x == pl2->p_pos.v_x &&
+		pl1->p_pos.v_y == pl2->p_pos.v_y) {
+		list_push_back(args, pl2);
+		dprintf(fd, "Elevation underway Current level: %d\n",
+			pl2->p_lvl);
+	}
+}
+
+static void search_handles(selector_t *stor, player_t *pl, list_t *args)
+{
+	list_iter_t iter;
+	handle_t *hdl;
+
+	list_iter_init(&iter, stor->s_handles, FWD);
+	while ((hdl = list_iter_next(&iter))) {
+		if (hdl->h_type == H_PLAYER) {
+			check_pos_and_set_callback(
+				pl, hdl->h_data, args, hdl->h_fd);
+		}
+	}
 }
 
 void msg_cmd_pl_incentation(selector_t *stor, handle_t *hdl, list_t *args)
 {
 	player_t *pl = hdl->h_data;
 
-	(void) args;
+	while (list_get_size(args))
+		list_pop_back(args);
 	if (player_rite_check_tile(pl, stor->s_data)) {
-		dprintf(hdl->h_fd, "Elevation underway Current level: %d\n",
-			pl->p_lvl);
 		pl->p_task.dc_callback = msg_cmd_pl_incentation_callback;
 		chrono_init(&pl->p_task.dc_timer, 300);
-	}
-	else
+		search_handles(stor, pl, args);
+	} else
 		dprintf(hdl->h_fd, "ko\n");
 }
