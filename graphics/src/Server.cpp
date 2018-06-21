@@ -61,6 +61,9 @@ void Server::execCmd(const ParsingType &type, std::string &cmd)
 	case ParsingType::PPO:
 		Command::movePlayer(cmd, _playerlist);
 		break;
+	case ParsingType::ENW:
+		Command::addEgg(cmd, _map);
+		break;
 	default:
 		return;
 	}

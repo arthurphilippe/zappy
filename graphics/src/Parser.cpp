@@ -21,6 +21,7 @@ static const std::vector<FullMapDef> _FullMapObjDef = {
 	FullMapDef::MENDIANE,
 	FullMapDef::PHIRAS,
 	FullMapDef::THYSTAME,
+	FullMapDef::EGG,
 };
 
 static const std::unordered_map<std::string, ParsingType> _ParsingTypeDef = {
@@ -28,6 +29,7 @@ static const std::unordered_map<std::string, ParsingType> _ParsingTypeDef = {
 	{"ppo", ParsingType::PPO},
 	{"pdi", ParsingType::PDI},
 	{"bct", ParsingType::BCT},
+	{"enw", ParsingType::ENW},
 };
 
 static const std::unordered_map<FullMapDef, ObjectType> _ObjTypeDef = {
@@ -38,6 +40,7 @@ static const std::unordered_map<FullMapDef, ObjectType> _ObjTypeDef = {
 	{FullMapDef::MENDIANE, ObjectType::MENDIANE},
 	{FullMapDef::PHIRAS, ObjectType::PHIRAS},
 	{FullMapDef::THYSTAME, ObjectType::THYSTAME},
+	{FullMapDef::EGG, ObjectType::EGG},
 };
 
 MapCoord Parser::parseCmd(std::vector<std::string> &cmd, const ParsingType type) {

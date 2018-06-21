@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "ParserEngine.hpp"
+#include "Egg.hpp"
 #include "Command.hpp"
 #include "Parser.hpp"
 #include "ParserEngine.hpp"
@@ -85,6 +86,18 @@ void Command::updateTile(std::string &cmd, MapCoord &map)
 			}
 		}
 		}
+}
+
+void Command::addEgg(std::string &cmd, MapCoord &map)
+{
+	auto vec = ParserEngine::createVectorString(cmd, ' ');
+	if (vec.size() != 5)
+		return;
+	sf::Vector2f pos = {std::stof(vec.at(3)), std::stof(vec.at(4))};
+	Egg egg(pos, std::stoul(vec.at(1)));
+	for (auto i = map.begin(); i != map.end(); i++)
+		if (i->getCoord().x == pos.x && i->getCoord().y == pos.y)
+			i->getObjList().push_back(ObjectType::EGG);
 }
 
 }
