@@ -31,6 +31,7 @@ ai:
 graphical:
 	@$(MAKE) -C $(GRAPHICAL_DIR)
 	@ln -f $(GRAPHICAL_DIR)/$(GRAPHICAL) ./
+	@ln -sf $(GRAPHICAL_DIR)/assets/ ./
 
 clean:
 	@$(MAKE) clean -C $(SERVER_DIR)
@@ -43,6 +44,7 @@ fclean:
 	@$(MAKE) fclean -C $(GRAPHICAL_DIR)
 	$(RM) $(SERVER)
 	$(RM) $(AI)
+	$(RM) assets
 
 re: fclean all
 
