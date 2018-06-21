@@ -49,8 +49,8 @@ namespace pl {
 		void clearInventory();
 		int					_mapX;
 		int					_mapY;
-		int					_elevationLevel;
 		STRAT					_stratLevel;
+		int					_elevationLevel;
 		bool					_status;
 		std::vector<std::vector<std::string>>	_vision;
 		std::unordered_map<std::string, int>	_inventory;

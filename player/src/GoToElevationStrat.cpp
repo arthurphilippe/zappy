@@ -38,15 +38,21 @@ void GoToElevationStrat::tryToReadDirection(std::string &reply)
 void GoToElevationStrat::move()
 {
 	switch (_direction) {
+		case 1:
+			_socket << "Forward\n";
+			break;
 		case 2:
 			_socket << "Forward\n";
+			_socket << "Left\n";
+			_socket << "Forward\n";
+			break;
+		case 3:
 			_socket << "Left\n";
 			_socket << "Forward\n";
 			break;
 		case 4:
 			_socket << "Left\n";
 			_socket << "Forward\n";
-		case 3:
 			_socket << "Left\n";
 			_socket << "Forward\n";
 			break;
@@ -58,6 +64,9 @@ void GoToElevationStrat::move()
 		case 6:
 			_socket << "Right\n";
 			_socket << "Forward\n";
+			_socket << "Right\n";
+			_socket << "Forward\n";
+			break;
 		case 7:
 			_socket << "Right\n";
 			_socket << "Forward\n";
@@ -68,7 +77,7 @@ void GoToElevationStrat::move()
 			_socket << "Forward\n";
 			break;
 		default:
-			_socket << "Forward\n";
+			_socket << "Left\n";
 	}
 }
 
