@@ -32,18 +32,18 @@ void pl::DefaultStrat::run(std::vector<std::vector<std::string>> &vision)
 			harvest(vision[0]);
 			_actionQueue.push_back("Left\n");
 			_actionQueue.push_back("Forward\n");
-			_staus = true;
+			_status = true;
 			break;
 		case 2:
 			harvest(vision[0]);
 			_actionQueue.push_back("Right\n");
 			_actionQueue.push_back("Forward\n");
-			_staus = true;
+			_status = true;
 			break;
 		default:
 			harvest(vision[0]);
 			_actionQueue.push_back("Forward\n");
-			_staus = true;
+			_status = true;
 	}
 	executeAction();
 };
