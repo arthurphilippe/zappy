@@ -69,10 +69,8 @@ void Core::loop()
 {
 	while (true) {
 		std::cout << "_____"<< ANSI_BOLD_COLOR_CYAN << "START CYCLE" << ANSI_BOLD_COLOR_RESET << "_____" << std::endl;
-		// if (!_ai.getStratStatus()) {
-			_ai.look(_socket, _processing);
-			_ai.lookAtInventory(_socket, _processing);
-		// }
+		_ai.look(_socket, _processing);
+		_ai.lookAtInventory(_socket, _processing);
 		_ai.executeStrat();
 		std::string coucou;
 		while(!_socket.tryToRead(coucou));
