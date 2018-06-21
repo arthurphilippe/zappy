@@ -23,6 +23,7 @@ enum class ObjectType {
 	PHIRAS,
 	THYSTAME,
 	TILESET,
+	EGG,
 	UNKNOW,
 };
 
