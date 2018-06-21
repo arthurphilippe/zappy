@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-CXX		=	clang++
+CXX		=	g++
 
 NAME		=	zappy_ai
 

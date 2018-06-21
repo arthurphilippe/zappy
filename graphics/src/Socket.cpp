@@ -36,8 +36,6 @@ bool Socket::send(const std::string &string)
 	size_t len = 0;
 	if (_socket.send(string.c_str(), (sizeof(const char) * string.length()), len) != sf::Socket::Done)
 		throw std::runtime_error("Can't send data on socket");
-	std::cout << BOLD_COLOR_YELLOW << "ZappyGi:: " << BOLD_COLOR_RESET
-	<< BOLD_COLOR_GREEN << "send: " << BOLD_COLOR_RESET << string;
 	if (len != string.length())
 		throw std::runtime_error("Send not completed");
 	return (true);
@@ -60,9 +58,8 @@ bool Socket::receive()
 	size_t len;
 
 	memset(data, '\0', 8192);
-	_socket.receive(data, 8192, len);
+	_socket.receive(data, 8160, len);
 	if (len) {
-		std::cout << BOLD_COLOR_CYAN << "Server:: " << BOLD_COLOR_RESET << data;
 		return true;
 	}
 	return false;
@@ -74,9 +71,8 @@ bool Socket::receive(std::string &string)
 	size_t len;
 
 	memset(data, '\0', 8192);
-	_socket.receive(data, 8192, len);
+	_socket.receive(data, 8160, len);
 	if (len) {
-		std::cout << BOLD_COLOR_CYAN << "Server:: " << BOLD_COLOR_RESET << data;
 		string += data;
 		return true;
 	}

@@ -21,6 +21,7 @@ static const std::vector<FullMapDef> _FullMapObjDef = {
 	FullMapDef::MENDIANE,
 	FullMapDef::PHIRAS,
 	FullMapDef::THYSTAME,
+	FullMapDef::EGG,
 };
 
 static const std::unordered_map<std::string, ParsingType> _ParsingTypeDef = {
@@ -28,6 +29,7 @@ static const std::unordered_map<std::string, ParsingType> _ParsingTypeDef = {
 	{"ppo", ParsingType::PPO},
 	{"pdi", ParsingType::PDI},
 	{"bct", ParsingType::BCT},
+	{"enw", ParsingType::ENW},
 };
 
 static const std::unordered_map<FullMapDef, ObjectType> _ObjTypeDef = {
@@ -38,19 +40,8 @@ static const std::unordered_map<FullMapDef, ObjectType> _ObjTypeDef = {
 	{FullMapDef::MENDIANE, ObjectType::MENDIANE},
 	{FullMapDef::PHIRAS, ObjectType::PHIRAS},
 	{FullMapDef::THYSTAME, ObjectType::THYSTAME},
+	{FullMapDef::EGG, ObjectType::EGG},
 };
-
-MapCoord Parser::parseCmd(std::vector<std::string> &cmd, const ParsingType type) {
-	switch (type) {
-	case ParsingType::FULL_MAP:
-		return (parseFullMap(cmd));
-		break;
-	case ParsingType::TILE_CONTENT:
-		break;
-	default:
-		break;
-	}
-}
 
 Orientation Parser::getOri(const std::string &ori)
 {
@@ -90,33 +81,6 @@ ObjectType Parser::getObjType(const FullMapDef def)
 			return (i->second);
 	}
 	return ObjectType::UNKNOW;
-}
-
-MapCoord Parser::parseFullMap(std::vector<std::string> &cmd)
-{
-	MapCoord map;
-	std::list<ObjectType> objlist;
-	for (auto i = cmd.begin(); i != cmd.end(); i++) {
-		if (i->length()) {
-		int x = std::stoi(ParserEngine::getStringFromArgNb((*i),
-			static_cast<int>(FullMapDef::COORD_X)));
-		int y = std::stoi(ParserEngine::getStringFromArgNb((*i),
-			static_cast<int>(FullMapDef::COORD_Y)));
-		for (auto u = _FullMapObjDef.begin(); u != _FullMapObjDef.end(); u++) {
-			int blocks = std::stoi(ParserEngine::getStringFromArgNb((*i),
-				static_cast<int>(*u)));
-			if (blocks) {
-				while (blocks > 0) {
-					objlist.push_back(getObjType(*u));
-					--blocks;
-				}
-			}
-		}
-	map.push_back(Object(sf::Vector2f(x,y), objlist));
-	objlist.clear();
-	}
-	}
-	return map;
 }
 
 }
