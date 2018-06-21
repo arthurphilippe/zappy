@@ -39,9 +39,25 @@ void LaunchElevationStrat::checkForPlayers(std::vector<std::vector<std::string>>
 		if (item == "player")
 			nbOfPlayersOnMe++;
 	}
-	if (nbOfPlayersOnMe >= nbOfPlayerNeeded()) {
+	if (nbOfPlayersOnMe >= nbOfPlayersNeeded()) {
 		_socket << "Incantation\n";
 		_isElevated = true;
+	}
+}
+
+int LaunchElevationStrat::nbOfPlayersNeeded()
+{
+	switch (_elevationLevel) {
+		case 1:
+			return 1;
+		case 2: case 3:
+			return 2;
+		case 4: case 5:
+			return 4;
+		case 6: case 7:
+			return 6;
+		default:
+			return 0;
 	}
 }
 

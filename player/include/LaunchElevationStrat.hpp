@@ -24,6 +24,7 @@ namespace pl {
 	private:
 		void checkForPlayers(std::vector<std::vector<std::string>>
 			&vison) noexcept;
+		int nbOfPlayersNeeded();
 		bool			_status;
 		int			&_elevationLevel;
 		Socket			&_socket;
