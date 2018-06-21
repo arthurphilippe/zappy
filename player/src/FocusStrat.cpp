@@ -34,6 +34,8 @@ void pl::FocusStrat::run(std::vector<std::vector<std::string>> &vision) noexcept
 	else {
 		_actionQueue.push_back("Right\n");
 		_actionQueue.push_front("Forward\n");
+		_actionQueue.push_front("Forward\n");
+		_actionQueue.push_front("Forward\n");
 	}
 	showQueue();
 	executeAction();
