@@ -32,7 +32,8 @@ static void search_for_players(
 	}
 }
 
-static void append_res(dynbuf_t *buf, unsigned count, const char *name, bool *first)
+static void append_res(
+	dynbuf_t *buf, unsigned count, const char *name, bool *first)
 {
 	for (unsigned int i = 0; i < count; i++) {
 		append_str(buf, name, first);
