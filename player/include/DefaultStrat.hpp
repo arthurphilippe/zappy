@@ -13,27 +13,17 @@
 	#include <iostream>
 	#include "Socket.hpp"
 	#include "IStrat.hpp"
+	#include "AStrat.hpp"
 
 namespace pl {
-class DefaultStrat : public IStrat {
+class DefaultStrat : public AStrat {
 	public:
 		DefaultStrat(Socket &socket);
 		~DefaultStrat();
-		void run(std::vector<std::vector<std::string>> &vision)
-			noexcept override;
-		bool isRuning() noexcept override {return _status;};
+		void run(std::vector<std::vector<std::string>> &vision) noexcept override;
 	private:
-		bool			_status;
-		Socket			&_socket;
-		std::deque<std::string>	_actionQueue;
 		std::mt19937		_generator;
 		std::uniform_int_distribution<std::mt19937::result_type> _limits;
-
-		void executeAction() noexcept;
-		void move(std::string direction) noexcept;
-		void harvest(std::vector<std::string> &vision) noexcept;
-		void showVision(std::vector<std::vector<std::string>> &vision) noexcept;
-		void showQueue() noexcept;
 };
 }
 

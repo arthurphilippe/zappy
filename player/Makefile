@@ -19,6 +19,7 @@ SRCS		=	src/Socket.cpp		\
 			src/AI.cpp		\
 			src/DefaultStrat.cpp	\
 			src/FocusStrat.cpp	\
+			src/AStrat.cpp \
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 
