@@ -71,11 +71,8 @@ void Core::loop()
 		std::cout << "_____"<< ANSI_BOLD_COLOR_CYAN << "START CYCLE" << ANSI_BOLD_COLOR_RESET << "_____" << std::endl;
 		_ai.look(_socket, _processing);
 		_ai.lookAtInventory(_socket, _processing);
-		_ai.executeStrat();
-		std::string coucou;
-		while(!_socket.tryToRead(coucou));
-		std::cout << "Server: "<< coucou <<std::endl;
-		std::cout << "_____"<< ANSI_BOLD_COLOR_CYAN << "END CYCLE" << ANSI_BOLD_COLOR_RESET << "_____" << std::endl;
+		_ai.executeStrat(_socket, _processing);
+
 	}
 }
 

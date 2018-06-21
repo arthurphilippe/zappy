@@ -87,7 +87,6 @@ void AI::executeStrat(Socket &_socket, const Processing &processing) noexcept
 	if (processing.catchMessage(reply))
 		_stratLevel = GO_TO_ELEVATION;
 	_status = _strats[_stratLevel]->isRuning();
-	std::cout << _elevationLevel << std::endl;
 }
 
 }
