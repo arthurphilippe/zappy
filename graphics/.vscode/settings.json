@@ -41,6 +41,5 @@
 		"ratio": "cpp",
 		"thread": "cpp",
 		"deque": "cpp"
-	},
-	"C_Cpp.errorSquiggles": "Disabled"
+	}
 }
