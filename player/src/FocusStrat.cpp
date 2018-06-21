@@ -23,10 +23,14 @@ void pl::FocusStrat::run(std::vector<std::vector<std::string>> &vision) noexcept
 		showQueue();
 		return;
 	}
-	if ((itemPos = getClosestItemPos(vision)) > 0)
+	if ((itemPos = getClosestItemPos(vision)) == 0)
+		_socket << "Take " + _itemName + "\n";
+	else if ((itemPos = getClosestItemPos(vision)) > 0)
 		moveToItem(itemPos);
-	else
-		move("Right\n");
+	else {
+		_socket << "Right\n";
+		_actionQueue.push_front("Forward\n");
+	}
 	showQueue();
 }
 
@@ -42,7 +46,7 @@ void pl::FocusStrat::executeAction() noexcept
 	std::string action = _actionQueue.front();
 
 	_socket << action;
-	_actionQueue.pop_back();
+	_actionQueue.pop_front();
 	if (_actionQueue.empty())
 		_status = false;
 }
@@ -52,15 +56,17 @@ int pl::FocusStrat::getClosestItemPos(std::vector<std::vector<std::string>> &vis
 	int itemPos = 0;
 
 	for (const auto &itemList : vision) {
-		for (auto item = itemList.begin(); item != itemList.end(); item++, itemPos++) {
+		for (auto item = itemList.begin(); item != itemList.end(); item++) {
 			if (!item->empty() && *item != "player") {
 				_itemName = *item;
-				std::cout << ANSI_BOLD_COLOR_BLUE << "Item Found" << ANSI_BOLD_COLOR_RESET << std::endl;
+				std::cout << ANSI_BOLD_COLOR_BLUE << "Item Found : " << _itemName << " at pos : ";
+				std::cout << itemPos << ANSI_BOLD_COLOR_RESET << std::endl;
 				return (itemPos);
 			}
 		}
+		itemPos++;
 	}
-	return (0);
+	return (-1);
 }
 
 void pl::FocusStrat::moveToItem(int itemPos)
@@ -69,17 +75,24 @@ void pl::FocusStrat::moveToItem(int itemPos)
 	int middle = 0, nbForward, min, max;
 	bool findLine = false;
 
+	_actionQueue.push_back("Forward\n");
 	while (findLine != true) {
 		middle = visionLevel * (visionLevel + 1);
 		min = middle - visionLevel;
 		max = middle + visionLevel;
-		if (min <= itemPos && itemPos <= max)
+		std::cout << ANSI_BOLD_COLOR_RED << "Min: " << min << ANSI_BOLD_COLOR_RESET << std::endl;
+		std::cout << ANSI_BOLD_COLOR_RED << "Middle: " << middle << ANSI_BOLD_COLOR_RESET << std::endl;
+		std::cout << ANSI_BOLD_COLOR_RED << "MAX: " << max << ANSI_BOLD_COLOR_RESET << std::endl;
+		if (min <= itemPos && itemPos <= max) {
+			std::cout << ANSI_BOLD_COLOR_RED << "FOUND LINE" << ANSI_BOLD_COLOR_RESET << std::endl;
 			findLine = true;
+		}
 		else {
 			visionLevel++;
 			_actionQueue.push_back("Forward\n");
 		}
 	}
+	std::cout << ANSI_BOLD_COLOR_RED << "LEAVING LOOP" << ANSI_BOLD_COLOR_RESET << std::endl;
 	if (itemPos < middle)
 		_actionQueue.push_back("Left\n");
 	else if (itemPos > middle)
@@ -92,6 +105,7 @@ void pl::FocusStrat::moveToItem(int itemPos)
 		nbForward--;
 	}
 	_actionQueue.push_back("Take " + _itemName + "\n");
+	executeAction();
 }
 
 void pl::FocusStrat::showVision(std::vector<std::vector<std::string>> &vision) noexcept
