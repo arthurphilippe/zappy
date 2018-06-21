@@ -13,13 +13,14 @@ RM		=	rm -vf
 
 MAIN		=	src/main.cpp
 
-SRCS		=	src/Socket.cpp		\
-			src/Processing.cpp	\
-			src/Core.cpp		\
-			src/AI.cpp		\
-			src/DefaultStrat.cpp	\
-			src/FocusStrat.cpp	\
-			src/GoToElevationStrat.cpp
+SRCS		=	src/Socket.cpp			\
+			src/Processing.cpp		\
+			src/Core.cpp			\
+			src/AI.cpp			\
+			src/DefaultStrat.cpp		\
+			src/FocusStrat.cpp		\
+			src/GoToElevationStrat.cpp	\
+			src/LaunchElevationStrat.cpp
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 

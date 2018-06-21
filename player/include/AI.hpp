@@ -17,6 +17,7 @@
 	#include "DefaultStrat.hpp"
 	#include "GoToElevationStrat.hpp"
 	#include "FocusStrat.hpp"
+	#include "LaunchElevationStrat.hpp"
 
 namespace pl {
 
@@ -24,7 +25,9 @@ namespace pl {
 	public:
 		enum STRAT {
 			DEFAULT,
-			GO_TO_ELEVATION
+			FOCUS,
+			GO_TO_ELEVATION,
+			LAUNCH_ELEVATION
 		};
 		AI();
 		~AI();
