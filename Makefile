@@ -14,24 +14,28 @@ AI_DIR		=	player
 GRAPHICAL	=	ZappyGi
 GRAPHICAL_DIR	=	graphics
 
-# ifndef VERBOSE
-# 	MAKEFLAGS	+=	--no-print-directory
-# endif
+LN		=	ln -v
+
+RM		=	rm -vf
+
+ifndef VERBOSE
+	MAKEFLAGS	+=	--no-print-directory
+endif
 
 all: server ai graphical
 
 server:
 	@$(MAKE) -C $(SERVER_DIR)
-	@ln -f $(SERVER_DIR)/$(SERVER) ./
+	@$(LN) -f $(SERVER_DIR)/$(SERVER) ./
 
 ai:
 	@$(MAKE) -C $(AI_DIR)
-	@ln -f $(AI_DIR)/$(AI) ./
+	@$(LN) -f $(AI_DIR)/$(AI) ./
 
 graphical:
 	@$(MAKE) -C $(GRAPHICAL_DIR)
-	@ln -f $(GRAPHICAL_DIR)/$(GRAPHICAL) ./
-	@ln -sf $(GRAPHICAL_DIR)/assets/ ./
+	@$(LN) -f $(GRAPHICAL_DIR)/$(GRAPHICAL) ./
+	@$(LN) -sf $(GRAPHICAL_DIR)/assets/ ./
 
 clean:
 	@$(MAKE) clean -C $(SERVER_DIR)
@@ -42,9 +46,10 @@ fclean:
 	@$(MAKE) fclean -C $(SERVER_DIR)
 	@$(MAKE) fclean -C $(AI_DIR)
 	@$(MAKE) fclean -C $(GRAPHICAL_DIR)
-	$(RM) $(SERVER)
-	$(RM) $(AI)
-	$(RM) assets
+	@$(RM) $(SERVER)
+	@$(RM) $(AI)
+	@$(RM) $(GRAPHICAL)
+	@$(RM) assets
 
 re: fclean all
 

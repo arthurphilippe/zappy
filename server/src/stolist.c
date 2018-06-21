@@ -14,12 +14,13 @@ static int push_back_substr(list_t *list, const char *str,
 				const char *spacers)
 {
 	size_t cpy_size = strcspn(str, spacers);
-	char *tmp = calloc(sizeof(char), cpy_size + 1);
+	char *tmp;
 
-	if (!tmp)
-		return (-1);
 	if (!cpy_size)
 		return (cpy_size);
+	tmp = calloc(sizeof(char), cpy_size + 1);
+	if (!tmp)
+		return (-1);
 	strncpy(tmp, str, cpy_size);
 	if (list_push_back(list, tmp) == LIST_OK)
 		return (cpy_size);
