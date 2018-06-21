@@ -20,7 +20,8 @@ void AI::initStrats(Socket &socket)
 {
 	std::unique_ptr<IStrat> def(new DefaultStrat(socket));
 	std::unique_ptr<IStrat> focus(new FocusStrat(socket));
-	std::unique_ptr<IStrat> goToElev(new GoToElevationStrat(socket));
+	std::unique_ptr<IStrat> goToElev(new
+		GoToElevationStrat(socket, _stratLevel, _elevationLevel));
 	std::unique_ptr<IStrat> launchElev(new
 		LaunchElevationStrat(socket, _elevationLevel));
 	_strats.push_back(std::move(def));

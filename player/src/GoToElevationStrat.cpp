@@ -9,8 +9,10 @@
 
 namespace pl {
 
-GoToElevationStrat::GoToElevationStrat(Socket &socket)
-	: _status(false), _socket(socket), _direction(1)
+GoToElevationStrat::GoToElevationStrat(Socket &socket,
+	STRAT &stratLevel, int &elevationLevel)
+	: _status(false), _socket(socket), _direction(1),
+		_stratLevel(stratLevel), _elevationLevel(elevationLevel)
 {}
 
 GoToElevationStrat::~GoToElevationStrat()
@@ -20,13 +22,23 @@ void GoToElevationStrat::run(std::vector<std::vector<std::string>> &vision)
 	noexcept
 {
 	(void) vision;
-	std::string reply;
-	if (_socket.tryToRead(reply) &&
-		reply.substr(0, reply.find(" ")) == "message") {
-		reply = reply.substr(reply.find(" ") + 1);
-		tryToReadDirection(reply);
+	std::string reply = "";
+	_socket.tryToRead(reply);
+	if (reply != "" && reply.substr(0, reply.find(" ")) == "message") {
+		if (reply.substr(reply.find_last_of(" ") + 1, 4) == "Come") {
+			reply = reply.substr(reply.find(" ") + 1);
+			tryToReadDirection(reply);
+			move();
+		}
+		else if (reply.substr(reply.find_last_of(" ") + 1, 4) == "Stop")
+			_stratLevel = DEFAULT;
 	}
-	move();
+	else if (reply != "" && reply.substr(0, 18) == "Elevation underway") {
+		_elevationLevel++;
+		_stratLevel = DEFAULT;
+	}
+	else
+		_socket << "Left\n";
 }
 
 void GoToElevationStrat::tryToReadDirection(std::string &reply)

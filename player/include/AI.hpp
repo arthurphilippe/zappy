@@ -23,12 +23,6 @@ namespace pl {
 
 	class AI {
 	public:
-		enum STRAT {
-			DEFAULT,
-			FOCUS,
-			GO_TO_ELEVATION,
-			LAUNCH_ELEVATION
-		};
 		AI();
 		~AI();
 		void initStrats(Socket &socket);
