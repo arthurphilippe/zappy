@@ -36,6 +36,7 @@ bool Core::loop()
 		_serv.updatePlayer();
 		_serv.getHints();
 		_serv.processCmd();
+		_display.putIncant(_serv.getIncatPos());
 		_display.putItem(map);
 		_display.putPlayer(_serv.getPlayerList());
 		_display.refresh();

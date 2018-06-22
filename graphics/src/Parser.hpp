@@ -39,6 +39,8 @@ enum class ParsingType {
 	PDI,
 	PPO,
 	BCT,
+	PIC,
+	PIE,
 	ENW,
 	UNKNOW,
 };

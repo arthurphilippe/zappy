@@ -22,6 +22,8 @@ class Command {
 	static void updateTile(std::string &cmd, MapCoord &map);
 	static void movePlayer(std::string &cmd, std::list<Player> &playerlist);
 	static void addEgg(std::string &cmd, MapCoord &map);
+	static void beginIncant(std::string &cmd, std::list<sf::Vector2f> &incantPos);
+	static void endIncant(std::string &cmd, std::list<sf::Vector2f> &incantPos);
 	protected:
 	private:
 

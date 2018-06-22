@@ -23,6 +23,7 @@ gi::Display::Display()
 	_PlayerMap.insert(std::make_pair(Orientation::WEST, std::unique_ptr<gi::Item>(new Item("./assets/left/1.png"))));
 	_PlayerMap.insert(std::make_pair(Orientation::SOUTH, std::unique_ptr<gi::Item>(new Item("./assets/front/1.png"))));
 	_PlayerMap.insert(std::make_pair(Orientation::DEAD, std::unique_ptr<gi::Item>(new Item("./assets/dead.png"))));
+	_Misc.push_front(std::unique_ptr<gi::Item>(new Item("./assets/circle.png")));
 	_window.create(sf::VideoMode(1280, 720), "Zappy - But graphical <3");
 	_window.setFramerateLimit(60);
 }
@@ -55,7 +56,6 @@ bool gi::Display::putItem(const ObjectType type, const int posX, const int posY)
 	return true;
 }
 
-#include <iostream>
 bool gi::Display::putItem(gi::Object &object) noexcept
 {
 	auto list = object.getObjList();
@@ -114,6 +114,22 @@ bool gi::Display::putPlayer(std::list<gi::Player> &player) noexcept
 	return true;
 }
 
+bool gi::Display::putIncant(std::list<sf::Vector2f> &pos) noexcept
+{
+	auto spr = _Misc.front().get()->getSprite();
+	for (auto &i : pos) {
+		auto u = i;
+		u.x = TILESIZE / 2 + (TILESIZE * u.x) + OFF_SET;
+		u.y = TILESIZE / 2 + (TILESIZE * u.y) + OFF_SET;
+		spr.setOrigin(35, 35);
+		auto rot = spr.getRotation();
+		rot = (static_cast<int>(rot) % 360) + 1;
+		spr.setRotation(rot);
+		spr.setPosition(u);
+		_window.draw(spr);
+	}
+	return true;
+}
 
 bool gi::Display::putItem(MapCoord &object) noexcept
 {
