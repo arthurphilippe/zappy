@@ -15,8 +15,8 @@
 	#include "Processing.hpp"
 	#include "IStrat.hpp"
 	#include "DefaultStrat.hpp"
-	#include "GoToElevationStrat.hpp"
 	#include "FocusStrat.hpp"
+	#include "GoToElevationStrat.hpp"
 	#include "LaunchElevationStrat.hpp"
 
 namespace pl {

@@ -62,10 +62,17 @@ void Socket::createSocket()
 void Socket::connectSocket()
 {
 	struct sockaddr_in s_in;
+	struct hostent *h;
 
+	if ((h = gethostbyname(_machine.c_str())) == nullptr)
+		throw std::runtime_error("Cannot connect the machine");
+	struct in_addr **serv_char_ip;
+	char *ip;
+	serv_char_ip = (struct in_addr **) h->h_addr_list;
+	ip = inet_ntoa(*serv_char_ip[0]);
 	s_in.sin_family = AF_INET;
 	s_in.sin_port = htons(_port);
-	s_in.sin_addr.s_addr = INADDR_ANY;
+	s_in.sin_addr.s_addr = inet_addr(ip);
 	if (connect(_socket, (const struct sockaddr *) &s_in,
 		sizeof(s_in)) == -1) {
 		throw std::runtime_error("Cannot connect the socket");
