@@ -16,6 +16,7 @@ namespace gi {
 
 void Command::beginIncant(std::string &cmd, std::list<sf::Vector2f> &incantPos)
 {
+	std::cout << "ELEVATION" << std::endl;
 	auto vec = ParserEngine::createVectorString(cmd, ' ');
 	if (vec.size() != 3) {
 		return;
@@ -25,6 +26,7 @@ void Command::beginIncant(std::string &cmd, std::list<sf::Vector2f> &incantPos)
 
 void Command::endIncant(std::string &cmd, std::list<sf::Vector2f> &incantPos)
 {
+	std::cout << "FIN ELEVATION" << std::endl;
 	auto vec = ParserEngine::createVectorString(cmd, ' ');
 	if (vec.size() != 3) {
 		return;
