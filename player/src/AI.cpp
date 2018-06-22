@@ -10,7 +10,7 @@
 namespace pl {
 
 AI::AI()
-	: _stratLevel(DEFAULT), _status(false)
+	:_status(false), _stratLevel(DEFAULT)
 {}
 
 AI::~AI()
