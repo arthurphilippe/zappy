@@ -21,6 +21,15 @@
 
 namespace pl {
 
+	enum STONE {
+		LINEMATE,
+		DERAUMERE,
+		SIBUR,
+		MENDIANE,
+		PHIRAS,
+		THYSTAME
+	};
+
 	class AI {
 	public:
 		AI();
@@ -52,6 +61,7 @@ namespace pl {
 		std::vector<std::vector<std::string>>	_vision;
 		std::unordered_map<std::string, int>	_inventory;
 		std::vector<std::unique_ptr<IStrat>>	_strats;
+		std::vector<std::array<int, 6>>		_elevation;
 	};
 
 }

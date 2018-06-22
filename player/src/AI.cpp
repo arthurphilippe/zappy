@@ -11,7 +11,23 @@ namespace pl {
 
 AI::AI()
 	: _stratLevel(DEFAULT), _elevationLevel(1), _status(false)
-{}
+{
+	std::array<int, 6> lvl1 = {1, 0, 0, 0, 0, 0};
+	std::array<int, 6> lvl2 = {1, 1, 1, 0, 0, 0};
+	std::array<int, 6> lvl3 = {2, 0, 1, 0, 2, 0};
+	std::array<int, 6> lvl4 = {1, 1, 2, 0, 1, 0};
+	std::array<int, 6> lvl5 = {1, 2, 1, 3, 0, 0};
+	std::array<int, 6> lvl6 = {1, 2, 3, 0, 1, 0};
+	std::array<int, 6> lvl7 = {2, 2, 2, 2, 2, 1};
+
+	_elevation.push_back(lvl1);
+	_elevation.push_back(lvl2);
+	_elevation.push_back(lvl3);
+	_elevation.push_back(lvl4);
+	_elevation.push_back(lvl5);
+	_elevation.push_back(lvl6);
+	_elevation.push_back(lvl7);
+}
 
 AI::~AI()
 {}
