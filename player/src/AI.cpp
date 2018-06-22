@@ -10,7 +10,7 @@
 namespace pl {
 
 AI::AI()
-	: _stratLevel(DEFAULT), _elevationLevel(1), _status(false)
+	: _stratLevel(DEFAULT), _elevationLevel(0), _status(false)
 {
 	std::array<int, 6> lvl1 = {1, 0, 0, 0, 0, 0};
 	std::array<int, 6> lvl2 = {1, 1, 1, 0, 0, 0};
