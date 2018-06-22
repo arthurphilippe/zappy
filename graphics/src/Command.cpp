@@ -14,6 +14,33 @@
 
 namespace gi {
 
+void Command::beginIncant(std::string &cmd, std::list<sf::Vector2f> &incantPos)
+{
+	auto vec = ParserEngine::createVectorString(cmd, ' ');
+	if (vec.size() != 3) {
+		return;
+	}
+	incantPos.push_back(sf::Vector2f(std::stoi(vec[1]), std::stoi(vec[2])));
+}
+
+void Command::endIncant(std::string &cmd, std::list<sf::Vector2f> &incantPos)
+{
+	auto vec = ParserEngine::createVectorString(cmd, ' ');
+	if (vec.size() != 3) {
+		return;
+	}
+	auto x = std::stoi(vec[1]);
+	auto y = std::stoi(vec[2]);
+	for (auto i = incantPos.begin(); i != incantPos.end(); i++) {
+		if (i->x == x && i->y == y) {
+			incantPos.erase(i);
+			i = incantPos.begin();
+			if (i == incantPos.end())
+				return;
+		}
+	}
+}
+
 void Command::movePlayer(std::string &cmd, std::list<Player> &playerlist)
 {
 	auto vec = ParserEngine::createVectorString(cmd, ' ');

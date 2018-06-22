@@ -32,10 +32,12 @@ class Display {
 		bool putItem(MapCoord &object) noexcept;
 		bool putPlayer(gi::Player &player) noexcept;
 		bool putPlayer(std::list<gi::Player> &playerlist) noexcept;
+		bool putIncant(std::list<sf::Vector2f> &pos) noexcept;
 	private:
 		sf::RenderWindow _window;
 		std::unordered_map<gi::ObjectType, std::unique_ptr<gi::Item>> _ItemMap;
 		std::unordered_map<gi::Orientation, std::unique_ptr<gi::Item>> _PlayerMap;
+		std::list<std::unique_ptr<gi::Item>> _Misc;
 };
 }
 
