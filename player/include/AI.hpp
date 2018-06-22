@@ -15,6 +15,7 @@
 	#include "Processing.hpp"
 	#include "IStrat.hpp"
 	#include "DefaultStrat.hpp"
+	#include "FocusStrat.hpp"
 	#include "GoToElevationStrat.hpp"
 
 namespace pl {
@@ -42,11 +43,13 @@ namespace pl {
 		{
 			_mapX = Y;
 		}
+		bool getStratStatus() {return _status;};
 	private:
 		void clearVision();
 		void clearInventory();
 		int					_mapX;
 		int					_mapY;
+		bool					_status;
 		STRAT					_stratLevel;
 		std::vector<std::vector<std::string>>	_vision;
 		std::unordered_map<std::string, int>	_inventory;
