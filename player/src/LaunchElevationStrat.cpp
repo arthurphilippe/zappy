@@ -10,10 +10,12 @@
 namespace pl {
 
 LaunchElevationStrat::LaunchElevationStrat(Socket &socket,
-	STRAT &stratLevel, int &elevationLevel)
+	STRAT &stratLevel, int &elevationLevel,
+	std::vector<std::array<int, 6>> &elevation)
 	: _status(false), _stratLevel(stratLevel),
 		_elevationLevel(elevationLevel),
-		_socket(socket), _isElevated(false)
+		_socket(socket), _isElevated(false),
+		_elevation(elevation)
 {}
 
 LaunchElevationStrat::~LaunchElevationStrat()
@@ -45,9 +47,41 @@ void LaunchElevationStrat::checkForPlayers(std::vector<std::vector<std::string>>
 		if (item == "player")
 			nbOfPlayersOnMe++;
 	}
-	if (nbOfPlayersOnMe >= nbOfPlayersNeeded()) {
-		_socket << "Incantation\n";
-		_isElevated = true;
+	if (nbOfPlayersOnMe >= nbOfPlayersNeeded())
+		runIncantation();
+}
+
+void LaunchElevationStrat::runIncantation()
+{
+	std::string stoneToDrop;
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < _elevation[_elevationLevel][i]; j++) {
+			stoneToDrop = "Set ";
+			stoneToDrop += getStoneName(i);
+			stoneToDrop += "\n";
+			_socket << stoneToDrop;
+		}
+	}
+	_socket << "Incantation\n";
+	_elevationLevel++;
+	_isElevated = true;
+}
+
+std::string LaunchElevationStrat::getStoneName(int i) const
+{
+	switch (i) {
+		case 0:
+			return "linemate";
+		case 1:
+			return "deraumere";
+		case 2:
+			return "sibur";
+		case 3:
+			return "mendiane";
+		case 4:
+			return "phiras";
+		default:
+			return "thystame";
 	}
 }
 

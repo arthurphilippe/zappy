@@ -39,7 +39,8 @@ void AI::initStrats(Socket &socket)
 	std::unique_ptr<IStrat> goToElev(new
 		GoToElevationStrat(socket, _stratLevel, _elevationLevel));
 	std::unique_ptr<IStrat> launchElev(new
-		LaunchElevationStrat(socket, _stratLevel ,_elevationLevel));
+		LaunchElevationStrat(socket, _stratLevel,
+		_elevationLevel, _elevation));
 	_strats.push_back(std::move(def));
 	_strats.push_back(std::move(focus));
 	_strats.push_back(std::move(goToElev));
@@ -97,12 +98,30 @@ void AI::clearInventory()
 
 void AI::executeStrat(Socket &_socket, const Processing &processing) noexcept
 {
+	checkElevationPossibility();
 	std::string reply;
 	_strats[_stratLevel]->run(_vision);
 	while (!_socket.tryToRead(reply));
 	if (processing.catchMessage(reply))
 		_stratLevel = GO_TO_ELEVATION;
 	_status = _strats[_stratLevel]->isRuning();
+}
+
+void AI::checkElevationPossibility()
+{
+	if (_inventory["linemate"] >=
+		_elevation[_elevationLevel][LINEMATE] &&
+		_inventory["deraumere"] >=
+		_elevation[_elevationLevel][DERAUMERE] &&
+		_inventory["sibur"] >=
+		_elevation[_elevationLevel][SIBUR] &&
+		_inventory["mendiane"] >=
+		_elevation[_elevationLevel][MENDIANE] &&
+		_inventory["phiras"] >=
+		_elevation[_elevationLevel][PHIRAS] &&
+		_inventory["thystame"] >=
+		_elevation[_elevationLevel][THYSTAME])
+		_stratLevel = LAUNCH_ELEVATION;
 }
 
 }

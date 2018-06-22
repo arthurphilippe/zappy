@@ -21,6 +21,15 @@ enum STRAT {
 	LAUNCH_ELEVATION
 };
 
+enum STONE {
+	LINEMATE,
+	DERAUMERE,
+	SIBUR,
+	MENDIANE,
+	PHIRAS,
+	THYSTAME
+};
+
 class IStrat {
 	public:
 		IStrat() = default;

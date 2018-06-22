@@ -21,15 +21,6 @@
 
 namespace pl {
 
-	enum STONE {
-		LINEMATE,
-		DERAUMERE,
-		SIBUR,
-		MENDIANE,
-		PHIRAS,
-		THYSTAME
-	};
-
 	class AI {
 	public:
 		AI();
@@ -53,6 +44,7 @@ namespace pl {
 	private:
 		void clearVision();
 		void clearInventory();
+		void checkElevationPossibility();
 		int					_mapX;
 		int					_mapY;
 		STRAT					_stratLevel;
