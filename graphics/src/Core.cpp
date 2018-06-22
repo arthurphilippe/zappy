@@ -36,10 +36,9 @@ bool Core::loop()
 		_serv.updatePlayer();
 		_serv.getHints();
 		_serv.processCmd();
-		_display.putItem(map);
 		_display.putPlayer(_serv.getPlayerList());
+		_display.putItem(map);
 		_display.refresh();
-		// sleep(1);
 	}
 	return (true);
 }

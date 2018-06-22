@@ -36,5 +36,6 @@ unsigned int game_count_players_lvl(game_t *gm, player_t *pl);
 
 void game_on_cycle(selector_t *stor);
 void game_lifespan_checks(game_t *gm);
+bool game_has_ended(game_t *gm);
 
 #endif /* !GAME_H_ */

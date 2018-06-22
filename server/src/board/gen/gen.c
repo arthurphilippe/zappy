@@ -42,7 +42,7 @@ void board_gen(board_t *board, list_t *teams)
 	const procedural_rule_t *rule;
 
 	get_levels_reachable(levels, teams);
-	board_gen_resource(board, FOOD, count_players(teams) * 25);
+	board_gen_resource(board, FOOD, (count_players(teams) + 1) * 25);
 	for (unsigned int level = 0; level < 7; level++) {
 		rule = (levels[level] == 1) ? rules[level] : 0;
 		nb_players = count_players_by_level(teams, level + 1);

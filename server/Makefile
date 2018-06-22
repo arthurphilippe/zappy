@@ -43,6 +43,7 @@ SRCS		=	src/list/list.c			\
 			src/game/count_players.c	\
 			src/game/on_cycle.c		\
 			src/game/lifespan_checks.c	\
+			src/game/has_ended.c		\
 			src/player/create.c		\
 			src/player/delete.c		\
 			src/player/move.c		\
@@ -119,6 +120,8 @@ SRCS		=	src/list/list.c			\
 			src/gfx/hint/pdi.c		\
 			src/gfx/hint/ebo.c		\
 			src/gfx/hint/pbc.c		\
+			src/gfx/hint/pic.c		\
+			src/gfx/hint/pie.c		\
 
 OBJ_MAIN	=	$(MAIN:.c=.o)
 

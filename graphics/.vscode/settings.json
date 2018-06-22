@@ -39,6 +39,7 @@
 		"list": "cpp",
 		"chrono": "cpp",
 		"ratio": "cpp",
-		"thread": "cpp"
+		"thread": "cpp",
+		"deque": "cpp"
 	}
 }

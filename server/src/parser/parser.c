@@ -24,7 +24,7 @@ static bool parser_check(parser_t *game_info)
 	}
 }
 
-static parser_t *parser_alloc()
+static parser_t *parser_alloc(void)
 {
 	parser_t *game_info = malloc(sizeof(parser_t));
 
