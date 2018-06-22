@@ -17,15 +17,12 @@
 	#include "DefaultStrat.hpp"
 	#include "FocusStrat.hpp"
 	#include "GoToElevationStrat.hpp"
+	#include "LaunchElevationStrat.hpp"
 
 namespace pl {
 
 	class AI {
 	public:
-		enum STRAT {
-			DEFAULT,
-			GO_TO_ELEVATION
-		};
 		AI();
 		~AI();
 		void initStrats(Socket &socket);
@@ -47,13 +44,16 @@ namespace pl {
 	private:
 		void clearVision();
 		void clearInventory();
+		void checkElevationPossibility();
 		int					_mapX;
 		int					_mapY;
-		bool					_status;
 		STRAT					_stratLevel;
+		int					_elevationLevel;
+		bool					_status;
 		std::vector<std::vector<std::string>>	_vision;
 		std::unordered_map<std::string, int>	_inventory;
 		std::vector<std::unique_ptr<IStrat>>	_strats;
+		std::vector<std::array<int, 6>>		_elevation;
 	};
 
 }

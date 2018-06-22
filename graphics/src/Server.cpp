@@ -64,6 +64,12 @@ void Server::execCmd(const ParsingType &type, std::string &cmd)
 	case ParsingType::ENW:
 		Command::addEgg(cmd, _map);
 		break;
+	case ParsingType::PIC:
+		Command::beginIncant(cmd, _incantPos);
+		break;
+	case ParsingType::PIE:
+		Command::endIncant(cmd, _incantPos);
+		break;
 	default:
 		return;
 	}

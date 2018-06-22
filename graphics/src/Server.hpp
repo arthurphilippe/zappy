@@ -22,6 +22,7 @@ public:
 	~Server();
 	sf::Vector2f getMapSize();
 	MapCoord &getMap();
+	std::list<sf::Vector2f> &getIncatPos() noexcept {return _incantPos;};
 	void setMap(MapCoord &map) noexcept {_map = map;};
 	std::list<std::string> &getHints();
 	void updateMap();
@@ -35,6 +36,7 @@ private:
 	Socket _sock;
 	std::list<std::string> _interaction;
 	std::list<Player> _playerlist;
+	std::list<sf::Vector2f> _incantPos;
 };
 };
 

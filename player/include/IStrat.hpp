@@ -13,6 +13,23 @@
 	#include "Socket.hpp"
 
 namespace pl {
+
+enum STRAT {
+	DEFAULT,
+	FOCUS,
+	GO_TO_ELEVATION,
+	LAUNCH_ELEVATION
+};
+
+enum STONE {
+	LINEMATE,
+	DERAUMERE,
+	SIBUR,
+	MENDIANE,
+	PHIRAS,
+	THYSTAME
+};
+
 class IStrat {
 	public:
 		IStrat() = default;
