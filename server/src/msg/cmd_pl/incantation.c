@@ -6,10 +6,12 @@
 */
 
 #include <stdio.h>
+#include "game.h"
+#include "get_wait_time.h"
+#include "gfx_hint.h"
 #include "msg.h"
 #include "player.h"
 #include "player_rite.h"
-#include "gfx_hint.h"
 
 void msg_cmd_pl_incentation_callback(
 	selector_t *stor, handle_t *hdl, list_t *args)
@@ -54,12 +56,14 @@ static void search_handles(selector_t *stor, player_t *pl, list_t *args)
 void msg_cmd_pl_incentation(selector_t *stor, handle_t *hdl, list_t *args)
 {
 	player_t *pl = hdl->h_data;
+	game_t *gm = stor->s_data;
 
 	while (list_get_size(args))
 		list_pop_back(args);
 	if (player_rite_check_tile(pl, stor->s_data)) {
 		pl->p_task.dc_callback = msg_cmd_pl_incentation_callback;
-		chrono_init(&pl->p_task.dc_timer, 300);
+		chrono_init(&pl->p_task.dc_timer,
+			get_wait_time(gm->ga_freq, 300));
 		gfx_hint_pic(pl);
 		search_handles(stor, pl, args);
 	} else
