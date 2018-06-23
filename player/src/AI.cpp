@@ -105,6 +105,7 @@ void AI::executeStrat(Socket &_socket, const Processing &processing) noexcept
 	if (processing.catchMessage(reply))
 		_stratLevel = GO_TO_ELEVATION;
 	_status = _strats[_stratLevel]->isRuning();
+	std::cout << "Server response: " << ANSI_BOLD_COLOR_GREEN << reply << ANSI_BOLD_COLOR_RESET << std::endl;
 }
 
 void AI::checkElevationPossibility()

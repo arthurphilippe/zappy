@@ -21,9 +21,10 @@ pl::DefaultStrat::~DefaultStrat()
 void pl::DefaultStrat::run(std::vector<std::vector<std::string>> &vision)
 	noexcept
 {
-	showVision(vision);
+	// showVision(vision);
 	if (!_actionQueue.empty()) {
 		executeAction();
+		showQueue();
 		return;
 	}
 	int action = static_cast<int>(_limits(_generator));
@@ -45,5 +46,6 @@ void pl::DefaultStrat::run(std::vector<std::vector<std::string>> &vision)
 			_actionQueue.push_back("Forward\n");
 			_status = true;
 	}
+	showQueue();
 	executeAction();
 };

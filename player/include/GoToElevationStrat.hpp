@@ -7,12 +7,12 @@
 
 #ifndef GOTOELEVATIONSTRAT_HPP_
 	#define GOTOELEVATIONSTRAT_HPP_
-	#include "IStrat.hpp"
+	#include "AStrat.hpp"
 	#include "Socket.hpp"
 
 namespace pl {
 
-	class GoToElevationStrat : public IStrat {
+	class GoToElevationStrat : public AStrat {
 	public:
 		GoToElevationStrat(Socket &socket, STRAT &stratLevel,
 			int &elevationLevel);
@@ -22,9 +22,7 @@ namespace pl {
 		bool isRuning() noexcept override {return _status;};
 		void tryToReadDirection(std::string &reply);
 	private:
-		void			move();
-		bool			_status;
-		Socket			&_socket;
+		void			moveToQueue();
 		int			_direction;
 		STRAT			&_stratLevel;
 		int			&_elevationLevel;

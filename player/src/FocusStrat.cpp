@@ -21,10 +21,10 @@ void pl::FocusStrat::run(std::vector<std::vector<std::string>> &vision) noexcept
 {
 	int itemPos = 0;
 
-	showVision(vision);
+	// showVision(vision);
 	if (!_actionQueue.empty()) {
 		executeAction();
-		showQueue();
+		// showQueue();
 		return;
 	}
 	if ((itemPos = getClosestItemPos(vision)) == 0)
@@ -37,7 +37,7 @@ void pl::FocusStrat::run(std::vector<std::vector<std::string>> &vision) noexcept
 		_actionQueue.push_front("Forward\n");
 		_actionQueue.push_front("Forward\n");
 	}
-	showQueue();
+	// showQueue();
 	executeAction();
 }
 

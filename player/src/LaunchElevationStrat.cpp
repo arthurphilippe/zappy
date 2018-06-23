@@ -12,9 +12,10 @@ namespace pl {
 LaunchElevationStrat::LaunchElevationStrat(Socket &socket,
 	STRAT &stratLevel, int &elevationLevel,
 	std::vector<std::array<int, 6>> &elevation)
-	: _status(false), _stratLevel(stratLevel),
+	: AStrat(socket),
+		_stratLevel(stratLevel),
 		_elevationLevel(elevationLevel),
-		_socket(socket), _isElevated(false),
+		_isElevated(false),
 		_elevation(elevation)
 {}
 
@@ -24,17 +25,24 @@ LaunchElevationStrat::~LaunchElevationStrat()
 void LaunchElevationStrat::run(std::vector<std::vector<std::string>> &vision)
 	noexcept
 {
+	if (!_actionQueue.empty()) {
+		executeAction();
+		return;
+	}
 	if (!_isElevated) {
 		std::string toSend = "Broadcast Come:";
 		toSend += _elevationLevel;
 		toSend += "\n";
-		_socket << toSend;
+		_actionQueue.push_back(toSend);
 		checkForPlayers(vision);
+		_status = true;
 	}
 	else {
-		_socket << "Broadcast Stop\n";
+		_actionQueue.push_back("Broadcast Stop\n");
 		_stratLevel = DEFAULT;
+		_status = true;
 	}
+	executeAction();
 }
 
 void LaunchElevationStrat::checkForPlayers(std::vector<std::vector<std::string>>
@@ -59,10 +67,10 @@ void LaunchElevationStrat::runIncantation()
 			stoneToDrop = "Set ";
 			stoneToDrop += getStoneName(i);
 			stoneToDrop += "\n";
-			_socket << stoneToDrop;
+			_actionQueue.push_back(stoneToDrop);
 		}
 	}
-	_socket << "Incantation\n";
+	_actionQueue.push_back("Incantation\n");
 	_elevationLevel++;
 	_isElevated = true;
 }
