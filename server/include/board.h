@@ -48,7 +48,6 @@ static inline size_t board_get_idx(board_t *bd, size_t x, size_t y)
 board_t *board_create(size_t x, size_t y);
 int board_init(board_t *bd, size_t x, size_t y);
 void board_delete(void *ptr);
-// void board_put(board_t *bd, vector2d_t pos, int payload);
 void board_put_resource(board_t *bd, vector2d_t pos, resource_t resource);
 bool board_take_resource(board_t *bd, vector2d_t pos, resource_t resource);
 void board_inc_food(board_t *bd, vector2d_t pos);
