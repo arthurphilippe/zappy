@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-CXX		=	g++ -ggdb
+CXX		=	g++
 
 NAME		=	ZappyGi
 
