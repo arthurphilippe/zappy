@@ -17,7 +17,6 @@ Server::Server(int ac, char **av)
 	: _sock(ac, av)
 {
 	_sock << "ZPPGFX88\n";
-	_sock.receive();
 }
 
 Server::~Server()
@@ -34,6 +33,7 @@ sf::Vector2f Server::getMapSize()
 	_sock << "msz\n";
 	std::string ret;
 	sf::Vector2f pos;
+	while (!_sock.receive(ret));
 	if (_sock.receive(ret)) {
 		auto vec = ParserEngine::createVectorString(ret, ' ');
 		if (vec.size() >= 3) {
@@ -111,8 +111,6 @@ void Server::updateMap()
 std::list<std::string> &Server::getHints()
 {
 	std::string str;
-	if (_sock.isBlocking())
-		_sock.setBlocking(false);
 	if (_sock.receive(str)) {
 		while (str.length() && std::count(str.begin(), str.end(), '\n')) {
 			_interaction.push_back(ParserEngine::extractFirstString(str));

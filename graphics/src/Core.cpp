@@ -29,7 +29,6 @@ bool Core::loop()
 	BackgroundMap backMap(pos.x, pos.y);
 	_serv.setMap(backMap.getMap());
 	auto &map = _serv.getMap();
-	map.front().getObjList().push_back(ObjectType::FOOD);
 	while (_display.isRunning()) {
 		_display.clear();
 		_serv.updateMap();
