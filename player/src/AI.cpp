@@ -34,12 +34,12 @@ AI::~AI()
 
 void AI::initStrats(Socket &socket)
 {
-	std::unique_ptr<IStrat> def(new DefaultStrat(socket));
-	std::unique_ptr<IStrat> focus(new FocusStrat(socket));
+	std::unique_ptr<IStrat> def(new strat::Default(socket));
+	std::unique_ptr<IStrat> focus(new strat::Focus(socket));
 	std::unique_ptr<IStrat> goToElev(new
-		GoToElevationStrat(socket, _stratLevel, _elevationLevel));
+		strat::GoToElevation(socket, _stratLevel, _elevationLevel));
 	std::unique_ptr<IStrat> launchElev(new
-		LaunchElevationStrat(socket, _stratLevel,
+		strat::LaunchElevation(socket, _stratLevel,
 		_elevationLevel, _elevation));
 	_strats.push_back(std::move(def));
 	_strats.push_back(std::move(focus));

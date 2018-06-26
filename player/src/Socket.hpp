@@ -11,6 +11,7 @@
 	#include <iostream>
 
 namespace pl {
+
 class Socket {
 public:
 	Socket(const int ac, char **av);

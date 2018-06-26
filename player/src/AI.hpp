@@ -7,6 +7,7 @@
 
 #ifndef AI_HPP_
 	#define AI_HPP_
+
 	#include <iostream>
 	#include <vector>
 	#include <unordered_map>
@@ -14,10 +15,10 @@
 	#include "Socket.hpp"
 	#include "Processing.hpp"
 	#include "IStrat.hpp"
-	#include "DefaultStrat.hpp"
-	#include "FocusStrat.hpp"
-	#include "GoToElevationStrat.hpp"
-	#include "LaunchElevationStrat.hpp"
+	#include "Default.hpp"
+	#include "Focus.hpp"
+	#include "GoToElevation.hpp"
+	#include "LaunchElevation.hpp"
 
 namespace pl {
 

@@ -7,12 +7,14 @@
 
 #include "AStrat.hpp"
 
-pl::AStrat::AStrat(Socket &socket) :
+namespace pl::strat {
+
+AStrat::AStrat(Socket &socket) :
 _status(false), _socket(socket), _actionQueue()
 {
 }
 
-void pl::AStrat::harvest(std::vector<std::string> &vision) noexcept
+void AStrat::harvest(std::vector<std::string> &vision) noexcept
 {
 	for (auto it = vision.begin(); it != vision.end(); it++) {
 		if (*it != "player") {
@@ -23,7 +25,7 @@ void pl::AStrat::harvest(std::vector<std::string> &vision) noexcept
 	}
 }
 
-void pl::AStrat::showVision(std::vector<std::vector<std::string>> &vision) noexcept
+void AStrat::showVision(std::vector<std::vector<std::string>> &vision) noexcept
 {
 	int b = 0;
 	for (auto it: vision) {
@@ -36,7 +38,7 @@ void pl::AStrat::showVision(std::vector<std::vector<std::string>> &vision) noexc
 	}
 }
 
-void pl::AStrat::showQueue() noexcept
+void AStrat::showQueue() noexcept
 {
 	std::deque<std::string> cpyQueue = _actionQueue;
 	std::cout << "\nIn Queue: [";
@@ -47,7 +49,7 @@ void pl::AStrat::showQueue() noexcept
 	std::cout << "]" << std::endl;
 }
 
-int pl::AStrat::getClosestItemPos(std::vector<std::vector<std::string>> &vision)
+int AStrat::getClosestItemPos(std::vector<std::vector<std::string>> &vision)
 {
 	int itemPos = 0;
 
@@ -65,7 +67,7 @@ int pl::AStrat::getClosestItemPos(std::vector<std::vector<std::string>> &vision)
 	return (-1);
 }
 
-void pl::AStrat::executeAction() noexcept
+void AStrat::executeAction() noexcept
 {
 	std::string action = _actionQueue.front();
 
@@ -74,4 +76,6 @@ void pl::AStrat::executeAction() noexcept
 	showQueue();
 	if (_actionQueue.empty())
 		_status = false;
+}
+
 }

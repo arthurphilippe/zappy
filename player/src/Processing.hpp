@@ -7,6 +7,7 @@
 
 #ifndef PROCESSING_HPP_
 	#define PROCESSING_HPP_
+
 	#include <string>
 	#include <stdexcept>
 	#include <vector>

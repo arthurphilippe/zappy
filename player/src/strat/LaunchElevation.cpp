@@ -5,11 +5,11 @@
 ** AI's launch elevation strategy
 */
 
-#include "LaunchElevationStrat.hpp"
+#include "LaunchElevation.hpp"
 
-namespace pl {
+namespace pl::strat {
 
-LaunchElevationStrat::LaunchElevationStrat(Socket &socket,
+LaunchElevation::LaunchElevation(Socket &socket,
 	STRAT &stratLevel, int &elevationLevel,
 	std::vector<std::array<int, 6>> &elevation)
 	: _status(false), _stratLevel(stratLevel),
@@ -18,10 +18,10 @@ LaunchElevationStrat::LaunchElevationStrat(Socket &socket,
 		_elevation(elevation)
 {}
 
-LaunchElevationStrat::~LaunchElevationStrat()
+LaunchElevation::~LaunchElevation()
 {}
 
-void LaunchElevationStrat::run(std::vector<std::vector<std::string>> &vision)
+void LaunchElevation::run(std::vector<std::vector<std::string>> &vision)
 	noexcept
 {
 	if (!_isElevated) {
@@ -37,7 +37,7 @@ void LaunchElevationStrat::run(std::vector<std::vector<std::string>> &vision)
 	}
 }
 
-void LaunchElevationStrat::checkForPlayers(std::vector<std::vector<std::string>>
+void LaunchElevation::checkForPlayers(std::vector<std::vector<std::string>>
 	&vision) noexcept
 {
 	int nbOfPlayersOnMe = 0;
@@ -51,7 +51,7 @@ void LaunchElevationStrat::checkForPlayers(std::vector<std::vector<std::string>>
 		runIncantation();
 }
 
-void LaunchElevationStrat::runIncantation()
+void LaunchElevation::runIncantation()
 {
 	std::string stoneToDrop;
 	for (int i = 0; i < 6; i++) {
@@ -67,7 +67,7 @@ void LaunchElevationStrat::runIncantation()
 	_isElevated = true;
 }
 
-std::string LaunchElevationStrat::getStoneName(int i) const
+std::string LaunchElevation::getStoneName(int i) const
 {
 	switch (i) {
 		case 0:
@@ -85,7 +85,7 @@ std::string LaunchElevationStrat::getStoneName(int i) const
 	}
 }
 
-int LaunchElevationStrat::nbOfPlayersNeeded()
+int LaunchElevation::nbOfPlayersNeeded()
 {
 	switch (_elevationLevel) {
 		case 0:

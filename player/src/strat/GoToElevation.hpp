@@ -10,13 +10,13 @@
 	#include "IStrat.hpp"
 	#include "Socket.hpp"
 
-namespace pl {
+namespace pl::strat {
 
-	class GoToElevationStrat : public IStrat {
+	class GoToElevation : public IStrat {
 	public:
-		GoToElevationStrat(Socket &socket, STRAT &stratLevel,
+		GoToElevation(Socket &socket, STRAT &stratLevel,
 			int &elevationLevel);
-		~GoToElevationStrat();
+		~GoToElevation();
 		void run(std::vector<std::vector<std::string>> &vision)
 			noexcept override;
 		bool isRuning() noexcept override {return _status;};

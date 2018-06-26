@@ -2,23 +2,25 @@
 ** EPITECH PROJECT, 2018
 ** zappy
 ** File description:
-** DefaultStrat
+** Default
 */
 
-#include "DefaultStrat.hpp"
+#include "Default.hpp"
 #include "color.h"
 
-pl::DefaultStrat::DefaultStrat(Socket &socket)
+namespace pl::strat {
+
+Default::Default(Socket &socket)
 	: AStrat(socket), _generator(), _limits(0, 2)
 {
 	_generator.seed(std::random_device()());
 }
 
-pl::DefaultStrat::~DefaultStrat()
+Default::~Default()
 {
 }
 
-void pl::DefaultStrat::run(std::vector<std::vector<std::string>> &vision)
+void Default::run(std::vector<std::vector<std::string>> &vision)
 	noexcept
 {
 	showVision(vision);
@@ -47,3 +49,5 @@ void pl::DefaultStrat::run(std::vector<std::vector<std::string>> &vision)
 	}
 	executeAction();
 };
+
+}

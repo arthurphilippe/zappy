@@ -17,11 +17,11 @@ SRCS		=	src/Socket.cpp			\
 			src/Processing.cpp		\
 			src/Core.cpp			\
 			src/AI.cpp			\
-			src/DefaultStrat.cpp		\
-			src/FocusStrat.cpp		\
-			src/GoToElevationStrat.cpp	\
-			src/LaunchElevationStrat.cpp	\
-			src/AStrat.cpp
+			src/strat/Default.cpp		\
+			src/strat/Focus.cpp		\
+			src/strat/GoToElevation.cpp	\
+			src/strat/LaunchElevation.cpp	\
+			src/strat/AStrat.cpp
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 
@@ -35,7 +35,7 @@ SRCS_TEST	+=	$(OBJS)
 
 OBJS_TEST	=	$(SRCS_TEST:.cpp=.o)
 
-CPPFLAGS	=	-W -Wextra -Wall -Iinclude/ -std=c++17
+CPPFLAGS	=	-W -Wextra -Wall -Isrc/ -Isrc/strat -std=c++17
 
 LDFLAGS		=	-lsfml-system -lsfml-network
 
