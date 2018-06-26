@@ -107,17 +107,6 @@ jobs:
           command: make CC=clang CPPFLAGS=-W\ -Wextra\ -Wall\ -Werror\ -Iinclude/
           working_directory: ~/project/server
 
-  player_build_clang:
-    docker:
-      - image: arthurphilippe/clang
-    steps:
-      - checkout
-      - run:
-          name: Build Project Using clang
-          command: make CC=clang CPPFLAGS=-W\ -Wextra\ -Wall\ -Werror\ -Iinclude/
-          working_directory: ~/project/player
-
-
   server_epitest:
     docker:
       - image: epitechcontent/epitest-docker
@@ -151,7 +140,6 @@ workflows:
       # - server_build_clang
       # - graphics_test
       - player_test
-      - player_build_clang
   planned:
     triggers:
       - schedule:
