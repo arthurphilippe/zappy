@@ -54,7 +54,7 @@ private:
 
 }
 
-Test(Player, 1_sernario)
+Test(Player, 1_basic)
 {
 	pl::tests::DumbLink dumblink;
 	pl::ILink &link(dumblink);
@@ -69,7 +69,7 @@ Test(Player, 1_sernario)
 
 	std::string buffer;
 	dumblink.readOutput(buffer);
-	cr_assert_str_eq(buffer.c_str(),
+	cr_expect_str_eq(buffer.c_str(),
 		"Forward\n""Forward\n""Forward\n""Forward\n""Forward\n");
 
 
@@ -82,7 +82,76 @@ Test(Player, 1_sernario)
 	pl.offloadActions();
 
 	dumblink.readOutput(buffer);
-	cr_assert_str_eq(buffer.c_str(),
+	cr_expect_str_eq(buffer.c_str(),
 		"Left\n""Forward\n""Eject\n""Eject\n"
 		"Broadcast vehicule de tourisme de categorie A\n");
 }
+
+Test(Player, 2_max_offload)
+{
+	pl::tests::DumbLink dumblink;
+	pl::ILink &link(dumblink);
+	pl::Player pl(link);
+
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.offloadActions();
+
+	std::string buffer;
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(),
+		"Forward\n""Forward\n""Forward\n""Forward\n""Forward\n");
+
+
+	pl.doAction(pl::Action::LEFT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::EJECT);
+	pl.doAction(pl::Action::EJECT);
+	pl.doAction(pl::Action::BROADCAST,
+		std::string{"vehicule de tourisme de categorie A"});
+	pl.offloadActions();
+
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(),
+		"Left\n""Forward\n""Eject\n""Eject\n"
+		"Broadcast vehicule de tourisme de categorie A\n");
+
+
+	pl.doAction(pl::Action::LEFT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::EJECT);
+	pl.doAction(pl::Action::EJECT);
+	pl.doAction(pl::Action::BROADCAST,
+		std::string{"vehicule de tourisme de categorie A"});
+	pl.offloadActions();
+
+	buffer = "";
+	cr_expect_eq(dumblink.readOutput(buffer), false);
+	cr_expect_str_eq(buffer.c_str(), "");
+}
+
+
+Test(Player, 3_priority)
+{
+	pl::tests::DumbLink dumblink;
+	pl::ILink &link(dumblink);
+	pl::Player pl(link);
+
+	pl.doAction(pl::Action::LEFT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::EJECT);
+	pl.doAction(pl::Action::EJECT, true);
+	pl.doAction(pl::Action::BROADCAST,
+		std::string{"vehicule de tourisme de categorie A"});
+	pl.offloadActions();
+
+	std::string buffer;
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(),
+		"Eject\n""Left\n""Forward\n""Eject\n"
+		"Broadcast vehicule de tourisme de categorie A\n");
+}
+
