@@ -98,7 +98,6 @@ void Player::offloadActions()
 		std::string tmp{__actionNames[act]};
 		if (act > Action::NO_PARAM_SPACER && _paramQueue.size()) {
 			tmp.append(" ");
-			std::cerr << "appending" <<_paramQueue.front() << std::endl;
 			tmp.append(_paramQueue.front());
 			_paramQueue.pop_front();
 		}

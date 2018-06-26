@@ -143,6 +143,7 @@ Test(Player, 3_priority)
 	pl.doAction(pl::Action::LEFT);
 	pl.doAction(pl::Action::FORWARD);
 	pl.doAction(pl::Action::EJECT);
+	pl.doAction(pl::Action::SET, pl::Stone::SIBUR);
 	pl.doAction(pl::Action::EJECT, true);
 	pl.doAction(pl::Action::BROADCAST,
 		std::string{"vehicule de tourisme de categorie A"});
@@ -151,7 +152,7 @@ Test(Player, 3_priority)
 	std::string buffer;
 	dumblink.readOutput(buffer);
 	cr_expect_str_eq(buffer.c_str(),
-		"Eject\n""Left\n""Forward\n""Eject\n"
+		"Eject\n""Left\n""Forward\n""Eject\n""Set sibur\n"
 		"Broadcast vehicule de tourisme de categorie A\n");
 }
 
