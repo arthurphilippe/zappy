@@ -16,24 +16,40 @@ class DumbLink : public ILink {
 public:
 	void operator<<(const std::string &string) override
 	{
-		_ioss << string;
+		_oss << string;
 	}
 	void operator<<(const int i) override
 	{
-		_ioss << i;
+		_oss << i;
 	}
-	bool read(std::string &buff)
+	bool read(std::string &buff) override
 	{
-		auto size =_ioss.str().size();
+		auto size =_iss.str().size();
 		if (size) {
-			buff = _ioss.str();
-			_ioss.str("");
+			buff = _iss.str();
+			_iss.str("");
 		}
 		return (size);
 	}
 
+	void appendInput(const std::string &string)
+	{
+		_oss << string;
+	}
+	bool readOutput(std::string &buff)
+	{
+		auto size =_oss.str().size();
+		if (size) {
+			buff = _oss.str();
+			_oss.str("");
+		}
+		return (size);
+	}
+
+
 private:
-	std::stringstream _ioss;
+	std::stringstream _oss;
+	std::stringstream _iss;
 };
 
 }
@@ -52,7 +68,7 @@ Test(Player, 1_sernario)
 	pl.offloadActions();
 
 	std::string buffer;
-	link.read(buffer);
+	dumblink.readOutput(buffer);
 	cr_assert_str_eq(buffer.c_str(),
 		"Forward\n""Forward\n""Forward\n""Forward\n""Forward\n");
 
@@ -61,10 +77,11 @@ Test(Player, 1_sernario)
 	pl.doAction(pl::Action::FORWARD);
 	pl.doAction(pl::Action::EJECT);
 	pl.doAction(pl::Action::EJECT);
-	pl.doAction(pl::Action::BROADCAST, std::string{"vehicule de tourisme de categorie A"});
+	pl.doAction(pl::Action::BROADCAST,
+		std::string{"vehicule de tourisme de categorie A"});
 	pl.offloadActions();
 
-	link.read(buffer);
+	dumblink.readOutput(buffer);
 	cr_assert_str_eq(buffer.c_str(),
 		"Left\n""Forward\n""Eject\n""Eject\n"
 		"Broadcast vehicule de tourisme de categorie A\n");
