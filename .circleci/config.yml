@@ -114,7 +114,7 @@ jobs:
       - checkout
       - run:
           name: Build Project Using clang
-          command: make CC=clang CPPFLAGS=-W\ -Wextra\ -Wall\ -Iinclude/
+          command: make CXX=clang++ CPPFLAGS=-W\ -Wextra\ -Wall\ -Iinclude/\ -std=c++17
           working_directory: ~/project/player
 
   server_epitest:

@@ -39,7 +39,7 @@ OBJS_TEST	=	$(SRCS_TEST:.cpp=.o)
 
 CPPFLAGS	=	-W -Wextra -Wall -Isrc/ -Isrc/strat -std=c++17
 
-LDFLAGS		=	-lsfml-system -lsfml-network
+LDFLAGS		=
 
 %.o: %.cpp
 	@printf "[\033[0;36mcompiling\033[0m]% 39s\r" $< | tr " " "."
