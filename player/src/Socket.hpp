@@ -9,17 +9,18 @@
 	#define SOCKET_HPP_
 
 	#include <iostream>
+	#include "ILink.hpp"
 
 namespace pl {
 
-class Socket {
+class Socket : public ILink {
 public:
 	Socket(const int ac, char **av);
 	Socket();
 	~Socket();
-	void operator<<(const std::string &string);
-	void operator<<(const int i);
-	bool tryToRead(std::string &data);
+	void operator<<(const std::string &string) override;
+	void operator<<(const int i) override;
+	bool read(std::string &buff) override;
 	void connectSocket();
 	void setPort(int port)
 	{

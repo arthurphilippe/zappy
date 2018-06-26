@@ -23,11 +23,11 @@ void GoToElevation::run(std::vector<std::vector<std::string>> &vision)
 {
 	(void) vision;
 	std::string reply = "";
-	_socket.tryToRead(reply);
+	_socket.read(reply);
 	if (reply != "" && reply.substr(0, reply.find(" ")) == "message") {
 		if (reply.substr(reply.find_last_of(" ") + 1, 4) == "Come") {
 			reply = reply.substr(reply.find(" ") + 1);
-			tryToReadDirection(reply);
+			readDirection(reply);
 			move();
 		}
 		else if (reply.substr(reply.find_last_of(" ") + 1, 4) == "Stop")
@@ -41,7 +41,7 @@ void GoToElevation::run(std::vector<std::vector<std::string>> &vision)
 		_socket << "Left\n";
 }
 
-void GoToElevation::tryToReadDirection(std::string &reply)
+void GoToElevation::readDirection(std::string &reply)
 {
 	reply = reply.substr(0, reply.find(","));
 	_direction = std::stoi(reply);

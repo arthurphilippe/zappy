@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-CXX		=	g++
+CXX		=	clang++
 
 NAME		=	zappy_ai
 
@@ -21,7 +21,9 @@ SRCS		=	src/Socket.cpp			\
 			src/strat/Focus.cpp		\
 			src/strat/GoToElevation.cpp	\
 			src/strat/LaunchElevation.cpp	\
-			src/strat/AStrat.cpp
+			src/strat/AStrat.cpp		\
+			src/ParsingTools.cpp		\
+			src/Player.cpp		\
 
 OBJ_MAIN	=	$(MAIN:.cpp=.o)
 
@@ -29,7 +31,7 @@ OBJS		=	$(SRCS:.cpp=.o)
 
 TEST		=	unit_tests.out
 
-SRCS_TEST	=	tests/socket.cpp
+SRCS_TEST	=	tests/Player.cpp
 
 SRCS_TEST	+=	$(OBJS)
 

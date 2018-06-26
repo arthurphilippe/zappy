@@ -53,7 +53,7 @@ void AI::look(Socket &socket, const Processing &processing)
 
 	this->clearVision();
 	socket << "Look\n";
-	while (!socket.tryToRead(reply));
+	while (!socket.read(reply));
 	if (processing.catchMessage(reply))
 		_stratLevel = GO_TO_ELEVATION;
 	else
@@ -66,7 +66,7 @@ void AI::lookAtInventory(Socket &socket, const Processing &processing)
 
 	this->clearInventory();
 	socket << "Inventory\n";
-	while (!socket.tryToRead(reply));
+	while (!socket.read(reply));
 	std::cout << "Inventory: "<< reply <<std::endl;
 	try {
 		if (processing.catchMessage(reply))
@@ -101,7 +101,7 @@ void AI::executeStrat(Socket &_socket, const Processing &processing) noexcept
 	checkElevationPossibility();
 	std::string reply;
 	_strats[_stratLevel]->run(_vision);
-	while (!_socket.tryToRead(reply));
+	while (!_socket.read(reply));
 	if (processing.catchMessage(reply))
 		_stratLevel = GO_TO_ELEVATION;
 	_status = _strats[_stratLevel]->isRuning();
