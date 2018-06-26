@@ -64,6 +64,38 @@ jobs:
           path: ~/project/graphics/coverage
           destination: coverage
 
+  player_test:
+    docker:
+      - image: arthurphilippe/epitech-c-cpp-plain
+    steps:
+      - checkout
+      - run:
+          name: Build Project
+          command: make
+          working_directory: ~/project/player
+      - run:
+          name: Build Unit Tests Suites
+          command: make tests
+          working_directory: ~/project/player
+      - run:
+          name: Tidy up
+          command: make clean
+          working_directory: ~/project/player
+      - run:
+          name: Unit Tests Execution
+          command: ./unit_tests.out -j 1 --verbose --xml=tests/results.xml --always-succeed
+          working_directory: ~/project/player
+      - store_test_results:
+          path: .
+          working_directory: ~/project/player
+      - run:
+          name: Code Coverage - Processing
+          command: ./tests/coverage.sh html
+          working_directory: ~/project/player
+      - store_artifacts:
+          path: ~/project/player/coverage
+          destination: coverage
+
 
   server_build_clang:
     docker:
@@ -74,6 +106,17 @@ jobs:
           name: Build Project Using clang
           command: make CC=clang CPPFLAGS=-W\ -Wextra\ -Wall\ -Werror\ -Iinclude/
           working_directory: ~/project/server
+
+  graphical_build_clang:
+    docker:
+      - image: arthurphilippe/clang
+    steps:
+      - checkout
+      - run:
+          name: Build Project Using clang
+          command: make CC=clang CPPFLAGS=-W\ -Wextra\ -Wall\ -Werror\ -Iinclude/
+          working_directory: ~/project/graphical
+
 
   server_epitest:
     docker:
@@ -104,9 +147,11 @@ workflows:
   version: 2
   commit:
     jobs:
-      - server_test
-      - server_build_clang
-      - graphics_test
+      # - server_test
+      # - server_build_clang
+      # - graphics_test
+      - player_test
+      - player_build_clang
   planned:
     triggers:
       - schedule:
