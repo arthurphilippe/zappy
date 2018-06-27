@@ -109,7 +109,7 @@ Test(Player, 2_max_offload)
 
 
 	dumblink.appendInput("ok\nok\nok\nok\nok\n");
-	pl.offloadActions();
+	pl.pollReplies();
 	cr_expect_eq(pl.getPendingActionCount(), 0);
 
 	pl.doAction(pl::Action::FORWARD);
