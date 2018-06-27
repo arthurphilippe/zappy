@@ -11,6 +11,7 @@
 	#include <deque>
 	#include <queue>
 	#include <unordered_map>
+	#include <functional>
 	#include "ILink.hpp"
 
 namespace pl {
@@ -42,6 +43,17 @@ enum class Stone {
 	THYSTAME
 };
 
+enum class ReplyType {
+	STATUS,
+	LOOK,
+	INVENTORY,
+	NUMBER,
+	DEAD,
+	ELEVATION,
+	DISCARDED,
+	UDEF,
+};
+
 class Player {
 public:
 	Player(ILink &link);
@@ -57,12 +69,15 @@ private:
 	void _pollReplies();
 	void _processReplies();
 
+	void _uponReplyPop();
+
 	ILink			&_link;
 	std::deque<Action>	_actionQueue;
 	std::deque<std::string>	_paramQueue;
 	std::queue<Action>	_sentActions;
 	std::queue<std::string>	_replies;
 	unsigned int		_level;
+	std::unordered_map<ReplyType, std::function<void()>> __replyMap;
 
 	static std::unordered_map<Action, std::string> __actionNames;
 	static std::unordered_map<Stone, std::string> __stoneNames;

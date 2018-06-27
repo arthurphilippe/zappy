@@ -37,7 +37,9 @@ std::unordered_map<Stone, std::string> Player::__stoneNames {
 
 Player::Player(ILink &link)
 	: _link(link), _level(1)
-{}
+{
+	__replyMap[ReplyType::STATUS] = [&]() { this->_uponReplyPop (); };
+}
 
 Player::~Player()
 {}
@@ -127,11 +129,19 @@ void Player::_pollReplies()
 	}
 }
 
+void Player::_uponReplyPop()
+{
+	_replies.pop();
+}
+
 void Player::_processReplies()
 {
 	// while (_replies.size()) {
-	// 	auto &tmp = _replies.front();
-
+	// 	auto reply = _replies.front();
+	// 	auto firstWord = ParsingTools::extractFirstString(reply);
+	// 	const auto &it = __replyMap.find(firstWord);
+	// 	if (it != __replyMap.end())
+	// 		it->second();
 	// }
 }
 
