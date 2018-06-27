@@ -37,7 +37,8 @@ std::unordered_map<Stone, std::string> Player::__stoneNames {
 };
 
 Player::Player(ILink &link)
-	: _link(link), _level(1)
+	: _link(link), _hasVisionChanged(false),
+	_hasInventoryChanged(false), _level(1)
 {
 	_replyMap[Action::FORWARD] = [&]() { this->_uponReplyPop (); };
 	_replyMap[Action::RIGHT] = [&]() { this->_uponReplyPop (); };
@@ -152,14 +153,16 @@ void Player::_uponReplyPop()
 
 void Player::_uponReplyLook()
 {
-	Processing::vision(_replies.front(), _vision);
 	_sentActions.pop();
+	Processing::vision(_replies.front(), _vision);
+	_hasVisionChanged = true;
 }
 
 void Player::_uponReplyInventory()
 {
-	Processing::inventory(_replies.front(), _inventory);
 	_sentActions.pop();
+	Processing::inventory(_replies.front(), _inventory);
+	_hasInventoryChanged = true;
 }
 
 void Player::_uponReplyConnectnbr()
@@ -169,8 +172,8 @@ void Player::_uponReplyConnectnbr()
 
 void Player::_uponReplyIncant()
 {
-	_level += 1;
 	_sentActions.pop();
+	_level += 1;
 }
 
 void Player::_processReplies()

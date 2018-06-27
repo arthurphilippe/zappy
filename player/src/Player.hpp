@@ -43,17 +43,6 @@ enum class Stone {
 	THYSTAME
 };
 
-enum class ReplyType {
-	STATUS,
-	LOOK,
-	INVENTORY,
-	NUMBER,
-	DEAD,
-	ELEVATION,
-	DISCARDED,
-	UDEF,
-};
-
 class Player {
 public:
 	Player(ILink &link);
@@ -69,6 +58,22 @@ public:
 	std::vector<std::vector<std::string>> &getVision() noexcept
 	{
 		return _vision;
+	}
+	std::unordered_map<std::string, int> &getInventory() noexcept
+	{
+		return _inventory;
+	}
+	bool hasVisionChanged() noexcept
+	{
+		auto ret = _hasVisionChanged;
+		_hasVisionChanged = false;
+		return ret;
+	}
+	bool hasInventoryChanged() noexcept
+	{
+		auto ret = _hasInventoryChanged;
+		_hasInventoryChanged = false;
+		return ret;
 	}
 	unsigned int getLevel() const noexcept
 	{
@@ -89,13 +94,14 @@ private:
 	void _pollReplies();
 	void _processReplies();
 
-	ReplyType _resolveReplyType(std::string);
+	// upon reply functors
 	void _uponReplyPop();
 	void _uponReplyLook();
 	void _uponReplyInventory();
 	void _uponReplyConnectnbr();
 	void _uponReplyIncant();
 
+	// Inner workings of the player
 	ILink			&_link;
 	std::deque<Action>	_actionQueue;
 	std::deque<std::string>	_paramQueue;
@@ -106,9 +112,12 @@ private:
 
 	// General player data
 	std::vector<std::vector<std::string>>	_vision;
+	bool					_hasVisionChanged;
 	std::unordered_map<std::string, int>	_inventory;
+	bool					_hasInventoryChanged;
 	unsigned int				_level;
 
+	// Static maps
 	static std::unordered_map<Action, std::string> __actionNames;
 	static std::unordered_map<Stone, std::string> __stoneNames;
 };
