@@ -40,21 +40,21 @@ Player::Player(ILink &link)
 	: _link(link), _hasVisionChanged(false),
 	_hasInventoryChanged(false), _level(1)
 {
-	_replyMap[Action::FORWARD] = [&]() { this->_uponReplyPop (); };
-	_replyMap[Action::RIGHT] = [&]() { this->_uponReplyPop (); };
-	_replyMap[Action::LEFT] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::FORWARD] = [&]() { this->_uponReplyPop(); };
+	_replyMap[Action::RIGHT] = [&]() { this->_uponReplyPop(); };
+	_replyMap[Action::LEFT] = [&]() { this->_uponReplyPop(); };
 	_replyMap[Action::LOOK] = [&]() { this->_uponReplyLook(); };
 	_replyMap[Action::INVENTORY] =
 		[&]() { this->_uponReplyInventory(); };
 	_replyMap[Action::CONNECT_NBR] =
 		[&]() { this->_uponReplyConnectnbr(); };
-	_replyMap[Action::FORK] = [&]() { this->_uponReplyPop (); };
-	_replyMap[Action::EJECT] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::FORK] = [&]() { this->_uponReplyPop(); };
+	_replyMap[Action::EJECT] = [&]() { this->_uponReplyPop(); };
 	_replyMap[Action::INCANTATION] =
 		[&]() { this->_uponReplyIncant(); };
-	_replyMap[Action::BROADCAST] = [&]() { this->_uponReplyPop (); };
-	_replyMap[Action::SET] = [&]() { this->_uponReplyPop (); };
-	_replyMap[Action::TAKE] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::BROADCAST] = [&]() { this->_uponReplyPop(); };
+	_replyMap[Action::SET] = [&]() { this->_uponReplyPop(); };
+	_replyMap[Action::TAKE] = [&]() { this->_uponReplyPop(); };
 
 }
 
@@ -111,7 +111,7 @@ void Player::doAction(Action act, const std::string &str, bool prioritise)
 */
 void Player::offloadActions()
 {
-	this->_pollReplies();
+	this->pollReplies();
 	while (_sentActions.size() < COMMAND_LIMIT && _actionQueue.size()) {
 		const auto &act = _actionQueue.front();
 		std::string tmp{__actionNames[act]};
@@ -131,7 +131,7 @@ void Player::offloadActions()
 ** Polls the socket for replies, splits them and adds them to the
 ** reply queue.
 */
-void Player::_pollReplies()
+void Player::pollReplies()
 {
 	std::string buff;
 	std::string tmp;
@@ -187,8 +187,9 @@ void Player::_processReplies()
 		} else if (firstWord == "Elevation"
 			&& _sentActions.front() != Action::INCANTATION) {
 			_level += 1;
-		} else if (it != _replyMap.end()) {
+		} else if (it != _replyMap.end() && firstWord != "Current") {
 			it->second();
+		} else {
 		}
 		_replies.pop();
 	}

@@ -53,6 +53,7 @@ public:
 	void doAction(
 		Action act, const std::string &str, bool prioritise = false);
 	void offloadActions();
+	void pollReplies();
 
 	// Getters
 	std::vector<std::vector<std::string>> &getVision() noexcept
@@ -91,7 +92,6 @@ public:
 	}
 
 private:
-	void _pollReplies();
 	void _processReplies();
 
 	// upon reply functors

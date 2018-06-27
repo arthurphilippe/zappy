@@ -270,3 +270,40 @@ Test(Player, 7_replies_message)
 	cr_assert_str_eq(message.c_str(), "kappa wa kawai");
 	cr_assert_eq(pl.getLevel(), 2);
 }
+
+Test(Player, 8_inventory_and_vision)
+{
+	pl::tests::DumbLink dumblink;
+	pl::ILink &link(dumblink);
+	pl::Player pl(link);
+
+	pl.doAction(pl::Action::LEFT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.offloadActions();
+	dumblink.appendInput("ok\nElevation underway\nCurrent level: 3\nMessage kappa wa kawai\nok\n");
+	pl.pollReplies();
+
+	std::string buffer;
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(), "Left\n""Forward\n");
+
+	auto message = pl.getAndPopMessage();
+	cr_expect_str_eq(message.c_str(), "kappa wa kawai");
+	cr_expect_eq(pl.getLevel(), 2);
+
+	cr_expect_not(pl.hasVisionChanged());
+	pl.doAction(pl::Action::LOOK);
+	pl.offloadActions();
+	dumblink.appendInput("[food, food food, sibur,,]\n");
+	pl.pollReplies();
+	cr_expect(pl.hasVisionChanged());
+
+	cr_expect_not(pl.hasInventoryChanged());
+	pl.doAction(pl::Action::INVENTORY);
+	pl.offloadActions();
+	dumblink.appendInput("[food 7, linemate 0, deraumere 0, sibur 6, mendiane 0, phiras 0, thystame 2]\n");
+	cr_expect_not(pl.hasInventoryChanged());
+	pl.pollReplies();
+	cr_expect(pl.hasInventoryChanged());
+}
+
