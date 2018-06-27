@@ -98,7 +98,9 @@ Test(Player, 2_max_offload)
 	pl.doAction(pl::Action::FORWARD);
 	pl.doAction(pl::Action::FORWARD);
 	pl.doAction(pl::Action::FORWARD);
+	cr_expect_eq(pl.getPendingActionCount(), 5);
 	pl.offloadActions();
+	cr_expect_eq(pl.getPendingActionCount(), 5);
 
 	std::string buffer;
 	dumblink.readOutput(buffer);
@@ -106,6 +108,19 @@ Test(Player, 2_max_offload)
 		"Forward\n""Forward\n""Forward\n""Forward\n""Forward\n");
 
 
+	dumblink.appendInput("ok\nok\nok\nok\nok\n");
+	pl.offloadActions();
+	cr_expect_eq(pl.getPendingActionCount(), 0);
+
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.offloadActions();
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(),
+		"Forward\n""Forward\n""Forward\n""Forward\n""Forward\n");
 	pl.doAction(pl::Action::LEFT);
 	pl.doAction(pl::Action::FORWARD);
 	pl.doAction(pl::Action::EJECT);

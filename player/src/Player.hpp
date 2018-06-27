@@ -80,6 +80,10 @@ public:
 		_msgq.pop();
 		return tmp;
 	}
+	unsigned int getPendingActionCount() const noexcept
+	{
+		return _sentActions.size() + _actionQueue.size();
+	}
 
 private:
 	void _pollReplies();
