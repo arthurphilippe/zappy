@@ -11,14 +11,14 @@
 
 namespace pl {
 
-std::string ParsingTools::extractFirstString(std::string &string)
+std::string ParsingTools::extractFirstString(std::string &string, char delim)
 {
-	int total = std::count(string.begin(), string.end(), '\n');
+	int total = std::count(string.begin(), string.end(), delim);
 	if (!total)
 		return string;
 	std::string tmp;
-	tmp = string.substr(0, string.find_first_of('\n'));
-	string = string.substr(string.find_first_of('\n') + 1, string.length());
+	tmp = string.substr(0, string.find_first_of(delim));
+	string = string.substr(string.find_first_of(delim) + 1, string.length());
 	return tmp;
 }
 

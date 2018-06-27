@@ -34,7 +34,7 @@ public:
 
 	void appendInput(const std::string &string)
 	{
-		_oss << string;
+		_iss << string;
 	}
 	bool readOutput(std::string &buff)
 	{
@@ -178,3 +178,80 @@ Test(Player, 4_priority)
 		"Eject\n""Left\n""Forward\n""Eject\n""Set sibur\n");
 }
 
+Test(Player, 5_replies)
+{
+	pl::tests::DumbLink dumblink;
+	pl::ILink &link(dumblink);
+	pl::Player pl(link);
+
+	pl.doAction(pl::Action::LEFT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.offloadActions();
+	dumblink.appendInput("ok\nok\n");
+	pl.offloadActions();
+
+
+	std::string buffer;
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(), "Left\n""Forward\n");
+
+	pl.doAction(pl::Action::RIGHT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::RIGHT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::RIGHT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::RIGHT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::RIGHT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.doAction(pl::Action::FORWARD);
+	pl.offloadActions();
+
+	buffer = "";
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(), "Right\n""Forward\n""Right\n"
+		"Forward\n""Right\n""Forward\n""Right\n"
+		"Forward\n""Right\n""Forward\n");
+}
+
+Test(Player, 6_replies_message)
+{
+	pl::tests::DumbLink dumblink;
+	pl::ILink &link(dumblink);
+	pl::Player pl(link);
+
+	pl.doAction(pl::Action::LEFT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.offloadActions();
+	dumblink.appendInput("ok\nMessage kappa wa kawai\nok\n");
+	pl.offloadActions();
+
+	std::string buffer;
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(), "Left\n""Forward\n");
+
+	auto message = pl.getAndPopMessage();
+	cr_assert_str_eq(message.c_str(), "kappa wa kawai");
+}
+
+Test(Player, 7_replies_message)
+{
+	pl::tests::DumbLink dumblink;
+	pl::ILink &link(dumblink);
+	pl::Player pl(link);
+
+	pl.doAction(pl::Action::LEFT);
+	pl.doAction(pl::Action::FORWARD);
+	pl.offloadActions();
+	dumblink.appendInput("ok\nElevation underway\nCurrent level: 3\nMessage kappa wa kawai\nok\n");
+	pl.offloadActions();
+
+	std::string buffer;
+	dumblink.readOutput(buffer);
+	cr_expect_str_eq(buffer.c_str(), "Left\n""Forward\n");
+
+	auto message = pl.getAndPopMessage();
+	cr_assert_str_eq(message.c_str(), "kappa wa kawai");
+	cr_assert_eq(pl.getLevel(), 2);
+}

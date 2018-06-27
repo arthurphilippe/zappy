@@ -37,7 +37,7 @@ void Processing::coordinates(const std::string &coordinates,
 }
 
 void Processing::vision(const std::string &reply,
-	std::vector<std::vector<std::string>> &vision) const noexcept
+	std::vector<std::vector<std::string>> &vision) noexcept
 {
 	std::string info;
 
@@ -57,7 +57,7 @@ void Processing::vision(const std::string &reply,
 }
 
 void Processing::inventory(const std::string &reply,
-	std::unordered_map<std::string, int> &inventory) const
+	std::unordered_map<std::string, int> &inventory)
 {
 	std::string info;
 
@@ -67,14 +67,14 @@ void Processing::inventory(const std::string &reply,
 		info = reply.substr(beginPos + 1, endPos - (beginPos + 1));
 		info = info.substr(0, info.find("]"));
 		if (info != "" && info != " ")
-			this->parseResources(info, inventory);
+			parseResources(info, inventory);
 		beginPos = endPos;
 		endPos = reply.find(",", endPos + 1);
 	}
 }
 
 void Processing::parseTileContent(std::string &content,
-	std::vector<std::vector<std::string>> &vision) const
+	std::vector<std::vector<std::string>> &vision)
 {
 	std::vector<std::string> tile;
 	std::string item;
@@ -96,7 +96,7 @@ void Processing::parseTileContent(std::string &content,
 }
 
 void Processing::parseResources(std::string &info,
-	std::unordered_map<std::string, int> &inventory) const
+	std::unordered_map<std::string, int> &inventory)
 {
 	if (info.find(" ") == 0)
 		info = info.substr(1);

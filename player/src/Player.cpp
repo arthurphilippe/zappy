@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Player.hpp"
 #include "ParsingTools.hpp"
+#include "Processing.hpp"
 
 namespace pl {
 
@@ -38,7 +39,22 @@ std::unordered_map<Stone, std::string> Player::__stoneNames {
 Player::Player(ILink &link)
 	: _link(link), _level(1)
 {
-	__replyMap[ReplyType::STATUS] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::FORWARD] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::RIGHT] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::LEFT] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::LOOK] = [&]() { this->_uponReplyLook(); };
+	_replyMap[Action::INVENTORY] =
+		[&]() { this->_uponReplyInventory(); };
+	_replyMap[Action::CONNECT_NBR] =
+		[&]() { this->_uponReplyConnectnbr(); };
+	_replyMap[Action::FORK] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::EJECT] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::INCANTATION] =
+		[&]() { this->_uponReplyIncant(); };
+	_replyMap[Action::BROADCAST] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::SET] = [&]() { this->_uponReplyPop (); };
+	_replyMap[Action::TAKE] = [&]() { this->_uponReplyPop (); };
+
 }
 
 Player::~Player()
@@ -103,7 +119,6 @@ void Player::offloadActions()
 			tmp.append(_paramQueue.front());
 			_paramQueue.pop_front();
 		}
-		std::cerr << "Sending over: '" << tmp << "'" << std::endl;
 		tmp.append("\n");
 		_link << tmp;
 		_sentActions.push(act);
@@ -127,22 +142,53 @@ void Player::_pollReplies()
 	for (auto &it : splitBuf) {
 		_replies.push(it);
 	}
+	this->_processReplies();
 }
 
 void Player::_uponReplyPop()
 {
-	_replies.pop();
+	_sentActions.pop();
+}
+
+void Player::_uponReplyLook()
+{
+	Processing::vision(_replies.front(), _vision);
+	_sentActions.pop();
+}
+
+void Player::_uponReplyInventory()
+{
+	Processing::inventory(_replies.front(), _inventory);
+	_sentActions.pop();
+}
+
+void Player::_uponReplyConnectnbr()
+{
+	_sentActions.pop();
+}
+
+void Player::_uponReplyIncant()
+{
+	_level += 1;
+	_sentActions.pop();
 }
 
 void Player::_processReplies()
 {
-	// while (_replies.size()) {
-	// 	auto reply = _replies.front();
-	// 	auto firstWord = ParsingTools::extractFirstString(reply);
-	// 	const auto &it = __replyMap.find(firstWord);
-	// 	if (it != __replyMap.end())
-	// 		it->second();
-	// }
+	while (_replies.size()) {
+		auto reply = _replies.front();
+		auto firstWord = ParsingTools::extractFirstString(reply, ' ');
+		const auto &it = _replyMap.find(_sentActions.front());
+		if (firstWord == "Message") {
+			_msgq.push(reply);
+		} else if (firstWord == "Elevation"
+			&& _sentActions.front() != Action::INCANTATION) {
+			_level += 1;
+		} else if (it != _replyMap.end()) {
+			it->second();
+		}
+		_replies.pop();
+	}
 }
 
 }
