@@ -79,7 +79,7 @@ void Socket::connectSocket()
 	}
 }
 
-bool Socket::tryToRead(std::string &data)
+bool Socket::read(std::string &data)
 {
 	static char buf[4096];
 
@@ -88,7 +88,7 @@ bool Socket::tryToRead(std::string &data)
 	FD_SET(_socket, &_fd_read);
 	select(_socket + 1, &_fd_read, NULL, NULL, &_tv);
 	if (FD_ISSET(_socket, &_fd_read)) {
-		read(_socket, buf, 4095);
+		::read(_socket, buf, 4095);
 		data = buf;
 		return true;
 	};

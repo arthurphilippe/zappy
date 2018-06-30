@@ -5,19 +5,19 @@
 ** Created by victor,
 */
 
-#include "FocusStrat.hpp"
+#include "Focus.hpp"
 #include "color.h"
 
-pl::FocusStrat::FocusStrat(pl::Socket &socket)
+namespace pl::strat {
+
+Focus::Focus(Socket &socket)
 	: AStrat(socket)
-{
-}
+{}
 
-pl::FocusStrat::~FocusStrat()
-{
-}
+Focus::~Focus()
+{}
 
-void pl::FocusStrat::run(std::vector<std::vector<std::string>> &vision) noexcept
+void Focus::run(std::vector<std::vector<std::string>> &vision) noexcept
 {
 	int itemPos = 0;
 
@@ -41,7 +41,7 @@ void pl::FocusStrat::run(std::vector<std::vector<std::string>> &vision) noexcept
 	executeAction();
 }
 
-void pl::FocusStrat::moveToItem(int itemPos)
+void Focus::moveToItem(int itemPos)
 {
 	int visionLevel = 1;
 	int middle = 0, nbForward, min, max;
@@ -72,3 +72,6 @@ void pl::FocusStrat::moveToItem(int itemPos)
 	}
 	_actionQueue.push_back("Take " + _itemName + "\n");
 }
+
+}
+

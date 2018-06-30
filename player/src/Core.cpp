@@ -55,11 +55,11 @@ void Core::initConnection(const std::string &port, const std::string &machine)
 	_socket.setPort(std::stoi(port));
 	_socket.setMachine(machine);
 	_socket.connectSocket();
-	while (!_socket.tryToRead(reply));
+	while (!_socket.read(reply));
 	if (!_processing.checkWelcome(reply))
 		throw std::runtime_error("Wrong server connection");
 	_socket << _teamName;
-	while (!_socket.tryToRead(reply));
+	while (!_socket.read(reply));
 	_processing.coordinates(reply, X, Y);
 	_ai.setMapX(X);
 	_ai.setMapX(Y);

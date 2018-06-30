@@ -15,15 +15,17 @@
 	#include "Socket.hpp"
 	#include "AStrat.hpp"
 
-namespace pl {
-	class FocusStrat : public AStrat {
-		public:
-			FocusStrat(Socket &socket);
-			~FocusStrat();
-		private:
-			void moveToItem(int itemPos);
-			void run(std::vector<std::vector<std::string>> &vision) noexcept;
-	};
+namespace pl::strat {
+
+class Focus : public AStrat {
+	public:
+		Focus(Socket &socket);
+		~Focus();
+	private:
+		void moveToItem(int itemPos);
+		void run(std::vector<std::vector<std::string>> &vision) noexcept;
+};
+
 }
 
 #endif //ZAPPY_FOCUSITEM_HPP

@@ -5,29 +5,29 @@
 ** AI's GoToElevation strat
 */
 
-#include "GoToElevationStrat.hpp"
+#include "GoToElevation.hpp"
 
-namespace pl {
+namespace pl::strat {
 
-GoToElevationStrat::GoToElevationStrat(Socket &socket,
+GoToElevation::GoToElevation(Socket &socket,
 	STRAT &stratLevel, int &elevationLevel)
 	: _status(false), _socket(socket), _direction(1),
 		_stratLevel(stratLevel), _elevationLevel(elevationLevel)
 {}
 
-GoToElevationStrat::~GoToElevationStrat()
+GoToElevation::~GoToElevation()
 {}
 
-void GoToElevationStrat::run(std::vector<std::vector<std::string>> &vision)
+void GoToElevation::run(std::vector<std::vector<std::string>> &vision)
 	noexcept
 {
 	(void) vision;
 	std::string reply = "";
-	_socket.tryToRead(reply);
+	_socket.read(reply);
 	if (reply != "" && reply.substr(0, reply.find(" ")) == "message") {
 		if (reply.substr(reply.find_last_of(" ") + 1, 4) == "Come") {
 			reply = reply.substr(reply.find(" ") + 1);
-			tryToReadDirection(reply);
+			readDirection(reply);
 			move();
 		}
 		else if (reply.substr(reply.find_last_of(" ") + 1, 4) == "Stop")
@@ -41,13 +41,13 @@ void GoToElevationStrat::run(std::vector<std::vector<std::string>> &vision)
 		_socket << "Left\n";
 }
 
-void GoToElevationStrat::tryToReadDirection(std::string &reply)
+void GoToElevation::readDirection(std::string &reply)
 {
 	reply = reply.substr(0, reply.find(","));
 	_direction = std::stoi(reply);
 }
 
-void GoToElevationStrat::move()
+void GoToElevation::move()
 {
 	switch (_direction) {
 		case 1:
